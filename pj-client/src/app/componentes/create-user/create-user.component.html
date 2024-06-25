@@ -1,0 +1,98 @@
+<div class="panel">
+    <app-navegador></app-navegador>
+    <div class="fondo-volver container-fluid">
+        <button class="m-2 mx-4 btn-volver" (click)="VolverListaUsuarios()">
+            <i class="bi bi-arrow-left text-white"> volver </i>
+        </button>
+    </div>
+    <div class="container-fluid">
+        <div class="row  d-flex align-items-center presentacion_user offset-md-3">
+            <div class="col-md-4 vertical-center">
+                <i class="bi bi-person icon-custom"></i>
+            </div>
+            
+            <div class="col-md-8">
+                <h2 class="titulo_usuario">{{titulo}}</h2>
+            </div>
+        </div>
+        <div class="row">
+    
+    <div class="col-md-8 col-lg-8 col-xl-6 offset-md-3">
+        <form>
+            <h3 class="subtitulo_usuario">Datos Personales:</h3>
+            <!-- DATOS DEL PERSONALES -->
+            <fieldset>
+              <div class="form-group">
+                <label for="nombre" class="form-label mt-2" >Nombres:</label>
+                <input type="text" class="form-control" name="nombre"  [(ngModel)]="data_persona.nombre" (ngModelChange)="data_persona.nombres= convertirAMayusculas($event)">
+              </div>
+              <div class="form-group">
+                <label for="ap_paterno" class="form-label mt-3" >Apellido Paterno:</label>
+                <input type="text" class="form-control" name="ap_paterno"   [(ngModel)]="data_persona.ap_paterno" (ngModelChange)="data_persona.ap_paterno= convertirAMayusculas($event)">
+              </div>
+              <div class="form-group">
+                <label for="ap_materno" class="form-label mt-3" >Apellido Materno:</label>
+                <input type="text" class="form-control" name="ap_materno"  [(ngModel)]="data_persona.ap_materno" (ngModelChange)="data_persona.ap_materno= convertirAMayusculas($event)">
+              </div>
+              <div class="form-group">
+                <label for="dni" class="form-label mt-3" >DNI:</label>
+                <input type="text" class="form-control" name="documento_id" [(ngModel)]="data_persona.dni">
+              </div>
+              <div class="form-group">
+                <label for="correo" class="form-label mt-3" >Email:</label>
+                <input type="email" class="form-control texto-form-minuscula" name="correo" [(ngModel)]="data_persona.correo" (ngModelChange)="data_persona.correo= convertirAMinusculas($event)">
+              </div>
+              <div class="form-group">
+                <label for="telefono" class="form-label mt-3" >Teléfono:</label>
+                <input type="text" class="form-control" name="telefono" [(ngModel)]="data_persona.telefono" >
+              </div>
+              <h3 class="subtitulo_usuario mt-4">Datos de Usuario:</h3>
+              
+              <div class="form-group">
+                <label for="nombre_usuario" class="form-label mt-2" >Nombre de Usuario:</label>
+                <input type="text" class="form-control" name="nombre_usuario"  [(ngModel)]="data_usuario.nombre_usuario" (ngModelChange)="data_usuario.nombre_usuario= convertirAMayusculas($event)">
+              </div>
+
+              <div class="form-group">
+                <label for="perfil_estado" class="form-label mt-3" >Perfil y estado de usuario:</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <select id="rol" name="rol" class="form-control" [(ngModel)]="data_usuario.perfil">
+                                <option value="">PERFIL DE USUARIO </option>
+                                <option value="ADMINISTRADOR">ADMINISTRADOR</option> 
+                                <option value="SUPERVISOR">SUPERVISOR</option> 
+                                <option value="PREPARADOR">PREPARADOR</option> 
+                                <option value="DIGITALIZADOR">DIGITALIZADOR</option> 
+                                <option value="INDIZADOR">INDIZADOR</option>
+                                <option value="CONTROLADOR">CONTROLADOR</option>  
+                                <option value="FEDATARIO">FEDATARIO</option> 
+                                <option value="INVITADO">INVITADO</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select id="estado" name="estado" class="form-control" [(ngModel)]="data_usuario.estado">
+                                <option value="">ESTADO </option>
+                                <option value=true>ACTIVO</option>
+                                <option value=false>INACTIVO</option>     
+                            </select>
+                        </div>
+                    </div>      
+                </div>
+                <!-- area de password -->
+                <div class="form-group">
+                    <label for="password" class="form-label mt-3" >Password:</label>
+                    <input type="password" class="form-control" name="password" [(ngModel)]="data_usuario.password" placeholder="***************">
+                  </div>
+            </fieldset>
+          </form>
+          <div class="d-grid gap-2">
+            <button [class]="claseBoton" type="button"  style="color: #292b2dbd; font-weight: bold;" (click)="modificar==true?ModificarDatosUsuario():validarCampos_CrearUsuario()">{{titulo_boton}}</button>
+            <br>
+          </div>
+          </div>
+        </div>
+    </div>
+</div>
+    
+   
+

@@ -1,0 +1,45 @@
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    /* background: #fccb90; */
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* background: -webkit-linear-gradient(to right, #2453ee5d, #368ad83d, #36a8dd3f, #4588b43f),url('/assets/imagenes/portada_login/portada_login1.jpg'); */
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: linear-gradient(to right,#2453ee2c, #368ad825, #36a8dd2d, #4588b425),url('/assets/imagenes/portada_login/portada_login4.jpg'); */
+
+    /* background-image: url('assets/imgenes/portada_login/portada_login1.jpg'); */
+    /* background-image: url('/assets/imagenes/portada_login/portada_login4.jpg');  */
+    transition: background-image 0.5s ease-in-out;
+    /* Ruta a tu imagen en assets */
+   
+  background-size: cover;
+  background-position: center;
+  /* width: 100%; */
+  /* height: 100vh; */
+
+
+ 
+    }
+    .titulo_sistema{
+      margin: 0px 0px;
+      padding: 0px 0px;
+      padding-top: 5px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #404b5ad3;
+    
+      
+  }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }

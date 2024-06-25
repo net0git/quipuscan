@@ -1,0 +1,71 @@
+<div class="panel">
+  <app-navegador></app-navegador>
+  <div class="fondo-volver container-fluid">
+      <button class="m-2 mx-4 btn-volver" (click)="volver()">
+          <i class="bi bi-arrow-left text-white"> volver </i>
+      </button>
+  </div>
+  <div class="container-fluid">
+      <!-- presentacion -->
+      <div class="presentacion_company ">
+          <div class="col-md-4 d-flex justify-content-end ">
+              <i class="bi bi-clipboard-check icon-custom mx-2"></i>
+          </div>
+          
+          <div class="col-md-8 px-md-2">
+              <h2 class="titulo_empresa">CONTROL DE CALIDAD</h2>
+              <h5 class="subtitulo_empresa">Inventario</h5>
+          </div>
+      </div>
+      <hr>
+
+      <!-- agregar y busqueda -->
+      <div class="row pb-5">
+          <div class=" col-lg-11 mx-auto">
+             
+              <div class="card rounded shadow border-2 ">
+                  <div class="card-header py-3 d-flex justify-content-between align-items-center ">
+                      <input type="text" class="form-control mx-4" name="buscar" placeholder="BUSCAR" (input)="buscarEnObjeto($event)" >
+                  </div>
+                  <div class="card-body px-4 bg-white rounded">
+                      <div class="table-responsive px-4">
+                          <!-- <button type="button" class="btn btn-success mb-3"  (click)="AgregarUsuario()">+add</button> -->
+                          <div class="form-group">
+                              <div class="d-flex justify-content-center my-2">
+                                  <h4>Tabla de Inventario</h4>
+                              </div>
+                              
+                              <div class="row">
+                                  <table class="table text-center table-hover">
+                                      <thead class="thead-light bg-secondary text-white table-success" >
+                                          <tr >
+                                              <th scope="col">Nro</th>
+                                              <th scope="col">ESPECIALIDAD</th>
+                                              <th scope="col">AÑO</th>
+                                              <th scope="col">CANTIDAD</th>
+                                              <th scope="col">TIPO DOC</th>
+                                              <th scope="col">SERIE DOC</th>
+                                              <th scope="col">SUPERVISOR</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody >
+                                          <tr *ngFor="let item of inventarios, index as i" class="table-barra" (click)="controlCalidadExpedientes(item.id_inventario)" >
+                                              <th scope="row">{{i+1}}</th>
+                                              <td class="text-start">{{item.especialidad_inventario}}</td>
+                                              <td>{{item.anio}}</td>
+                                              <td>{{item.cantidad}}</td>
+                                              <td class="text-start">{{item.tipo_doc}}</td>
+                                              <td class="text-start">{{item.serie_doc}}</td>
+                                              <td class="text-start">{{item.nombre + ' ' + item.ap_materno}}</td> 
+                                          </tr>
+                                      </tbody>
+                                  </table> 
+                              </div>        
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> 
+  </div>
+</div>

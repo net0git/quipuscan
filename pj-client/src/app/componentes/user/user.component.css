@@ -1,0 +1,67 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+.icon-custom {
+    
+    font-weight: bold; 
+    font-size: 3.5rem;
+    color: #929FB1;
+    margin-right: 10px;
+
+}
+.titulo_usuario{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    padding-top: 5px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+
+.presentacion_user{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+       
+}
+
+.contenedor-icono:hover{
+    color: rgb(0, 136, 255);
+   
+}
+
+/* valores de la tabla */
+/* .card-header{
+    background-color: rgba(92, 93, 94, 0.207);
+}
+
+td, th{
+    border:solid 1.5px #5f5f5f63;
+    font-size:medium;
+}
+
+tbody tr:hover{
+    background-color: rgb(204, 255, 160) !important;
+}
+
+thead th{
+    text-align: center
+    
+} */
+
+/* modicar boton de volver */
+.btn-volver{
+    background-color:  #176091;
+    border-radius: 5px;
+    border-color: #176091;
+   
+    
+}
+
+.fondo-volver{
+    background-color: #73bced2c;
+}
+
+/* card-header  */
+.card-header {
+    background-color: rgba(5, 5, 5, 0.141);
+}

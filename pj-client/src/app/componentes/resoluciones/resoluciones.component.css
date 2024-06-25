@@ -1,0 +1,62 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+.icon-custom {
+    
+    font-weight: bold; 
+    font-size: 3.5rem;
+    color: #929FB1;
+
+}
+.presentacion_user{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    
+}
+.form-label{
+    /* font-weight: bold; */
+    color: rgba(70, 69, 69, 0.662);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+.vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+    margin: auto;
+    padding: auto;
+}
+
+
+/* boton volver */
+.btn-volver{
+    background-color:  #176091;
+    border-radius: 5px;
+    border-color: #176091;
+   
+    
+}
+.fondo-volver{
+    background-color: #73bced2c;
+}
+
+/* contenedor */
+.contenedor{
+    margin: 0px 10%;
+}
+
+.titulo{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+.subtitulo_resolucion{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+/* presentacion resoluciones */
+.presentacion_resolucion{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+}

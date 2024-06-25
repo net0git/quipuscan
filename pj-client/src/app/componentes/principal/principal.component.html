@@ -1,0 +1,253 @@
+<div class="panel ">
+    <app-navegador></app-navegador>
+    <div class="container pt-4">
+        <div>
+            <div class="d-flex justify-content-center my-2">
+                <img src="assets/imagenes/logo/systenlogo.svg" style="width: 350px; " alt="logo" >
+            </div>
+            <div class="d-flex justify-content-center">
+                <h3 class="titulo_menu justify-content-start">SISTEMA GESTOR DE PROCESO DE DIGITALIZACION DE ARCHIVO</h3>
+            </div>
+            <div class="d-flex justify-content-center mb-4">
+                <h6 class="subtitulo_menu">Seguimiento rápido y seguro de la digitalización de archivos</h6>
+
+            </div>
+            
+        </div>
+        <!-- <div class="row presentacion_system ">
+            <div class="col-sm-12 col-md-4 d-flex justify-content-end "> -->
+                <!-- <img src="assets/imagenes/logo/logo3.png"style="width: 140px;" alt="logo" > -->
+                <!-- <img src="assets/imagenes/logo/systenlogo.svg" style="width: 300px;" alt="logo"> -->
+                 <!-- <img src="assets/imagenes/logo/logofinal.png" style="width: 300px;" alt="logo">
+            </div>
+
+            <div class=" col-sm-12 col-md-8">
+                <h3 class="titulo_menu justify-content-start">SISTEMA GESTOR DE PROCESO DE DIGITALIZACION DE ARCHIVO
+                </h3>
+                <h6 class="subtitulo_menu">Seguimiento rápido y seguro de la digitalización de archivos</h6>
+            </div>
+        </div> -->
+        <div class="row">
+            <hr>
+            <!-- INVENTARIO DE DIGITALIZACION-->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="inventario_digitalizacion()"
+                [style]="disableInventario">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ">
+                                    INVENTARIO DE DIGITALIZACIÓN</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">1500</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-box-seam icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- PREPARACION DE DOCUMENTOS -->
+            <div class=" tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="preparacion_documentos()"
+                [style]="disablePreparador">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    PREPARACIÓN DE DOCUMENTOS</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">18</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-folder2 icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DIGITALIZACION-->
+            <div class=" tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="digitalizacion()"
+                [style]="disableDigitalizador">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ">
+                                    DIGITALIZACIÓN DE EXPEDIENTES</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">Expedientes</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-file-earmark-break icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #region INDIZADOR -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="indizador()" [style]="disableIndizador">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    INDIZADOR</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">1852</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-binoculars icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #endregion -->
+
+            <!--CONTROL DE CALIDAD -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="controlCalidad()"
+                [style]="disableControlCalidad">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    CONTROL DE CALIDAD</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">1852</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-clipboard-check icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FEDATARIO -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="fedatario()" [style]="disableFedatario">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    FEDATARIO</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">12</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-person-check  icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- LEYENDA -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="resoluciones()" [style]="disableLeyenda">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    LEYENDA</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">12</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-card-list icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- USUARIOS -->
+            <div class=" tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="usuarios()" [style]="disableUsuarios">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    usuarios</div>
+                                <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">12</div> -->
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-person-square icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUSQUEDA -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="busqueda_por_historial()"
+                [style]="disableBusqueda">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    busqueda</div>
+                                <div class="h5 mb-0  text-secondary">busqueda por historial</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-search icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- REPORTES -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="reporte()" [style]="disableReporte">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">reportes
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-file-bar-graph-fill icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CONFIGURACION -->
+            <div class="tarjeta col-xl-3 col-md-6 mb-4 hand_cursor" (click)="limpiarProcesoExpediente()"
+                [style]="disableConfiguracion">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                    CONFIGURACIONES</div>
+                                <div class="h5 mb-0  text-secondary">del sistema</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-gear icon-custom"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

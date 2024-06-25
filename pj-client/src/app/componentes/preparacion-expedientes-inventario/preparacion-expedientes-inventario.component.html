@@ -1,0 +1,144 @@
+<div class="panel">
+  <app-navegador></app-navegador>
+  <div class="fondo-volver container-fluid">
+    <button class="m-2 mx-4 btn-volver" (click)="volver()">
+      <i class="bi bi-arrow-left text-white"> volver </i>
+    </button>
+  </div>
+
+  <div class="contenedor">
+
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="menu-listado-reportes">
+          <div class="titulo">DATOS DE INVENTARIO:</div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Año: {{inventarioDetalle.anio}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"><i class="bi bi-card-list"></i> Cantidad: {{inventarioDetalle.cantidad}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"><i class="bi bi-card-list"></i> Especialidad:
+                {{inventarioDetalle.especialidad_inventario}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Serie de documento: {{inventarioDetalle.serie_doc}}
+              </div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Tipo de documento: {{inventarioDetalle.tipo_doc}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Supervisor: {{inventarioDetalle.nombre+'
+                '+inventarioDetalle.ap_paterno}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="presentacion_user mb-4">
+          <div class="icon-title-container">
+            <i class="bi bi-card-list icon-custom"></i>
+            <h2 class="titulo_reporte mx-2">PREPARACIÓN DE EXPEDIENTES </h2>
+          </div>
+        </div>
+        <div class="card rounded shadow border-2 ">
+          <div class="card-header py-3 d-flex justify-content-between align-items-center ">
+            <input type="text" class="form-control" name="registroexpediente" placeholder="Buscar expediente"
+              (input)="buscarEnObjeto($event)">
+          </div>
+          <div class="card-body px-5 bg-white rounded">
+            <div class="table-responsive">
+              <table class="table text-center  table-hover" id="excel-table">
+                <colgroup>
+                  <col style="width: 10%;">
+                  <col style="width: 70%;">
+                  <col style="width: 10%;">
+                </colgroup>
+                <thead class="text-white table-success">
+                  <tr>
+                    <th scope="col">Nro</th>
+                    <th scope="col">EXPEDIENTE</th>
+                    <th scope="col">ESTADO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let expediente of expedientesList; index as i" (click)="!expediente.estado_preparado ? preparacionExpediente(expediente.id_expediente) : mensajePreparacion()">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{expediente.nombre_expediente}}</td>
+                    <td>
+                      <i *ngIf="expediente.estado_preparado" class="bi bi-check-lg"
+                        style="font-size: 1.5rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
+                      <i *ngIf="!expediente.estado_preparado" class="bi bi-file-earmark-x"
+                        style="font-size: 1.5rem; padding: 0px 0px; margin: 0px 0px"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal modal-xl fade " id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="bg-secondary custom-width">
+              <h5 class="modal-title m-2 text-white" id="exampleModalLongTitle">LOTE: </h5>
+              <h4 class="modal-title m-2 text-white" id="exampleModalLongTitle2">SERIE DOC:</h4>
+            </div>
+            <!-- <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button> -->
+          </div>
+          <div class="modal-body text-start">
+            <ul>
+              <li><strong>PLACA:</strong> </li>
+              <li><strong>RAZON SOCIAL:</strong> </li>
+              <li><strong>AÑO DE FABRICACIÓN:</strong> </li>
+              <li><strong>MARCA:</strong> </li>
+
+              <li><strong>MODALIDAD:</strong> </li>
+              <li><strong>PARTIDA REGISTRAL:</strong> </li>
+              <li><strong>RESOLUCIÓN:</strong> </li>
+              <li><strong>CONDICIÓN:</strong> </li>
+              <li><strong>COLOR:</strong></li>
+              <li><strong>N° CHASIS:</strong> </li>
+
+              <li><strong>N° ASIENTOS:</strong> </li>
+              <li><strong>CARGA:</strong> </li>
+              <li><strong>PESO:</strong> </li>
+              <li><strong>FECHA EXPED:</strong> </li>
+              <li><strong>FECHA VENCI:</strong> </li>
+
+              <li><strong>RUTA AUTORIZADA A OPERAR:</strong> </li>
+            </ul>
+            <hr>
+            <label class="mx-2 mb-2">copias:</label>
+            <div class="mb-3">
+              <textarea name="tuc_copia" placeholder="Descripción" class="form-control" rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

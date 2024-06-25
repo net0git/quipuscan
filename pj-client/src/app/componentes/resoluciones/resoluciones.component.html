@@ -1,0 +1,113 @@
+<div class="panel">
+    <app-navegador></app-navegador>
+    <div class="fondo-volver container-fluid">
+        <button class="m-2 mx-4 btn-volver" (click)="volver()">
+            <i class="bi bi-arrow-left text-white"> volver </i>
+        </button>
+    </div>
+
+
+
+    <div class="container-fluid">
+
+      <div class="presentacion_resolucion">
+        <div class="col-sm-3 col-md-5 d-flex justify-content-end ">
+          <i class="bi bi-file-earmark-pdf-fill  icon-custom"></i>
+        </div>
+        
+        <div class="col-sm-9 col-md-7 ">
+            <h2 class="titulo">Busqueda de resoluciones</h2>
+        </div>
+    </div>
+
+   
+    </div>
+    
+    <div class="container">
+        <div class="row mt-4"> 
+            <div class="col-md-6 ">
+                <div class="card">
+                  <div class="card-body">
+                    <form>
+                        <div class="text-center mt-2 mb-4">
+                            <h4  class="subtitulo_resolucion">Busqueda por Numero y Año </h4>
+                         </div>
+                        <div class="row mb-4 ">
+                            <div class="col-auto">
+                                <span class="input-group-text" id="addon-wrapping">N° de resolución:</span>
+                                <input  type="number"  id="floatingInput1" class="form-control" aria-label="tomo" aria-describedby="addon-wrapping" name="nro_resolucion">        
+                            </div>
+                            <div class="col-auto">
+                                <span class="input-group-text" id="addon-wrapping">Año de resolucion:</span>
+                                <input  type="text"  id="floatingInput2" class="form-control" aria-label="tomo" aria-describedby="addon-wrapping" name="anio_resolucion">        
+                            </div>
+                            <div class="col-auto pt-2">
+                                <button class="btn btn-success btn-lg" type="button" (click)="buscarDocumento()" >Buscar <i class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                      <!-- <div class="mb-3"> 
+                        <input type="number"  id="floatingInput1" name="nombre_resolucion" placeholder="N° de resolucion" class="form-control" autofocus >
+                      </div> -->
+                      <!-- <div class="mb-3">
+                        <input type="text" id="floatingInput2" name="nro_resolucion" placeholder="Año de resolucion" class="form-control" >
+                      </div> -->
+                     <hr>
+                     <div class="text-center">
+                        <h4 class="subtitulo_resolucion" >Detalle de Resolucion</h4>
+                     </div>
+                     
+                     <hr>
+                     <div class=" mb-3 input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Nombre de Resolucion:</span>
+                        <input  type="text" class="form-control" aria-label="nombre_resolucion" aria-describedby="addon-wrapping" name="nombre_resolucion" [(ngModel)]="data_resolucion.nombre_resolucion" readonly>
+                      </div>
+                      <div class=" mb-3 input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Descripcion:</span>
+                        <input  type="text" class="form-control" aria-label="descripcion" aria-describedby="addon-wrapping" name="descripcion" [(ngModel)]="data_resolucion.descripcion" readonly>
+                      </div>
+                      <div class=" mb-3 input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Empresa / Infraestructura:</span>
+                        <input  type="text" class="form-control" aria-label="nombre_empresa" aria-describedby="addon-wrapping" name="nombre_empresa" [(ngModel)]="data_resolucion.nombre_empresa" readonly>
+                      </div>
+                      <div class=" mb-3 input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Expediente:</span>
+                        <input  type="text" class="form-control" aria-label="expediente_empresa" aria-describedby="addon-wrapping" name="expediente_empresa" [(ngModel)]="data_resolucion.expediente" readonly>
+                      </div>
+                      <div class=" mb-3 input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">Tomo:</span>
+                        <input  type="number" class="form-control" aria-label="tomo" aria-describedby="addon-wrapping" name="tomo_resolucion" [(ngModel)]="data_resolucion.tomo_resolucion" readonly>
+                      </div>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-6 text-center">
+                <div class="text-center" >
+                    <iframe [src]="pdfUrl" type="application/pdf" width="100%" height="700px"></iframe>
+                </div>
+          </div>
+        </div>
+    </div>
+    <!-- <div class="container" style="padding: 0px 20%; ">
+        <div style="border: 3px solid #4242425d; padding: 10px; border-radius: 10px; margin-top:10px; margin-bottom: 10px; " >
+            <form class="row g-3">
+                
+                <div class="col-auto form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput1" placeholder="dfasf">
+                    <label for="floatingInput">N° de resolucion</label>
+                  </div>
+                  <div class="col-auto form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput2" placeholder="año">
+                    <label for="floatingInput">Año de resolucion</label>
+                  </div>
+                <div class="col-auto">
+                  <button  class="btn btn-primary mb-3" (click)="buscarDocumento()">BUSCAR</button>
+                </div>
+              </form>
+        </div>
+        <div class="text-center" >
+            <iframe [src]="pdfUrl" type="application/pdf" width="100%"  height="900px"></iframe>          
+        </div>
+    </div> -->
+</div>

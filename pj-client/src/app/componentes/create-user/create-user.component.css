@@ -1,0 +1,67 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+.icon-custom {
+    
+    font-weight: bold; 
+    font-size: 3.5rem;
+    color: #929FB1;
+
+}
+.presentacion_user{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    margin-top: 10px;
+}
+.titulo_usuario{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    padding-top: 5px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+.subtitulo_usuario{
+    padding-top: 5px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+.form-label{
+    /* font-weight: bold; */
+    color: rgba(70, 69, 69, 0.662);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+.vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+    margin: auto;
+    padding: auto;
+}
+
+/* boton volver */
+.btn-volver{
+    background-color:  #176091;
+    border-radius: 5px;
+    border-color: #176091;
+   
+    
+}
+
+.fondo-volver{
+    background-color: #73bced2c;
+}
+
+/* color del texto del boton */
+
+/* form control en mayusculas */
+.form-control{
+    text-transform:uppercase;
+  }
+
+  /* texto en minuscula */
+  .texto-form-minuscula{
+    text-transform: lowercase !important;
+    color: #2686c6;
+  }

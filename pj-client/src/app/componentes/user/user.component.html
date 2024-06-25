@@ -1,0 +1,65 @@
+<div class="panel">
+  <app-navegador></app-navegador>
+  <div class="fondo-volver container-fluid">
+    <button class="m-2 mx-4 btn-volver" (click)="VolverMuenu()">
+      <i class="bi bi-arrow-left text-white"> volver</i>
+    </button>
+  </div>
+  <div class="container-fluid">
+    <!-- presentacion -->
+    <div class="presentacion_user ">
+      <div class="col-sm-6 col-md-5 d-flex justify-content-end ">
+        <i class="bi bi-card-list icon-custom"></i>
+      </div>
+
+      <div class="col-sm-6 col-md-7 ">
+        <h2 class="titulo_usuario">Lista de usuarios</h2>
+      </div>
+    </div>
+    <!-- agregar y busqueda -->
+    <div class="row pb-5">
+      <div class=" col-lg-10 mx-auto">
+
+        <div class="card rounded shadow border-2 ">
+          <div class="card-header py-3 d-flex justify-content-between align-items-center ">
+            <button type="button" class="btn btn-success" (click)="AgregarUsuario()">+add</button>
+            <!-- <h6 class="m-0 font-weight-bold text-primary">Tabla Usuarios</h6> -->
+            <input type="text" class="form-control mx-4" name="buscar" placeholder="BUSCAR"
+              (input)="buscarEnObjeto($event)">
+          </div>
+          <div class="card-body px-5 bg-white rounded">
+            <div class="table-responsive">
+              <table class="table text-center  table-hover" id="excel-table">
+                <thead class="text-white table-success">
+                  <tr>
+                    <th scope="col">Nro</th>
+                    <th scope="col">DNI/CE</th>
+                    <th scope="col">NOMBRE Y APELLIDOS</th>
+                    <th scope="col">USUARIO</th>
+                    <th scope="col">CORREO</th>
+                    <th scope="col">PERFIL</th>
+                    <th scope="col">ESTADO</th>
+                    <th scope="col">ACTUALIZAR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let usuariodetalle of usuariosdetalle, index as i">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{usuariodetalle.documento}}</td>
+                    <td>{{usuariodetalle.nombre+ ' '+usuariodetalle.ap_paterno+' '+usuariodetalle.ap_materno}}</td>
+                    <td>{{usuariodetalle.nombre_usuario}}</td>
+                    <td>{{usuariodetalle.correo}}</td>
+                    <td>{{usuariodetalle.perfil}}</td>
+                    <td>{{usuariodetalle.estado?'Activo':'INACTIVO'}}</td>
+                    <td><i class="bi bi-clipboard2-check contenedor-icono"
+                        (click)="ModificarUsuario(usuariodetalle.id_usuario)"></i></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

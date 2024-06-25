@@ -1,0 +1,1214 @@
+<div class="panel">
+    <app-navegador></app-navegador>
+    <div class="fondo-volver container-fluid">
+        <button class="m-2 mx-4 btn-volver" (click)="volver()">
+            <i class="bi bi-arrow-left text-white"> volver </i>
+        </button>
+    </div>
+    <div class="mx-4">
+        <div class="row">
+            <!-- DATOS Y FORMULARIO EXPEDIENTE -->
+            <div class="col-lg-4 mt-4 ">
+                <div class="menu-listado-reportes border shadow border-2">
+                    <div class="titulo">EXPEDIENTE: {{detalleExpediente.nombre_expediente}}</div>
+                    <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> SERIE DOC: {{detalleExpediente.serie_doc}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> ESPECIALIDAD:
+                                {{detalleExpediente.especialidad_inventario}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> AÑO:
+                                {{detalleExpediente.anio}} </div>
+                        </div>
+                    </div>
+                    <!-- OBSERVACIONES DE PREPARADOR Y OBSERVACIONES DE DIGITALIZADOR-->
+                    <p class="d-inline-flex gap-1 mt-1">
+
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            OBSERVACIONES PREVIAS
+                        </button>
+                    </p>
+                    <div class="collapse " id="collapseExample">
+                        <div class="card card-body mb-2">
+                            <label class="opacity-50">Observaciones de preparación:</label>
+                            {{detalleExpediente.fojas_obs}}
+                        </div>
+                        <div class="card card-body">
+                            <label class="opacity-50">Observaciones de digitalización:</label>
+                            {{observacionDigitalizado}}
+                        </div>
+                    </div>
+                </div>
+                <!-- DATOS COMPLEMENTARIOS  -->
+                <form>
+                    <div class="border border-secondary bg-secondary mt-3 ">
+                        <h6 class="text-white m-2">DATOS COMPLEMENTARIOS</h6>
+                    </div>
+                    <!-- DATOS DE INVENTARIO -->
+                    <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2">
+                        <div class="form-group mt-2">
+                            <label for="juzgado_origen" class="form-label ">Juzgado de origen:</label>
+                            <select id="select_juzgado_origen" name="select_juzgado_origen"
+                                class="form-control form-control-sm">
+                                <option value="">ELIGA JUZGADO DE ORIGEN </option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR - SEDE WANCHAQ">1° JUZGADO PENAL LIQUIDADOR -
+                                    SEDE WANCHAQ</option>
+                                <option value="2° JUZGADO PENAL LIQUIDADOR - SEDE WANCHAQ">2° JUZGADO PENAL LIQUIDADOR -
+                                    SEDE WANCHAQ</option>
+                                <option value="5° JUZGADO PENAL UNIPERSONAL">5° JUZGADO PENAL UNIPERSONAL</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR (ADICION DE FUNCIONES DEL 5° JUP)">JUZGADO PENAL
+                                    LIQUIDADOR (ADICION DE FUNCIONES DEL 5° JUP)</option>
+                                <option value="2° SALA LABORAL">2° SALA LABORAL</option>
+                                <option value="SALA PENAL DE APELACIONES TRANSITORIA - SEDE CENTRAL">SALA PENAL DE
+                                    APELACIONES TRANSITORIA - SEDE CENTRAL</option>
+                                <option value="SALA PENAL LIQUIDADORA (ADICION FUNCIONES SALA PENAL)">SALA PENAL
+                                    LIQUIDADORA
+                                    (ADICION FUNCIONES SALA PENAL)</option>
+                                <option value="JUZGADO INVESTIGACION PREP. MATERIA AMBIENTAL - SEDE CENTRAL">JUZGADO
+                                    INVESTIGACION PREP. MATERIA AMBIENTAL - SEDE CENTRAL</option>
+                                <option value="JUZG. DE INVESTIGACIÓN PREPARATORIA TRANSITORIO-AMBIENTAL">JUZG. DE
+                                    INVESTIGACIÓN PREPARATORIA TRANSITORIO-AMBIENTAL</option>
+                                <option value="1º JUZGADO PENAL UNIPERSONAL TRANSITORIO">1º JUZGADO PENAL UNIPERSONAL
+                                    TRANSITORIO</option>
+                                <option value="JUZGADO PENAL COLEGIADO SUPRAPROVINCIAL A - SEDE CENTRAL">JUZGADO PENAL
+                                    COLEGIADO SUPRAPROVINCIAL A - SEDE CENTRAL</option>
+                                <option value="5°JUZGADO CIVIL-SEDE CENTRAL">5°JUZGADO CIVIL-SEDE CENTRAL</option>
+                                <option value="4° JUZGADO.DE TRABAJO DEL CUSCO">4° JUZGADO.DE TRABAJO DEL CUSCO</option>
+                                <option value="JUZGADO CIVIL TRANSITORIO-CUSCO">JUZGADO CIVIL TRANSITORIO-CUSCO</option>
+                                <option value="2º JUZGADO PENAL UNIPERSONAL TRANSITORIO - SEDE CENTRAL">2º JUZGADO PENAL
+                                    UNIPERSONAL TRANSITORIO - SEDE CENTRAL</option>
+                                <option value="2º JUZGADO COLEGIADO - SEDE CENTRAL">2º JUZGADO COLEGIADO - SEDE CENTRAL
+                                </option>
+                                <option value="JUZG INV. PREP. DELITOS AMBIENTALES - SEDE CENTRAL">JUZG INV. PREP.
+                                    DELITOS
+                                    AMBIENTALES - SEDE CENTRAL</option>
+                                <option value="2°JUZG PENAL UNIP DELITOS AMBIENTALES - SEDE CENTRAL">2°JUZG PENAL UNIP
+                                    DELITOS AMBIENTALES - SEDE CENTRAL</option>
+                                <option value="JUZGADO PENAL COLEGIADO DELITOS AMBIENTALES - SEDE CENTRAL">JUZGADO PENAL
+                                    COLEGIADO DELITOS AMBIENTALES - SEDE CENTRAL</option>
+                                <option value="SALA  PENAL APELAC. DELITOS AMBIENTALES - SEDE CENTRAL">SALA PENAL
+                                    APELAC.
+                                    DELITOS AMBIENTALES - SEDE CENTRAL</option>
+                                <option value="SALA PENAL LIQUIDADORA TRANSITORIA - SEDE CENTRAL">SALA PENAL LIQUIDADORA
+                                    TRANSITORIA - SEDE CENTRAL</option>
+                                <option value="JUZGADO PENAL COLEGIADO (AD. SALA PENAL LIQ. T.)- SEDE CENTR">JUZGADO
+                                    PENAL
+                                    COLEGIADO (AD. SALA PENAL LIQ. T.)- SEDE CENTR</option>
+                                <option value="4° JUZGADO DE FAMILIA - SEDE CUSCO">4° JUZGADO DE FAMILIA - SEDE CUSCO
+                                </option>
+                                <option value="7° JUZGADO INV. PREPARATORIA - SEDE CUSCO">7° JUZGADO INV. PREPARATORIA -
+                                    SEDE CUSCO</option>
+                                <option value="3° JUZGADO PENAL UNIPERSONAL-SEDE CUSCO">3° JUZGADO PENAL
+                                    UNIPERSONAL-SEDE
+                                    CUSCO</option>
+                                <option value="3° JUZGADO PENAL UNIPERSONAL - SEDE CUSCO">3° JUZGADO PENAL UNIPERSONAL -
+                                    SEDE CUSCO</option>
+                                <option value="4° JUZGADO PENAL UNIPERSONAL - SEDE CENTRAL">4° JUZGADO PENAL UNIPERSONAL
+                                    -
+                                    SEDE CENTRAL</option>
+                                <option value="1º JUZG. INVEST. PREP. - DEL CORRUP FUNC - SEDE CENTRAL">1º JUZG. INVEST.
+                                    PREP. - DEL CORRUP FUNC - SEDE CENTRAL</option>
+                                <option value="4º JUZG. PENAL UNIPERSONAL - DEL CORRUPC FUNC - SEDE CENTRAL">4º JUZG.
+                                    PENAL
+                                    UNIPERSONAL - DEL CORRUPC FUNC - SEDE CENTRAL</option>
+                                <option value="2º SALA PENAL DE APELACIONES - CORRUP. FUNC. - SEDE CENTRAL">2º SALA
+                                    PENAL DE
+                                    APELACIONES - CORRUP. FUNC. - SEDE CENTRAL</option>
+                                <option value="JUZGADO PENAL COLEG. SUPRAP. - CORRUP. FUNC. - SEDE CENTRAL">JUZGADO
+                                    PENAL
+                                    COLEG. SUPRAP. - CORRUP. FUNC. - SEDE CENTRAL</option>
+                                <option value="5º JUZGADO PENAL UNIPERSONAL - SEDE CENTRAL">5º JUZGADO PENAL UNIPERSONAL
+                                    -
+                                    SEDE CENTRAL</option>
+                                <option value="5º JUZGADO DE TRABAJO DEL CUSCO">5º JUZGADO DE TRABAJO DEL CUSCO</option>
+                                <option value="JUZGADO PENAL COLEGIADO SUPRAPROVINCIAL - SEDE CENTRAL">JUZGADO PENAL
+                                    COLEGIADO SUPRAPROVINCIAL - SEDE CENTRAL</option>
+                                <option value="JUZGADO PENAL COLEGIADO SUPRAPROVINCIAL - SEDE CENTRAL">JUZGADO PENAL
+                                    COLEGIADO SUPRAPROVINCIAL - SEDE CENTRAL</option>
+                                <option value="1° SALA PENAL DE APELACION (AD.FUNC.LIQUIDADOR) - SEDE">1° SALA PENAL DE
+                                    APELACION (AD.FUNC.LIQUIDADOR) - SEDE</option>
+                                <option value="2° SALA PENAL DE APELACION (AD.FUNC.LIQUIDADOR) - SEDE">2° SALA PENAL DE
+                                    APELACION (AD.FUNC.LIQUIDADOR) - SEDE</option>
+                                <option value="1°JUZGADO PENAL UNIPERSONAL-PROC. COMUN">1°JUZGADO PENAL
+                                    UNIPERSONAL-PROC.
+                                    COMUN</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - FALTAS SS - SEDE WANCHAQ">1° JUZGADO DE PAZ
+                                    LETRADO - FALTAS SS - SEDE WANCHAQ</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - FALTAS SS - SEDE WANCHAQ">2° JUZGADO DE PAZ
+                                    LETRADO - FALTAS SS - SEDE WANCHAQ</option>
+                                <option value="8° JUZG. INVEST. PREPARAT. ESP. DELITOS CORRUP. FUNCIONARIOS">8° JUZG.
+                                    INVEST. PREPARAT. ESP. DELITOS CORRUP. FUNCIONARIOS</option>
+                                <option value="5°JUZG PENAL UNIP DELITOS AMBIENTALES - SEDE CENTRAL">5°JUZG PENAL UNIP
+                                    DELITOS AMBIENTALES - SEDE CENTRAL</option>
+                                <option value="JUZ. PENAL UNIPERSONAL - ITINERANTE A CUSCO (ANTA)">JUZ. PENAL
+                                    UNIPERSONAL -
+                                    ITINERANTE A CUSCO (ANTA)</option>
+                                <option value="JUZ. PENAL UNIPERSONAL - ITINERANTE A CUSCO (CALCA)">JUZ. PENAL
+                                    UNIPERSONAL -
+                                    ITINERANTE A CUSCO (CALCA)</option>
+                                <option value="5° JUZGADO DE FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF">5° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF</option>
+                                <option value="6° JUZGADO DE FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF">6° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF</option>
+                                <option value="7° JUZGADO DE FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF">7° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF</option>
+                                <option value="8° JUZGADO DE FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF">8° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF</option>
+                                <option value="9° JUZGADO DE FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF">9° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIOL CONTRA MUJER E INTGR GF</option>
+                                <option value="10° JUZGADO DE FAMILIA - SUBESP VIO CONTRA MUJER E INTGR GF">10° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIO CONTRA MUJER E INTGR GF</option>
+                                <option value="11° JUZGADO DE FAMILIA - SUBESP VIO CONTRA MUJER E INTGR GF">11° JUZGADO
+                                    DE
+                                    FAMILIA - SUBESP VIO CONTRA MUJER E INTGR GF</option>
+                                <option value="JUZGADO TRANSITORIO ESPEC. EXTINCIÓN DE DOMINIO-SEDE WANCHAQ">JUZGADO
+                                    TRANSITORIO ESPEC. EXTINCIÓN DE DOMINIO-SEDE WANCHAQ</option>
+                                <option value="JUZGADO PENAL UNIPERSONAL (PROCESOS COMUNES)">JUZGADO PENAL UNIPERSONAL
+                                    (PROCESOS COMUNES)</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR (AD. FUNC. EXT. DOM.)-SEDE WANCHAQ">JUZGADO
+                                    PENAL
+                                    LIQUIDADOR (AD. FUNC. EXT. DOM.)-SEDE WANCHAQ</option>
+                                <option value="6° JUZGADO DE TRABAJO DEL CUSCO">6° JUZGADO DE TRABAJO DEL CUSCO</option>
+                                <option value="6° JUZGADO CIVIL - SEDE CENTRAL">6° JUZGADO CIVIL - SEDE CENTRAL</option>
+                                <option value="JUZGADO CIVIL - SEDE WANCHAQ">JUZGADO CIVIL - SEDE WANCHAQ</option>
+                                <option value="JUZGADO PENAL UNIPERSONAL ITINERANTE A CUSCO (CHUMBIVILCAS)">JUZGADO
+                                    PENAL
+                                    UNIPERSONAL ITINERANTE A CUSCO (CHUMBIVILCAS)</option>
+                                <option value="1° SALA PENAL ">1° SALA PENAL </option>
+                                <option value="2° SALA PENAL ">2° SALA PENAL </option>
+                                <option value="3° SALA PENAL ">3° SALA PENAL </option>
+                                <option value="1° SALA PENAL LIQUIDADORA - Sede Central">1° SALA PENAL LIQUIDADORA -
+                                    Sede
+                                    Central</option>
+                                <option value="SALA PENAL LIQUIDADORA PERMANENTE - Sede Central">SALA PENAL LIQUIDADORA
+                                    PERMANENTE - Sede Central</option>
+                                <option value="1° SALA PENAL LIQUIDADORA TRANS - Sede Central">1° SALA PENAL LIQUIDADORA
+                                    TRANS - Sede Central</option>
+                                <option value="1° SALA DE APELACIONES - SEDE CENTRAL">1° SALA DE APELACIONES - SEDE
+                                    CENTRAL
+                                </option>
+                                <option value="SALA CONSTITUCIONAL Y SOCIAL">SALA CONSTITUCIONAL Y SOCIAL</option>
+                                <option value="2° SALA PENAL DE APELACIONES - Sede Central">2° SALA PENAL DE APELACIONES
+                                    -
+                                    Sede Central</option>
+                                <option value="JUZGADO INV. PREPARATORIA  (CORRUPCIÓN FUNC.)">JUZGADO INV. PREPARATORIA
+                                    (CORRUPCIÓN FUNC.)</option>
+                                <option value="1° JUZGADO PENAL UNIPERSONAL TRANSITORIO - SEDE CENTRAL">1° JUZGADO PENAL
+                                    UNIPERSONAL TRANSITORIO - SEDE CENTRAL</option>
+                                <option value="4° JUZGADO PENAL UNIPERSONAL SUPR.CORRUPCIÓN DE FUNCIONARIOS">4° JUZGADO
+                                    PENAL UNIPERSONAL SUPR.CORRUPCIÓN DE FUNCIONARIOS</option>
+                                <option value="4° JUZGADO PENAL UNIPERSONAL SUPR. CORR. FUNC.- COMÚN E INM.">4° JUZGADO
+                                    PENAL UNIPERSONAL SUPR. CORR. FUNC.- COMÚN E INM.</option>
+                                <option value="1° JUZGADO CIVIL - Sede Central">1° JUZGADO CIVIL - Sede Central</option>
+                                <option value="2° JUZGADO CIVIL - Sede Central">2° JUZGADO CIVIL - Sede Central</option>
+                                <option value="3° JUZGADO CIVIL - Sede Central">3° JUZGADO CIVIL - Sede Central</option>
+                                <option value="4° JUZGADO CIVIL - Sede Central">4° JUZGADO CIVIL - Sede Central</option>
+                                <option value="5° JUZGADO CIVIL">5° JUZGADO CIVIL</option>
+                                <option value="CONTENCIOSO ADMINISTRATIVO - Sede Central">CONTENCIOSO ADMINISTRATIVO -
+                                    Sede
+                                    Central</option>
+                                <option value="JUZGADO CIVIL TRANSITORIO">JUZGADO CIVIL TRANSITORIO</option>
+                                <option value="CONTENCIOSO ADMINISTRATIVO TRANSITORIO - S. Mesón">CONTENCIOSO
+                                    ADMINISTRATIVO
+                                    TRANSITORIO - S. Mesón</option>
+                                <option value="1° JUZGADO CIVIL - Sede Wanchaq">1° JUZGADO CIVIL - Sede Wanchaq</option>
+                                <option value="2° JUZGADO CIVIL - Sede Wanchaq">2° JUZGADO CIVIL - Sede Wanchaq</option>
+                                <option value="1°JUZ. DE PAZ LETRADO DE CUSCO-S.ExMeson Urb.La Florida C-14">1°JUZ. DE
+                                    PAZ
+                                    LETRADO DE CUSCO-S.ExMeson Urb.La Florida C-14</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - S. Convertido">2° JUZGADO DE PAZ LETRADO - S.
+                                    Convertido</option>
+                                <option value="3°JUZ. DE PAZ LETRADO DE CUSCO-S.ExMeson Urb.La Florida C-14">3°JUZ. DE
+                                    PAZ
+                                    LETRADO DE CUSCO-S.ExMeson Urb.La Florida C-14</option>
+                                <option value="2°JUZ. DE PAZ LETRADO DE CUSCO-Ex4°ExMeson-Urb.LaFloridaC-14">2°JUZ. DE
+                                    PAZ
+                                    LETRADO DE CUSCO-Ex4°ExMeson-Urb.LaFloridaC-14</option>
+                                <option value="5° JUZGADO DE PAZ LETRADO - S. Mesón de Estrella">5° JUZGADO DE PAZ
+                                    LETRADO -
+                                    S. Mesón de Estrella</option>
+                                <option value="4° JUZGADO DE PAZ LETRADO - SEDE CALLE SAPHY">4° JUZGADO DE PAZ LETRADO -
+                                    SEDE CALLE SAPHY</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Wanchaq">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Wanchaq</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - Sede Wanchaq">2° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Wanchaq</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Antonio L.">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Antonio L.</option>
+                                <option value="6° JUZGADO DE PAZ LETRADO - Sede Calle Saphy B">6° JUZGADO DE PAZ LETRADO
+                                    -
+                                    Sede Calle Saphy B</option>
+                                <option value="1°JUZ.DE PAZ LETRADO EN MATERIA LABORAL DEL CUSCO">1°JUZ.DE PAZ LETRADO
+                                    EN
+                                    MATERIA LABORAL DEL CUSCO</option>
+                                <option value="2°JUZ.DE PAZ LETRADO EN MATERIA LABORAL DEL CUSCO">2°JUZ.DE PAZ LETRADO
+                                    EN
+                                    MATERIA LABORAL DEL CUSCO</option>
+                                <option value="1° JUZGADO DE TRABAJO DEL CUSCO (Ley Antigua)">1° JUZGADO DE TRABAJO DEL
+                                    CUSCO (Ley Antigua)</option>
+                                <option value="2° JUZGADO DE TRABAJO DEL CUSCO">2° JUZGADO DE TRABAJO DEL CUSCO</option>
+                                <option value="3° JUZGADO.DE TRABAJO DEL CUSCO">3° JUZGADO.DE TRABAJO DEL CUSCO</option>
+                                <option value="1° JUZGADO DE TRABAJO DEL CUSCO">1° JUZGADO DE TRABAJO DEL CUSCO</option>
+                                <option value="2do JUZGADO DE TRABAJO TRANSITORIO DEL CUSCO">2do JUZGADO DE TRABAJO
+                                    TRANSITORIO DEL CUSCO</option>
+                                <option value="1° JUZGADO FAMILIA DE CUSCO - S.ExMeson Urb. La Florida C-14">1° JUZGADO
+                                    FAMILIA DE CUSCO - S.ExMeson Urb. La Florida C-14</option>
+                                <option value="2° JUZGADO FAMILIA DE CUSCO - S.ExMeson Urb. La Florida C-14">2° JUZGADO
+                                    FAMILIA DE CUSCO - S.ExMeson Urb. La Florida C-14</option>
+                                <option value="3° JUZGADO FAMILIA DE CUSCO - S.ExMeson Urb. La Florida C-14">3° JUZGADO
+                                    FAMILIA DE CUSCO - S.ExMeson Urb. La Florida C-14</option>
+                                <option value="JUGADO DE FAMILIA TRANSITORIO  S. Mesón de Est">JUGADO DE FAMILIA
+                                    TRANSITORIO
+                                    S. Mesón de Est</option>
+                                <option value="2DO JUZGADO DE FAMILIA TRANSITORIO">2DO JUZGADO DE FAMILIA TRANSITORIO
+                                </option>
+                                <option value="SALA CIVIL(EX 1°) - SEDE CENTRAL">SALA CIVIL(EX 1°) - SEDE CENTRAL
+                                </option>
+                                <option value="2° SALA CIVIL - Sede Central">2° SALA CIVIL - Sede Central</option>
+                                <option value="1° SALA MIXTA ITINERANTE">1° SALA MIXTA ITINERANTE</option>
+                                <option value="1° JUZGADO PENAL">1° JUZGADO PENAL</option>
+                                <option value="2° JUZGADO PENAL">2° JUZGADO PENAL</option>
+                                <option value="3° JUZGADO PENAL">3° JUZGADO PENAL</option>
+                                <option value="4° JUZGADO PENAL ">4° JUZGADO PENAL </option>
+                                <option value="5° JUZGADO PENAL">5° JUZGADO PENAL</option>
+                                <option value="6° JUZGADO PENAL">6° JUZGADO PENAL</option>
+                                <option value="JUZGADO PENAL TRANSITORIO">JUZGADO PENAL TRANSITORIO</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR  TRANSITORIO(1°)- Sede Central">JUZGADO PENAL
+                                    LIQUIDADOR TRANSITORIO(1°)- Sede Central</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR  TRANSITORIO(2°)- Sede Central">JUZGADO PENAL
+                                    LIQUIDADOR TRANSITORIO(2°)- Sede Central</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR  TRANSITORIO(3°)- Sede Central">JUZGADO PENAL
+                                    LIQUIDADOR TRANSITORIO(3°)- Sede Central</option>
+                                <option value="1° JUZGADO PENAL TRASITORIO - Sede Antonio L.">1° JUZGADO PENAL
+                                    TRASITORIO -
+                                    Sede Antonio L.</option>
+                                <option value="JUZGADO DE TRABAJO TRANSITORIO DEL CUSCO">JUZGADO DE TRABAJO TRANSITORIO
+                                    DEL
+                                    CUSCO</option>
+                                <option value="JUZGADO PENAL DE WANCHAQ">JUZGADO PENAL DE WANCHAQ</option>
+                                <option value="1° JUZGADO MIXTO">1° JUZGADO MIXTO</option>
+                                <option value="1° JUZGADO MIXTO - Sede Wanchaq">1° JUZGADO MIXTO - Sede Wanchaq</option>
+                                <option value="2° JUZGADO MIXTO - Sede Wanchaq">2° JUZGADO MIXTO - Sede Wanchaq</option>
+                                <option value="JUZGADO MIXTO TRANSITORIO - Sede Wanchaq">JUZGADO MIXTO TRANSITORIO -
+                                    Sede
+                                    Wanchaq</option>
+                                <option value="JUZGADO MIXTO DESCARGA TRANSITORIO">JUZGADO MIXTO DESCARGA TRANSITORIO
+                                </option>
+                                <option value="JUZGADO COLEGIADO">JUZGADO COLEGIADO</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Central">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Central</option>
+                                <option value="2° JUZ. INVES. PREP. - SEDE CENTRAL">2° JUZ. INVES. PREP. - SEDE CENTRAL
+                                </option>
+                                <option value="3° JUZ. DE INVES. PREPARATORIA - Sede Central">3° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Central</option>
+                                <option value="4° JUZ. DE INVES. PREPARATORIA - Sede Central">4° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Central</option>
+                                <option value="5° JUZ. DE INVES. PREPARATORIA - Sede Central">5° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Central</option>
+                                <option value="6° JUZ. DE INVES. PREPARATORIA - Sede Central">6° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Central</option>
+                                <option value="1° SALA LABORAL - SEDE CENTRAL">1° SALA LABORAL - SEDE CENTRAL</option>
+                                <option value="1° JUZG. UNIPERSONAL - SEDE CENTRAL">1° JUZG. UNIPERSONAL - SEDE CENTRAL
+                                </option>
+                                <option value="2° JUZ. PENAL UNIPERSONAL - Sede Central">2° JUZ. PENAL UNIPERSONAL -
+                                    Sede
+                                    Central</option>
+                                <option value="3° JUZ. PENAL UNIPERSONAL - Sede Central">3° JUZ. PENAL UNIPERSONAL -
+                                    Sede
+                                    Central</option>
+                                <option value="4° JUZ. PENAL UNIPERSONAL - Sede Central">4° JUZ. PENAL UNIPERSONAL -
+                                    Sede
+                                    Central</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - SEDE ACOMAYO">JUZGADO PENAL LIQUIDADOR - SEDE
+                                    ACOMAYO</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Pomacanchi">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Pomacanchi</option>
+                                <option value="JUZG. INV. PREP. (AD. FUNC. J. MIXTO) - SEDE ACOMAYO">JUZG. INV. PREP.
+                                    (AD.
+                                    FUNC. J. MIXTO) - SEDE ACOMAYO</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Acomayo">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Acomayo</option>
+                                <option value="1° JUZGADO MIXTO - Sede Acomayo">1° JUZGADO MIXTO - Sede Acomayo</option>
+                                <option value="JUZGADO MIXTO TRANSITORIO- Sede Acomayo">JUZGADO MIXTO TRANSITORIO- Sede
+                                    Acomayo</option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Acomayo">1° JUZGADO COLEGIADO - Sede Acomayo
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Acomayo">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Acomayo</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Acomayo">1° JUZGADO UNIPERSONAL - Sede
+                                    Acomayo
+                                </option>
+                                <option value="JUZGADO PENAL LIQUIDDOR - SEDE ANTA">JUZGADO PENAL LIQUIDDOR - SEDE ANTA
+                                </option>
+                                <option value="JUZGADO CIVIL - SEDE ANTA">JUZGADO CIVIL - SEDE ANTA</option>
+                                <option value="JUZG. PENAL LIQUIDADOR (AD. FUNC. JIP) - SEDE ANTA">JUZG. PENAL
+                                    LIQUIDADOR
+                                    (AD. FUNC. JIP) - SEDE ANTA</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Anta">1° JUZGADO DE PAZ LETRADO - Sede
+                                    Anta
+                                </option>
+                                <option value="1° JUZGADO MIXTO - Sede Anta">1° JUZGADO MIXTO - Sede Anta</option>
+                                <option value="JUZGADO MIXTO TRANSITORIO - Sede Anta">JUZGADO MIXTO TRANSITORIO - Sede
+                                    Anta
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Anta">1° JUZGADO COLEGIADO - Sede Anta
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Anta">1° JUZ. DE INVES.
+                                    PREPARATORIA -
+                                    Sede Anta</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Anta">1° JUZGADO UNIPERSONAL - Sede Anta
+                                </option>
+                                <option value="JUZGADO DE PAZ LETRADO - CALCA">JUZGADO DE PAZ LETRADO - CALCA</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR DE CALCA">JUZGADO PENAL LIQUIDADOR DE CALCA
+                                </option>
+                                <option value="1° JUZGADO MIXTO - Sede Calca">1° JUZGADO MIXTO - Sede Calca</option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Calca">1° JUZGADO COLEGIADO - Sede Calca
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Calca">1° JUZ. DE INVES.
+                                    PREPARATORIA -
+                                    Sede Calca</option>
+                                <option value="JUZGADO UNIPERSONAL DE CALCA">JUZGADO UNIPERSONAL DE CALCA</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR -  SEDE CANAS YANAOCA">JUZGADO PENAL LIQUIDADOR
+                                    -
+                                    SEDE CANAS YANAOCA</option>
+                                <option value="JUZGADO PENAL UNIPERSONAL - ITINERANTE A CANAS">JUZGADO PENAL UNIPERSONAL
+                                    -
+                                    ITINERANTE A CANAS</option>
+                                <option value="JUZGADO PENAL COLEGIADO - ITINERANTE A CANAS">JUZGADO PENAL COLEGIADO -
+                                    ITINERANTE A CANAS</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - SEDE CANAS YANAOCA">1° JUZGADO DE PAZ LETRADO
+                                    -
+                                    SEDE CANAS YANAOCA</option>
+                                <option value="1° JUZGADO MIXTO -  SEDE CANAS YANAOCA">1° JUZGADO MIXTO - SEDE CANAS
+                                    YANAOCA
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Canas Yanacoa">1° JUZGADO COLEGIADO - Sede
+                                    Canas
+                                    Yanacoa</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - SEDE CANAS YANAOCA">1° JUZ. DE INVES.
+                                    PREPARATORIA - SEDE CANAS YANAOCA</option>
+                                <option value="JUZGADO UNIPERSONAL DE CANAS">JUZGADO UNIPERSONAL DE CANAS</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - SEDE SICUANI">JUZGADO PENAL LIQUIDADOR - SEDE
+                                    SICUANI</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - SEDE SICUANI">JUZGADO PENAL LIQUIDADOR - SEDE
+                                    SICUANI</option>
+                                <option value="1° SALA MIXTA (EN ADIC. SALA PENAL LIQUIDADORA)">1° SALA MIXTA (EN ADIC.
+                                    SALA
+                                    PENAL LIQUIDADORA)</option>
+                                <option value="1° JUZGADO CIVIL - SEDE SICUANI">1° JUZGADO CIVIL - SEDE SICUANI</option>
+                                <option value="2° JUZGADO CIVIL - SEDE SICUANI">2° JUZGADO CIVIL - SEDE SICUANI</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR (AD. FUNC. 2° J.CIVIL)-SEDE SICUANI">JUZGADO
+                                    PENAL
+                                    LIQUIDADOR (AD. FUNC. 2° J.CIVIL)-SEDE SICUANI</option>
+                                <option value="1° SALA PENAL DE APELACIONES - Sede Sicuani">1° SALA PENAL DE APELACIONES
+                                    -
+                                    Sede Sicuani</option>
+                                <option value="2° JUZG. INVEST. PREPARAT. VIOL.C.MUJER E IGF-SEDE SICUANI">2° JUZG.
+                                    INVEST.
+                                    PREPARAT. VIOL.C.MUJER E IGF-SEDE SICUANI</option>
+                                <option value="JUZGADO DE PAZ LETRADO CAMANTI - ITINERA A SICUANI">JUZGADO DE PAZ
+                                    LETRADO
+                                    CAMANTI - ITINERA A SICUANI</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Sicuani">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Sicuani</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - Sede Sicuani">2° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Sicuani</option>
+                                <option value="JUZGADO DE PAZ LETRADO - Sede Tinta_">JUZGADO DE PAZ LETRADO - Sede
+                                    Tinta_
+                                </option>
+                                <option value="1° JUZGADO PENAL LIQUID. TRANS. - Sede Sicuani">1° JUZGADO PENAL LIQUID.
+                                    TRANS. - Sede Sicuani</option>
+                                <option value="1°  JUZGADO MIXTO - Sede Sicuani">1° JUZGADO MIXTO - Sede Sicuani
+                                </option>
+                                <option value="JUZGADO MIXTO - SEDE SICUANI">JUZGADO MIXTO - SEDE SICUANI</option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Sicuani">1° JUZGADO COLEGIADO - Sede Sicuani
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Sicuani">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Sicuani</option>
+                                <option value="1° SALA MIXTA - Sede Sicuani">1° SALA MIXTA - Sede Sicuani</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Sicuani">1° JUZGADO UNIPERSONAL - Sede
+                                    Sicuani
+                                </option>
+                                <option value="JUZGADO DE LA INVESTIGACION PREPARATORIA - SEDE SANTO TOMAS">JUZGADO DE
+                                    LA
+                                    INVESTIGACION PREPARATORIA - SEDE SANTO TOMAS</option>
+                                <option value="JUZGADO PENAL UNIPERSONAL TRANSITORIO - SEDE SANTO TOMÁS">JUZGADO PENAL
+                                    UNIPERSONAL TRANSITORIO - SEDE SANTO TOMÁS</option>
+                                <option value="JUZGADO COLEGIADO - SEDE SANTO TOMÁS">JUZGADO COLEGIADO - SEDE SANTO
+                                    TOMÁS
+                                </option>
+                                <option value="JUZGADO PENAL UNIPERSONAL - SEDE SANTO TOMÁS">JUZGADO PENAL UNIPERSONAL -
+                                    SEDE SANTO TOMÁS</option>
+                                <option value="JUZGADO PENAL UNIPERSONAL ITINERANTE A CCUSCO (CHUMBIVILCAS)">JUZGADO
+                                    PENAL
+                                    UNIPERSONAL ITINERANTE A CCUSCO (CHUMBIVILCAS)</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Santo Tomás">1° JUZGADO DE PAZ LETRADO -
+                                    Sede Santo Tomás</option>
+                                <option value="JUZGADO DE PAZ LETRADO - Sede Livitaca">JUZGADO DE PAZ LETRADO - Sede
+                                    Livitaca</option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR - Sede Santo Tomás">1° JUZGADO PENAL
+                                    LIQUIDADOR -
+                                    Sede Santo Tomás</option>
+                                <option value="1° JUZGADO MIXTO - Sede Santo Tomás">1° JUZGADO MIXTO - Sede Santo Tomás
+                                </option>
+                                <option value="2° JUZGADO MIXTO - Sede Santo Tomás">2° JUZGADO MIXTO - Sede Santo Tomás
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Santo Tomás">1° JUZGADO COLEGIADO - Sede
+                                    Santo
+                                    Tomás</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Santo Tomás">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede Santo Tomás</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Santo Tomás">1° JUZGADO UNIPERSONAL - Sede
+                                    Santo Tomás</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - SEDE ESPINAR">JUZGADO PENAL LIQUIDADOR - SEDE
+                                    ESPINAR</option>
+                                <option value="JUZGADO CIVIL - SEDE ESPINAR">JUZGADO CIVIL - SEDE ESPINAR</option>
+                                <option value="JUZG. PENAL LIQUIDADOR (AD. FUNC. JIP) - SEDE ESPINAR">JUZG. PENAL
+                                    LIQUIDADOR
+                                    (AD. FUNC. JIP) - SEDE ESPINAR</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Espinar">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Espinar</option>
+                                <option value="1° JUZ. PENAL LIQUID. TRANS. - Sede Espinar">1° JUZ. PENAL LIQUID. TRANS.
+                                    -
+                                    Sede Espinar</option>
+                                <option value="1° JUZGADO MIXTO - Sede Espinar">1° JUZGADO MIXTO - Sede Espinar</option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Espinar Yauri">1° JUZGADO COLEGIADO - Sede
+                                    Espinar Yauri</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Espinar">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Espinar</option>
+                                <option value="1° JUZ. UNIPERSONAL SUPRAPROVINCIAL - Sede Espinar">1° JUZ. UNIPERSONAL
+                                    SUPRAPROVINCIAL - Sede Espinar</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - SEDE SANTA ANA">JUZGADO PENAL LIQUIDADOR -
+                                    SEDE
+                                    SANTA ANA</option>
+                                <option value="SALA MIXTA  DESCENTRALIZADA -SANTA ANA">SALA MIXTA DESCENTRALIZADA -SANTA
+                                    ANA
+                                </option>
+                                <option value="SALA MIXTA  DES. EN ADIC. SALA PENAL DE APELACION- SANTA ANA">SALA MIXTA
+                                    DES.
+                                    EN ADIC. SALA PENAL DE APELACION- SANTA ANA</option>
+                                <option value="SALA PENAL LIQUIDADORA-SANTA ANA">SALA PENAL LIQUIDADORA-SANTA ANA
+                                </option>
+                                <option value="JUZG. DE INVESTIGACIÓN PREPARATORIA TRANSITORIO-SANTA ANA">JUZG. DE
+                                    INVESTIGACIÓN PREPARATORIA TRANSITORIO-SANTA ANA</option>
+                                <option value="SALA MIXTA DESCENTRALIZADA DE LA CONVENCION">SALA MIXTA DESCENTRALIZADA
+                                    DE LA
+                                    CONVENCION</option>
+                                <option value="SALA APELACIONES DE LA CONVENCION">SALA APELACIONES DE LA CONVENCION
+                                </option>
+                                <option value="2° JUZG. FAMILIA SUB.VIOLENCIA C.MUJER E IGF- SEDE SANTA ANA">2° JUZG.
+                                    FAMILIA SUB.VIOLENCIA C.MUJER E IGF- SEDE SANTA ANA</option>
+                                <option value="JUZGADO CIVIL - SEDE SANTA ANA">JUZGADO CIVIL - SEDE SANTA ANA</option>
+                                <option value="JUZGADO LIQUIDADOR (AD. FUNC. JUZG. CIVIL) - SEDE SANTA ANA">JUZGADO
+                                    LIQUIDADOR (AD. FUNC. JUZG. CIVIL) - SEDE SANTA ANA</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Quillabamba">1° JUZGADO DE PAZ LETRADO -
+                                    Sede Quillabamba</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - Sede Quillabamba">2° JUZGADO DE PAZ LETRADO -
+                                    Sede Quillabamba</option>
+                                <option value="JUZGADO DE PAZ LETRADO - Sede Quellouno">JUZGADO DE PAZ LETRADO - Sede
+                                    Quellouno</option>
+                                <option value="JUZGADO DE PAZ LETRADO - Sede Sede Maranura">JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Sede Maranura</option>
+                                <option value="1° JUZ  ESPECIALIZADO DE FAMILIA - Sede Quillabamba">1° JUZ ESPECIALIZADO
+                                    DE
+                                    FAMILIA - Sede Quillabamba</option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR - Sede Quillabamba">1° JUZGADO PENAL
+                                    LIQUIDADOR -
+                                    Sede Quillabamba</option>
+                                <option value="JUZGADO MIXTO - Sede Quillabamba">JUZGADO MIXTO - Sede Quillabamba
+                                </option>
+                                <option value="1° JUZGADO MIXTO TRANSITORIO - Sede Quillabamba">1° JUZGADO MIXTO
+                                    TRANSITORIO
+                                    - Sede Quillabamba</option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Quillabamba Quillabamba">1° JUZGADO COLEGIADO
+                                    -
+                                    Sede Quillabamba Quillabamba</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Quillabamba">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede Quillabamba</option>
+                                <option value="JUZ. DE INVES. PREPARATORIA - Sede Maranura">JUZ. DE INVES. PREPARATORIA
+                                    -
+                                    Sede Maranura</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Quillabamba">1° JUZGADO UNIPERSONAL - Sede
+                                    Quillabamba</option>
+                                <option value="JUZG. INV. PREP. (AD. FUNC. J. MIXTO) - SEDE PARURO">JUZG. INV. PREP.
+                                    (AD.
+                                    FUNC. J. MIXTO) - SEDE PARURO</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Paruro">1° JUZGADO DE PAZ LETRADO - Sede
+                                    Paruro</option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR - Sede Paruro">1° JUZGADO PENAL LIQUIDADOR -
+                                    Sede
+                                    Paruro</option>
+                                <option value="1° JUZGADO MIXTO - Sede Paruro">1° JUZGADO MIXTO - Sede Paruro</option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Paruro ">1° JUZGADO COLEGIADO - Sede Paruro
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Paruro">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Paruro</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Paruro">1° JUZGADO UNIPERSONAL - Sede
+                                    Paruro
+                                </option>
+                                <option value="JUZG. INV. PREP. (AD. FUNC. J. MIXTO) - SEDE PAUCARTAMBO">JUZG. INV.
+                                    PREP.
+                                    (AD. FUNC. J. MIXTO) - SEDE PAUCARTAMBO</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Paucartambo">1° JUZGADO DE PAZ LETRADO -
+                                    Sede Paucartambo</option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR - Sede Paucartambo">1° JUZGADO PENAL
+                                    LIQUIDADOR -
+                                    Sede Paucartambo</option>
+                                <option value="1° JUZGADO MIXTO - Sede Paucartambo">1° JUZGADO MIXTO - Sede Paucartambo
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Paucartambo">1° JUZGADO COLEGIADO - Sede
+                                    Paucartambo</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Paucartambo">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede Paucartambo</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Paucartambo">1° JUZGADO UNIPERSONAL - Sede
+                                    Paucartambo</option>
+                                <option value="JUZGADO PENAL UNIPERSONAL - SEDE QUISPICANCHIS">JUZGADO PENAL UNIPERSONAL
+                                    -
+                                    SEDE QUISPICANCHIS</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR (AD. FUNCIONES JUP) - QUISPICANCHIS">JUZGADO
+                                    PENAL
+                                    LIQUIDADOR (AD. FUNCIONES JUP) - QUISPICANCHIS</option>
+                                <option value="JUZ. PENAL LIQUIDADOR - ITINERANTE CANAS">JUZ. PENAL LIQUIDADOR -
+                                    ITINERANTE
+                                    CANAS</option>
+                                <option value="JUZ. PENAL UNIPERSONAL - ITINERANTE CANAS">JUZ. PENAL UNIPERSONAL -
+                                    ITINERANTE CANAS</option>
+                                <option value="JUZGADO PENAL COLEGIADO-SEDE QUISPICANCHI">JUZGADO PENAL COLEGIADO-SEDE
+                                    QUISPICANCHI</option>
+                                <option value="JUZGADO PENAL COLEGIADO-ITINERANTE CANAS">JUZGADO PENAL
+                                    COLEGIADO-ITINERANTE
+                                    CANAS</option>
+                                <option value="JUZGADO DE PAZ LETRADO CAMANTI - ITINERA A URCOS">JUZGADO DE PAZ LETRADO
+                                    CAMANTI - ITINERA A URCOS</option>
+                                <option value="JUZGADO CIVIL - SEDE QUISPICANCHIS">JUZGADO CIVIL - SEDE QUISPICANCHIS
+                                </option>
+                                <option value="2° JUZG. INVEST. PREPARAT. VIOL.C.MUJER E IGF-SEDE QUISPICAN">2° JUZG.
+                                    INVEST. PREPARAT. VIOL.C.MUJER E IGF-SEDE QUISPICAN</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Quispicanchis">1° JUZGADO DE PAZ LETRADO
+                                    -
+                                    Sede Quispicanchis</option>
+                                <option value="JUZGADO DE PAZ LETRADO - Sede Ocongate">JUZGADO DE PAZ LETRADO - Sede
+                                    Ocongate</option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR - Sede Quispicanchis">1° JUZGADO PENAL
+                                    LIQUIDADOR
+                                    - Sede Quispicanchis</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Camanti">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Camanti</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Camanti">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Camanti</option>
+                                <option value="1° JUZGADO MIXTO - Sede Quispicanchis">1° JUZGADO MIXTO - Sede
+                                    Quispicanchis
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Quispicanchis">1° JUZGADO COLEGIADO - Sede
+                                    Quispicanchis</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Quispicanchis">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede Quispicanchis</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Quispicanchis">1° JUZGADO UNIPERSONAL -
+                                    Sede
+                                    Quispicanchis</option>
+                                <option value="JUZGADO MIXTO ITINERANTE-URUBAMBA">JUZGADO MIXTO ITINERANTE-URUBAMBA
+                                </option>
+                                <option value="JUZGADO PENAL UNIPERSONAL ITINERANTE-URUBAMBA">JUZGADO PENAL UNIPERSONAL
+                                    ITINERANTE-URUBAMBA</option>
+                                <option value="JUZGADO CIVIL - SEDE URUBAMBA">JUZGADO CIVIL - SEDE URUBAMBA</option>
+                                <option value="1° SALA PENAL DE APELACIONES - Sede Urubamba">1° SALA PENAL DE
+                                    APELACIONES -
+                                    Sede Urubamba</option>
+                                <option value="2° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER E IGF-SEDE URUBAMBA">2° JUZG.
+                                    PENAL
+                                    UNIPERSONAL VIOL.C.MUJER E IGF-SEDE URUBAMBA</option>
+                                <option value="2° JUZG. INV. PREPARATORIA VIOL.C.MUJER E IGF-SEDE URUBAMBA">2° JUZG.
+                                    INV.
+                                    PREPARATORIA VIOL.C.MUJER E IGF-SEDE URUBAMBA</option>
+                                <option value="JUZGADO DE FAMILIA SUBESPEC.VIOL.C.MUJER E IGF-SEDE URUBAMBA">JUZGADO DE
+                                    FAMILIA SUBESPEC.VIOL.C.MUJER E IGF-SEDE URUBAMBA</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Urubamba">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Urubamba</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO S. Urubamba - A.C.">1° JUZGADO DE PAZ LETRADO
+                                    S.
+                                    Urubamba - A.C.</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - S. Urubamba">JUZGADO PENAL LIQUIDADOR - S.
+                                    Urubamba</option>
+                                <option value="1° JUZGADO MIXTO - Sede Urubamba">1° JUZGADO MIXTO - Sede Urubamba
+                                </option>
+                                <option value="1° JUZGADO MXTO - S. Urubamba. - A.C.">1° JUZGADO MXTO - S. Urubamba. -
+                                    A.C.
+                                </option>
+                                <option value="JUZGADO MIXTO TRANSITORIO - Sede Urubamba">JUZGADO MIXTO TRANSITORIO -
+                                    Sede
+                                    Urubamba</option>
+                                <option value="1° JUZGADO COLEGIADO SUPRAPROVINCIAL - S. Urubamba">1° JUZGADO COLEGIADO
+                                    SUPRAPROVINCIAL - S. Urubamba</option>
+                                <option value="1° JUZGADO COLEGIADO - S. Urubamba">1° JUZGADO COLEGIADO - S. Urubamba
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - S. Urubamba">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - S. Urubamba</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - S. Urubamba - A.C">1° JUZ. DE INVES.
+                                    PREPARATORIA - S. Urubamba - A.C</option>
+                                <option value="1° SALA MIXTA DESC. DE URUBAMBA - S. Urubamba">1° SALA MIXTA DESC. DE
+                                    URUBAMBA - S. Urubamba</option>
+                                <option value="1° JUZ. UNIPERSONAL  - S. Urubamba">1° JUZ. UNIPERSONAL - S. Urubamba
+                                </option>
+                                <option value="1° JUZGADO UNIPERSONAL S. Urubamba. - A.C.">1° JUZGADO UNIPERSONAL S.
+                                    Urubamba. - A.C.</option>
+                                <option value="JUZGADO PENAL LIQUIDADOR - SEDE MACHUPICCHU">JUZGADO PENAL LIQUIDADOR -
+                                    SEDE
+                                    MACHUPICCHU</option>
+                                <option value="JUZG. INV. PREP. (AD. FUNC. J. MIXTO) - SEDE MACHU PICCHU">JUZG. INV.
+                                    PREP.
+                                    (AD. FUNC. J. MIXTO) - SEDE MACHU PICCHU</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Machupicchu">1° JUZGADO DE PAZ LETRADO -
+                                    Sede Machupicchu</option>
+                                <option value="1° JUZGADO MIXTO - Sede Machupicchu">1° JUZGADO MIXTO - Sede Machupicchu
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Machupicchu">1° JUZGADO COLEGIADO - Sede
+                                    Machupicchu</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Machupicchu">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede Machupicchu</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede Machupicchu">1° JUZGADO UNIPERSONAL - Sede
+                                    Machupicchu</option>
+                                <option value="1°JUZGADO MIXTO DE SANTIAGO">1°JUZGADO MIXTO DE SANTIAGO</option>
+                                <option value="1° JUZGADO PENAL LIQUIDADOR (AD. FUNC. 1° J MIXTO)- SANTIAGO">1° JUZGADO
+                                    PENAL LIQUIDADOR (AD. FUNC. 1° J MIXTO)- SANTIAGO</option>
+                                <option value="2° JUZGADO PENAL LIQUIDADOR (AD. FUNC. 2° J MIXTO)- SANTIAGO">2° JUZGADO
+                                    PENAL LIQUIDADOR (AD. FUNC. 2° J MIXTO)- SANTIAGO</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - SEDE SANTIAGO">2° JUZGADO DE PAZ LETRADO -
+                                    SEDE
+                                    SANTIAGO</option>
+                                <option value="JUZGADO CIVIL - SEDE SANTIAGO AV. M.B.">JUZGADO CIVIL - SEDE SANTIAGO AV.
+                                    M.B.</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - SEDE SANTIAGO AV. M.B.">2° JUZGADO DE PAZ
+                                    LETRADO
+                                    - SEDE SANTIAGO AV. M.B.</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Santiago Av. M.B.">1° JUZGADO DE PAZ
+                                    LETRADO
+                                    - Sede Santiago Av. M.B.</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Pisac">1° JUZGADO DE PAZ LETRADO - Sede
+                                    Pisac</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - Sede Santiago Av. M.B.">2° JUZGADO DE PAZ
+                                    LETRADO
+                                    - Sede Santiago Av. M.B.</option>
+                                <option value="JUZGADO DE PAZ LETRADO TRANSITORIO- Sede Santiago Av. M.B.">JUZGADO DE
+                                    PAZ
+                                    LETRADO TRANSITORIO- Sede Santiago Av. M.B.</option>
+                                <option value="Juzgado Penal Liquidador - Sede Central">Juzgado Penal Liquidador - Sede
+                                    Central</option>
+                                <option value="Juzgado Penal Transitoria - Sede Santiago">Juzgado Penal Transitoria -
+                                    Sede
+                                    Santiago</option>
+                                <option value="JUZGADO CIVIL - Sede Santiago Av. M.B.">JUZGADO CIVIL - Sede Santiago Av.
+                                    M.B.</option>
+                                <option value="2° JUZGADO MIXTO DE SANTIAGO">2° JUZGADO MIXTO DE SANTIAGO</option>
+                                <option value="JUZGADO MIXTO TRANSITORIO - S. Mesón de Estrella">JUZGADO MIXTO
+                                    TRANSITORIO -
+                                    S. Mesón de Estrella</option>
+                                <option value="1 JUZGADO CIVIL TRANSITORIO - Sede Santiago">1 JUZGADO CIVIL TRANSITORIO
+                                    -
+                                    Sede Santiago</option>
+                                <option value="2 JUZGADO CIVIL TRANSITORIO - Sede Santiago">2 JUZGADO CIVIL TRANSITORIO
+                                    -
+                                    Sede Santiago</option>
+                                <option value="1° JUZGADO MIXTO TRANSITORIO - Sede Santiago">1° JUZGADO MIXTO
+                                    TRANSITORIO -
+                                    Sede Santiago</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Pisac">1° JUZ. DE INVES.
+                                    PREPARATORIA -
+                                    Sede Pisac</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Quebrada">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Quebrada</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Quebrada">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede Quebrada</option>
+                                <option value="JUZGADO DE PAZ LETRADO">JUZGADO DE PAZ LETRADO</option>
+                                <option value="JUZGADO DE INVESTIGACIÓN PREPARATORIA">JUZGADO DE INVESTIGACIÓN
+                                    PREPARATORIA
+                                </option>
+                                <option value="2° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER E IGF-SEDE ECHARATE">2° JUZG.
+                                    PENAL
+                                    UNIPERSONAL VIOL.C.MUJER E IGF-SEDE ECHARATE</option>
+                                <option value="JUZG. INV. PREP. (AD. FUNC. J. MIXTO) - SEDE ECHARATE">JUZG. INV. PREP.
+                                    (AD.
+                                    FUNC. J. MIXTO) - SEDE ECHARATE</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede de Echarate">1° JUZGADO DE PAZ LETRADO -
+                                    Sede de Echarate</option>
+                                <option value="1° JUZGADO MIXTO - Sede de Echarate">1° JUZGADO MIXTO - Sede de Echarate
+                                </option>
+                                <option value="1° JUZGADO COLEGIADO - Sede Echarate">1° JUZGADO COLEGIADO - Sede
+                                    Echarate
+                                </option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede de Echarate">1° JUZ. DE INVES.
+                                    PREPARATORIA - Sede de Echarate</option>
+                                <option value="1° JUZGADO UNIPERSONAL - Sede de Echarate">1° JUZGADO UNIPERSONAL - Sede
+                                    de
+                                    Echarate</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Pisac">1° JUZGADO DE PAZ LETRADO - Sede
+                                    Pisac</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Pisac">1° JUZ. DE INVES.
+                                    PREPARATORIA -
+                                    Sede Pisac</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede San Jerónimo">1° JUZGADO DE PAZ LETRADO
+                                    -
+                                    Sede San Jerónimo</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - SAN SEBASTIÁN">2° JUZGADO DE PAZ LETRADO -
+                                    SAN
+                                    SEBASTIÁN</option>
+                                <option value="2° JUZGADO DE PAZ LETRADO - SAN SEBASTÍAN">2° JUZGADO DE PAZ LETRADO -
+                                    SAN
+                                    SEBASTÍAN</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - San Sebastían">1° JUZGADO DE PAZ LETRADO -
+                                    San
+                                    Sebastían</option>
+                                <option value="JUZGADO DE PAZ LETRADO-SEDE TINTA">JUZGADO DE PAZ LETRADO-SEDE TINTA
+                                </option>
+                                <option value="JUZGADO DE PAZ LETRADO-SEDE OCONGATE">JUZGADO DE PAZ LETRADO-SEDE
+                                    OCONGATE
+                                </option>
+                                <option value="JUZGADO DE PAZ LETRADO-SEDE LIVITACA">JUZGADO DE PAZ LETRADO-SEDE
+                                    LIVITACA
+                                </option>
+                                <option value="JUZGADO DE PAZ LETRADO-SEDE QUELLOUNO">JUZGADO DE PAZ LETRADO-SEDE
+                                    QUELLOUNO
+                                </option>
+                                <option value="JUZGADO DE PAZ LETRADO-SEDE MARANURA">JUZGADO DE PAZ LETRADO-SEDE
+                                    MARANURA
+                                </option>
+                                <option value="JUZGADO DE INVEST. PREPARATORIA-SEDE MARANURA">JUZGADO DE INVEST.
+                                    PREPARATORIA-SEDE MARANURA</option>
+                                <option value="JUZGADO DE PAZ LETRADO CAMANTI - ITINERA A SICUANI">JUZGADO DE PAZ
+                                    LETRADO
+                                    CAMANTI - ITINERA A SICUANI</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Camanti">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Camanti</option>
+                                <option value="1° JUZ. DE INVES. PREPARATORIA - Sede Camanti">1° JUZ. DE INVES.
+                                    PREPARATORIA
+                                    - Sede Camanti</option>
+                                <option value="1° JUZGADO DE PAZ LETRADO - Sede Pomacanchi">1° JUZGADO DE PAZ LETRADO -
+                                    Sede
+                                    Pomacanchi</option>
+                                <option value="1° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON">1° JUZG. PENAL
+                                    UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="2° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON">2° JUZG. PENAL
+                                    UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="3° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON">3° JUZG. PENAL
+                                    UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="4° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON">4° JUZG. PENAL
+                                    UNIPERSONAL VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="JUZG. PENAL COLEGIADO CONFORMADO VIOL.C.MUJ.E IGF-SEDE MESON">JUZG. PENAL
+                                    COLEGIADO CONFORMADO VIOL.C.MUJ.E IGF-SEDE MESON</option>
+                                <option value="1° JUZG. INVEST. PREPARATORIA VIOL.C.MUJER E IGF-SEDE MESON">1° JUZG.
+                                    INVEST.
+                                    PREPARATORIA VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="2° JUZG. INVEST. PREPARATORIA VIOL.C.MUJER E IGF-SEDE MESON">2° JUZG.
+                                    INVEST.
+                                    PREPARATORIA VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="3° JUZG. INVEST. PREPARATORIA VIOL.C.MUJER E IGF-SEDE MESON">3° JUZG.
+                                    INVEST.
+                                    PREPARATORIA VIOL.C.MUJER E IGF-SEDE MESON</option>
+                                <option value="SALA SUPREMA CIVIL">SALA SUPREMA CIVIL</option>
+                                <option value="SALA SUPREMA CONSTITUCIONAL Y SOCIAL">SALA SUPREMA CONSTITUCIONAL Y
+                                    SOCIAL
+                                </option>
+                                <option value="SALA SUPREMA CIVIL PERMANENTE">SALA SUPREMA CIVIL PERMANENTE</option>
+                                <option value="SALA SUPREMA CIVIL TRANSITORIA">SALA SUPREMA CIVIL TRANSITORIA</option>
+                                <option value="SALA DE DERECHO CONSTITUCIONAL Y SOCIAL PERMANENTE">SALA DE DERECHO
+                                    CONSTITUCIONAL Y SOCIAL PERMANENTE</option>
+                                <option value="PRIMERA SALA DE DERECHO CONSTITUCIONAL Y SOCIAL TRANSITORIA">PRIMERA SALA
+                                    DE
+                                    DERECHO CONSTITUCIONAL Y SOCIAL TRANSITORIA</option>
+                                <option value="SEGUNDA SALA DE DERECHO CONSTITUCIONAL Y SOCIAL TRANSITORIA">SEGUNDA SALA
+                                    DE
+                                    DERECHO CONSTITUCIONAL Y SOCIAL TRANSITORIA</option>
+                                <option value="TERCERA SALA DE DERECHO CONSTITUCIONAL Y SOCIAL TRANSITORIA">TERCERA SALA
+                                    DE
+                                    DERECHO CONSTITUCIONAL Y SOCIAL TRANSITORIA</option>
+                                <option value="()2° JUZGADO PENAL COLEGIADO CONFORMADO - SEDE MESON">()2° JUZGADO PENAL
+                                    COLEGIADO CONFORMADO - SEDE MESON</option>
+                                <option value="2° JUZGADO PENAL COLEGIADO CONFORMADO - SEDE MESON">2° JUZGADO PENAL
+                                    COLEGIADO CONFORMADO - SEDE MESON</option>
+                                <option value="JUZGADO DE FAMILIA - SEDE ANTA">JUZGADO DE FAMILIA - SEDE ANTA</option>
+                                <option value="JUZGADO DE FAMILIA - SEDE SICUANI">JUZGADO DE FAMILIA - SEDE SICUANI
+                                </option>
+                                <option value="JUZGADO DE FAMILIA - SEDE SANTO TOMÁS">JUZGADO DE FAMILIA - SEDE SANTO
+                                    TOMÁS
+                                </option>
+                                <option value="JUZGADO DE FAMILIA - SEDE ESPINAR">JUZGADO DE FAMILIA - SEDE ESPINAR
+                                </option>
+                                <option value="JUZGADO DE PAZ LETRADO-SEDE VILCABAMBA">JUZGADO DE PAZ LETRADO-SEDE
+                                    VILCABAMBA</option>
+                                <option value="JUZG. DE INVEST. PREPAR. (AD. FUNC. JPL) - SEDE VILCABAMBA">JUZG. DE
+                                    INVEST.
+                                    PREPAR. (AD. FUNC. JPL) - SEDE VILCABAMBA</option>
+                                <option value="JUZGADO DE PAZ LETRADO - SEDE VILCABAMBA">JUZGADO DE PAZ LETRADO - SEDE
+                                    VILCABAMBA</option>
+                                <option value="JUZG. DE INVEST. PREPAR. (AD. FUNC. JPL) - SEDE VILCABAMBA">JUZG. DE
+                                    INVEST.
+                                    PREPAR. (AD. FUNC. JPL) - SEDE VILCABAMBA</option>
+                                <option value="SALA CIVIL TRANSITORIA - CUSCO">SALA CIVIL TRANSITORIA - CUSCO</option>
+                                <option value="JUZGADO DE FAMILIA TRANSITORIO - CUSCO">JUZGADO DE FAMILIA TRANSITORIO -
+                                    CUSCO</option>
+                                <option value="2° JUZGADO PENAL UNIPERSONAL TRANSITORIO ESP. DCF - CUSCO">2° JUZGADO
+                                    PENAL
+                                    UNIPERSONAL TRANSITORIO ESP. DCF - CUSCO</option>
+                                <option value="JUZG. PENAL UNIPERS. DESCAR. ESP. DELIT. CORRUP. FUNC.-CUSCO">JUZG. PENAL
+                                    UNIPERS. DESCAR. ESP. DELIT. CORRUP. FUNC.-CUSCO</option>
+                                <option value="2° JUZG. PENAL UNIPERSONAL VIOL.C.MUJER -SEDE QUILLABAMBA">2° JUZG. PENAL
+                                    UNIPERSONAL VIOL.C.MUJER -SEDE QUILLABAMBA</option>
+                                <option value="1° J. PENAL COLEGIADO TRANS. VIOL.C.MUJ.E IGF-SEDE HUANCARO">1° J. PENAL
+                                    COLEGIADO TRANS. VIOL.C.MUJ.E IGF-SEDE HUANCARO</option>
+                                <option value="2° J. PENAL COLEGIADO TRANS. VIOL.C.MUJ.E IGF-SEDE HUANCARO">2° J. PENAL
+                                    COLEGIADO TRANS. VIOL.C.MUJ.E IGF-SEDE HUANCARO</option>
+                                <option value="JUZGADO CIVIL DE SANTIAGO ITINERA A URUBAMBA">JUZGADO CIVIL DE SANTIAGO
+                                    ITINERA A URUBAMBA</option>
+                                <option value="JUZGADO DE PAZ LETRADO DE QUELLOUNO ITINERA A OCABAMBA">JUZGADO DE PAZ
+                                    LETRADO DE QUELLOUNO ITINERA A OCABAMBA</option>
+                                <option value="JUZGADO CIVIL DE SANTIAGO ITINERA A URUBAMBA - BAJA">JUZGADO CIVIL DE
+                                    SANTIAGO ITINERA A URUBAMBA - BAJA</option>
+                                <option value="JUZGADO CIVIL DE SANTIAGO ITINERA A URUBAMBA">JUZGADO CIVIL DE SANTIAGO
+                                    ITINERA A URUBAMBA</option>
+                                <option value="JUZG. INVESTIGACIÓN PREPARATORIA TRANSITORIO - SEDE CENTRAL">JUZG.
+                                    INVESTIGACIÓN PREPARATORIA TRANSITORIO - SEDE CENTRAL</option>
+                                <option value="2° JUZGADO PENAL UNIPERSONAL TRANSITORIO - SEDE CENTRAL">2° JUZGADO PENAL
+                                    UNIPERSONAL TRANSITORIO - SEDE CENTRAL</option>
+
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label for="estado_proceso" class="form-label mt-3">Tipo Proceso:</label>
+                            <select id="select_tipo_proceso" name="estado_proceso" class="form-control form-control-sm">
+                                <option value="">ELIJA TIPO DE PROCESO </option>
+                                <option value="PRINCIPAL">PRINCIPAL </option>
+                                <option value="INCIDENTE">INCIDENTE</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="materia" class="form-label mt-3">Materia:</label>
+
+                            <input id="input_materia" type="text" name="materia" class="form-control form-control-sm"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+
+                    </fieldset>
+
+                </form>
+                <!-- PARTES -->
+                <!-- DEMANDANTES -->
+                <form>
+                    <div class="border border-secondary bg-secondary mt-3 ">
+                        <h6 class="text-white m-2">DATOS DEL DEMANDANTE </h6>
+                    </div>
+                    <!-- DATOS DE DEMANANDATE -->
+                    <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2">
+                        <!-- PARTE DEL DEMANDANTE-->
+                        <div class="d-flex justify-content-end align-items-center">
+                            <i class="bi bi-plus-square-fill icon-mas" (click)="openModalDemandante()"></i>
+                            <!-- <i class="bi bi-plus-circle-fill icon-mas" (click)="openModalDemandante()"></i> -->
+                        </div>
+                        <table class="table text-center  table-hover table-sm ">
+                            <thead class="thead-ligth bg-secondary text-white table-success">
+                                <tr>
+                                    <th scope="col">Nro</th>
+                                    <th scope="col">NOMBRE</th>
+                                    <th scope="col">AP_PATERNO</th>
+                                    <th scope="col">AP_MATERNO</th>
+                                    <th scope="col">DNI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listaTempDemanantes, index as i" class="table-barra fst-normal">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{item.nombre}}</td>
+                                    <td>{{item.ap_paterno}}</td>
+                                    <td>{{item.ap_materno}}</td>
+                                    <td>{{item.dni}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </fieldset>
+
+                </form>
+                <!-- DEMANDADO -->
+                <form>
+                    <div class="border border-secondary bg-secondary mt-3 ">
+                        <h6 class="text-white m-2">DATOS DEL DEMANDADO</h6>
+                    </div>
+                    <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2">
+                        <div class="d-flex justify-content-end align-items-star">
+                            <i class="bi bi-plus-square-fill  icon-mas" (click)="openModalDemandado()"></i>
+                        </div>
+                        <table class="table text-center  table-hover table-sm">
+                            <thead class="thead-ligth bg-secondary text-white table-success">
+                                <tr>
+                                    <th scope="col">Nro</th>
+                                    <th scope="col">NOMBRE</th>
+                                    <th scope="col">AP_PATERNO</th>
+                                    <th scope="col">AP_MATERNO</th>
+                                    <th scope="col">DNI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listaTempDemandados, index as i" class="table-barra">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{item.nombre}}</td>
+                                    <td>{{item.ap_paterno}}</td>
+                                    <td>{{item.ap_materno}}</td>
+                                    <td>{{item.dni}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </fieldset>
+                </form>
+            </div>
+            <!-- MICROFORMA -->
+            <div class="col" style="width:850px">
+                <form>
+                    <div class="border border-secondary bg-secondary ">
+                        <h6 class="text-white m-2">MICROFORMA</h6>
+                    </div>
+                    <!-- DATOS DE LA MICROFORMA -->
+                    <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2 mb-5">
+                        <table class="table text-center  table-hover table-sm">
+                            <thead class="thead-ligth bg-secondary text-white table-success ">
+                                <tr>
+                                    <th scope="col">Nro</th>
+                                    <th scope="col">ITEM</th>
+                                    <th scope="col">INDICE</th>
+                                    <th scope="col">FOJAS</th>
+                                    <th scope="col">ORI</th>
+                                    <th scope="col">COP</th>
+                                    <th scope="col">COL</th>
+                                    <th scope="col">ESG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listaTempIndizacion, index as i" class="table-barra">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{item.descripcion}}</td>
+                                    <td>{{item.indice}}</td>
+                                    <td>{{item.fojas}}</td>
+                                    <td>
+                                        <i *ngIf="item.check_original" class="bi bi-check2-square"
+                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
+                                        <i *ngIf="!item.check_original" class="bi bi-square"
+                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
+                                    </td>
+                                    <td>
+                                        <i *ngIf="item.check_copia" class="bi bi-check2-square"
+                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
+                                        <i *ngIf="!item.check_copia" class="bi bi-square"
+                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
+                                    </td>
+                                    <td>
+                                        <i *ngIf="item.check_color" class="bi bi-check2-square"
+                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
+                                        <i *ngIf="!item.check_color" class="bi bi-square"
+                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
+                                    </td>
+                                    <td>
+                                        <i *ngIf="item.check_escalagris" class="bi bi-check2-square"
+                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
+                                        <i *ngIf="!item.check_escalagris" class="bi bi-square"
+                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="bi bi-plus-circle-fill icon-mas" (click)="openModalIndizador()"></i>
+                        </div>
+                        <hr>
+                        <div class="form-floating mb-2">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                id="observaciones_generales" style="height: 50px"></textarea>
+                            <label for="floatingTextarea2">Observaciones Generales</label>
+                        </div>
+                        <div class="d-flex justify-content-end p-2  mb-4">
+                            <button class="btn btn-sm btn-success " type="button"
+                                (click)="preparacionGuardadoDatos()">GUARDAR</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- IFRAME PDF -->
+            <div class="col" style="padding: 0px 0px;">
+                <iframe [src]="pdfUrl" type="application/pdf" width="100%" height="830px"></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL DE DEMANDATE -->
+    <div class="modal fade modal-lg" id="Modal_Demandante" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="form-group container">
+                    <div class="m-4 p-4">
+                        <label for="demandante" class="form-label">Datos del demandante:</label>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text " id="inputGroup-sizing-sm">Nombre(s):</span>
+                            <input id="demandante_nombre" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">AP Paterno: </span>
+                            <input id="demandante_ap_paterno" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">AP Materno: </span>
+                            <input id="demandante_ap_materno" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">DNI: </span>
+                            <input id="demandante_dni" type="number" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary tn-sm" (click)="enviarTablaDemandantes()">Agregar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL DE DEMANDADO -->
+    <div class="modal fade modal-lg" id="Modal_Demandado" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="form-group container">
+                    <div class="m-4 p-4">
+                        <label for="demandado" class="form-label">Datos del demandado:</label>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text " id="inputGroup-sizing-sm">Nombre(s):</span>
+                            <input id="demandado_nombre" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">AP Paterno: </span>
+                            <input id="demandado_ap_paterno" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">AP Materno: </span>
+                            <input id="demandado_ap_materno" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">DNI:</span>
+                            <input id="demandado_dni" type="number" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary tn-sm" (click)="enviarTablaDemandados()">Agregar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL DE INDIZACION -->
+    <div class="modal fade modal-lg" id="Modal_Indizador" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="form-group container">
+                    <div class="m-4 p-4">
+                        <div>
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <input id="indizacion_descripcion" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="row my-2">
+                            <div class="col">
+                                <label for="indice" class="form-label">Indice:</label>
+                                <input id="indizacion_indice" type="number" class="form-control form-control-sm">
+                            </div>
+                            <div class="col">
+                                <label for="fojas" class="form-label">Fojas:</label>
+                                <input id="indizacion_fojas" type="number" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="caracteristicas" class="form-label">caracteristicas:</label>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_original" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Original
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_copia" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Copia
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_color" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Color
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_escalagris" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Escala de Grises
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-floating my-2 mb-4">
+                            <textarea id="indizacion_textarea" class="form-control" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">observaciones</label>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary tn-sm" (click)="enviarTablaIndexacion()">Agregar
+                                indización</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

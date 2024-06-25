@@ -1,0 +1,90 @@
+<div class="panel">
+    <app-navegador></app-navegador>
+    <div class="fondo-volver container-fluid">
+        <button class="m-2 mx-4 btn-volver" (click)="volver()">
+            <i class="bi bi-arrow-left text-white"> volver </i>
+        </button>
+    </div>
+
+    <div class="contenedor">
+
+        <div class="row" >
+            <div class="col-lg-3" >
+                <div class="menu-listado-reportes">
+                    <div class="titulo">DATOS DE INVENTARIO:</div>
+                    
+                    <div class="lista">
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Año: {{inventarioDetalle.anio}}</div></div>
+                    </div>
+                    <div class="lista">
+                        <div class="item" ><div class="name"><i class="bi bi-card-list"></i> Cantidad: {{inventarioDetalle.cantidad}}</div></div>
+                    </div>
+                    <div class="lista">
+                        <div class="item"  ><div class="name"><i class="bi bi-card-list"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
+                    </div>
+                    <div class="lista">
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Serie de documento: {{inventarioDetalle.serie_doc}}</div></div>
+                    </div>
+                    <div class="lista">
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Tipo de documento: {{inventarioDetalle.tipo_doc}}</div></div>
+                    </div>
+                    <div class="lista">
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
+                    </div>
+                </div>
+              
+                
+            </div>
+            <div class="col-lg-9">
+                <div class="presentacion_user mb-4">
+                    <div class="icon-title-container">
+                        <i class="bi bi-card-list icon-custom"></i>
+                        <h2 class="titulo_reporte mx-2"> REGISTRO DE EXPEDIENTES DE INVENTARIO</h2>
+                        
+                    </div>
+                    <label id="mensaje_preparador" style="color: green; font-size: large;" for="" [style]="disableMensajePreparador">¡Expedientes listos en preparación!</label>
+                </div>
+
+                <div class="card rounded shadow border-2 ">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center ">
+                        <input id="input_ingreso_expediente" type="text" class="form-control" name="registroexpediente" [disabled]="habilitarAgregar"  placeholder="Ingrese el titulo del expediente" [(ngModel)]="data_expediente.nombre_expediente" (keydown)="onEnterPress($event)" >
+                        <button id="buton_agregar" type="button" class="btn btn-success mx-4" (click)="agregarExpediente()" [disabled]="habilitarAgregar" >AGREGAR</button>                        
+                    </div>
+                    <div class="card-body px-5 bg-white rounded">
+                      <div class="table-responsive">
+                        <table class="table text-center  table-hover" id="excel-table">
+                            <colgroup>
+                                <col style="width: 5%;">
+                                <col style="width: 75%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                              </colgroup>
+                            <thead class="text-white table-success">
+                              <tr>
+                                <th scope="col">Nro</th>
+                                <th scope="col">EXPEDIENTE</th>
+                                <th scope="col">MODIFICAR</th>
+                                <th scope="col">ELIMINAR</th>
+                              </tr>
+                            </thead>
+                
+                            <tbody >
+                              <tr *ngFor="let expediente of expedientesList, index as i"  >
+                                
+                               <th scope="row">{{i+1}}</th>
+                                 <td>{{expediente.nombre_expediente}}</td>
+                                <td ><i class="bi bi-pencil" (click)="exmodificarExpediente(expediente)" ></i></td>
+                                <td ><i class="bi bi-trash" (click)="exEliminarExpediente(expediente)"></i></td>
+                              </tr> 
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center">
+                            <button id="boton_preparacion" type="button" class="btn btn-info mx-4 text-white" (click)="enviarApreparacion()" [disabled]="habilitarPreparacion" [style]="disablePreparador">ENVIAR A PREPARACION</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>         
+        </div>
+    </div>    
+</div>

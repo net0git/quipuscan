@@ -1,0 +1,84 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+.panel{
+   /* background-color: #eeeeee48; */
+   /* background-color: #eeeeee4b; */
+    /* background: linear-gradient(to bottom, rgba(205, 179, 77, 0.921), rgba(106, 160, 106, 0.827)); */
+    /* background-color: rgba(246, 231, 153, 0.13); */
+   height: 100vh;
+   /* overflow-y: hidden; */
+   
+ 
+}
+
+.icon-custom {
+    
+    color:rgba(49, 49, 49, 0.452);/* Establece el color del texto en blanco */
+    cursor: pointer; /* Cambiar el cursor a una manito cuando el ratón está sobre el icono */
+    font-weight: bold; 
+    font-size: 50px;
+    
+}
+
+.titulo_menu{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+   
+    
+}
+/* modificamos la letra y el cursor */
+.hand_cursor{
+    cursor: pointer; /*  convierte el cursor en una mano */
+    font-weight: bold;
+    
+
+}
+
+.presentacion_system{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+     
+    
+}
+/* prueba para ocultar html */
+/* #miDiv {
+    display: none;
+}
+  */
+
+/* imagen de computadora */
+/* @media screen and (max-width: 700px) {
+    .hero-inferior-imagen{
+        max-width: 100px;
+    }
+} */
+
+/* .tarjeta .card{
+    
+    transition: transform 0.2s ease;
+   
+}  */
+.tarjeta .card:hover{
+    /* transform: scale(1.010); */
+    border-bottom: 1px solid #17609176 ;
+    border-right:1px solid #17609176 ;
+     box-shadow: 4px 4px 16px   #17609179 !important; 
+  
+}
+
+/* .tarjeta {
+    
+    transition: transform 0.2s ease;
+   
+} 
+.tarjeta:hover{
+    transform: scale(1.010);
+   
+  
+} */
+
+

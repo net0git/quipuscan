@@ -1,0 +1,22 @@
+ng serve --host 0.0.0.0 --port 5030 --disable-host-check
+
+BEGIN;
+
+DELETE FROM t_fedatar WHERE id_expediente = 158;
+DELETE FROM t_control_calidad WHERE id_expediente = 158;
+DELETE FROM t_indizacion WHERE id_expediente = 158;
+DELETE FROM t_digitalizacion WHERE id_expediente = 158;
+UPDATE t_expediente
+SET id_responsable = NULL,
+    fojas = NULL,
+    fojas_unacara = NULL,
+    fojas_doscaras = NULL,
+    copias_originales = NULL,
+    copias_simples = NULL,
+    estado_preparado = NULL,
+    estado_controlado = NULL,
+    estado_digitalizado = NULL,
+    estado_indizado = NULL,
+    estado_fedatado = NULL
+WHERE id_expediente = 158;
+COMMIT;

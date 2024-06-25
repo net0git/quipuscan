@@ -1,0 +1,77 @@
+<div class="panel">
+  <app-navegador></app-navegador>
+  <div class="fondo-volver container-fluid">
+    <button class="m-2 mx-4 btn-volver" (click)="Volver()">
+      <i class="bi bi-arrow-left text-white"> volver </i>
+    </button>
+  </div>
+  <div class="container-fluid">
+    <!-- presentacion -->
+    <div class="presentacion_company ">
+      <div class="col-md-4 d-flex justify-content-end ">
+        <i class="bi bi-box-seam icon-custom mx-2"></i>
+      </div>
+
+      <div class="col-md-8 px-md-2">
+        <h2 class="titulo_empresa">INVENTARIO DE DIGITALIZACIÓN</h2>
+        <h5 class="subtitulo_empresa">Lista de inventarios registrados</h5>
+      </div>
+    </div>
+    <hr>
+    <!-- agregar y busqueda -->
+    <div class="row pb-5">
+      <div class=" col-lg-11 mx-auto">
+        <div class="card rounded shadow border-2 ">
+          <div class="card-header py-3 d-flex justify-content-between align-items-center ">
+            <button type="button" class="btn btn-success mx-2" (click)="inventarioForm()">+add</button>
+            <input type="text" class="form-control mx-4" name="buscar" placeholder="BUSCAR"
+              (input)="buscarEnObjeto($event)">
+          </div>
+          <div class="card-body px-4 bg-white rounded">
+            <div class="table-responsive px-4">
+              <!-- <button type="button" class="btn btn-success mb-3"  (click)="AgregarUsuario()">+add</button> -->
+              <div class="form-group">
+                <div class="row">
+                  <table class="table text-center  table-hover">
+                    <thead class="thead-ligth bg-secondary text-white table-success">
+                      <tr>
+                        <th scope="col">Nro</th>
+                        <th scope="col">ESPECIALIDAD</th>
+                        <th scope="col">AÑO</th>
+                        <th scope="col">CANTIDAD</th>
+                        <th scope="col">TIPO DOC</th>
+                        <th scope="col">SERIE DOC</th>
+                        <th scope="col">SUPERVISOR</th>
+                        <th scope="col">PDF</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of inventarios, index as i" class="table-barra">
+                        <th scope="row">{{i+1}}</th>
+                        <td class="text-start" (click)="expedientesInventario(item.id_inventario)">
+                          {{item.especialidad_inventario}}</td>
+                        <td (click)="expedientesInventario(item.id_inventario)">{{item.anio}}</td>
+                        <td (click)="expedientesInventario(item.id_inventario)">{{item.cantidad}}</td>
+                        <td class="text-start" (click)="expedientesInventario(item.id_inventario)">{{item.tipo_doc}}
+                        </td>
+                        <td class="text-start" (click)="expedientesInventario(item.id_inventario)">{{item.serie_doc}}
+                        </td>
+                        <td class="text-start" (click)="expedientesInventario(item.id_inventario)">{{item.nombre+'
+                          '+item.ap_materno}}</td>
+                        <td><i class="bi bi-file-earmark-pdf-fill" style="color: brown; "
+                            (click)="listarExpedientesXidinventario(item.id_inventario,item.tipo_doc,item.serie_doc,item.nombre_usuario,item.especialidad_inventario,item.cantidad)"></i>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

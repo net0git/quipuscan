@@ -1,0 +1,63 @@
+import { Component, OnInit } from '@angular/core';
+import { Router ,ActivatedRoute} from '@angular/router';
+import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
+
+@Component({
+  selector: 'app-control-calidad',
+  templateUrl: './control-calidad.component.html',
+  styleUrls: ['./control-calidad.component.css']
+})
+export class ControlCalidadComponent implements OnInit {
+
+  inventarios:any=[]
+  inventariosTem:any=[]
+  objetosFiltrados:any=[];
+  expedientetemp:any={}
+  constructor(private inventarioService:InventarioService,private activatedRoute:ActivatedRoute,private router:Router){}
+  
+ ngOnInit(): void {
+    this.listarInventario()
+  }
+  listarInventario(){
+    this.inventarioService.listaDetalladaInventarios().subscribe(
+      res=>{
+        let inventariosHabilitados:any = res
+        
+        this.inventarios=inventariosHabilitados.filter((inventario: { estado_preparado: boolean; }) => inventario.estado_preparado ==true);
+        this.inventariosTem=this.inventarios
+         console.log(this.inventariosTem)
+      },
+      err=>{
+        console.error(err)
+      }
+    )
+  }
+  buscarEnObjeto(event: any) {
+    const textoBusqueda = event.target.value.toLowerCase();
+      
+      // Filtrar los objetos según el texto de búsqueda
+      this.objetosFiltrados = this.inventariosTem.filter((objeto: 
+        { 
+          especialidad_inventario: string; 
+          anio:number;
+          tipo_doc:string;
+          serie_doc:string;
+  
+         }) => {
+        
+        const especialidad = objeto.especialidad_inventario.toLowerCase();
+        const anio = objeto.anio.toString().toLowerCase();
+        const tipo_doc=objeto.tipo_doc.toString().toLowerCase();
+        const serie_doc=objeto.serie_doc.toString().toLowerCase();
+
+        return especialidad.includes(textoBusqueda)|| anio.includes(textoBusqueda)|| tipo_doc.includes(textoBusqueda)|| serie_doc.includes(textoBusqueda);
+      });
+      this.inventarios=this.objetosFiltrados
+  }
+  volver(){
+    this.router.navigate(['/principal'])
+  }
+  controlCalidadExpedientes(id_inventario:any){
+     this.router.navigate(['/principal/controlcalidad/expedientres/',id_inventario])
+  }
+}

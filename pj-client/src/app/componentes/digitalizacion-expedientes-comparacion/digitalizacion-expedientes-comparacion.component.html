@@ -1,0 +1,172 @@
+<div class="panel">
+  <app-navegador></app-navegador>
+  <div class="fondo-volver container-fluid">
+    <button class="m-2 mx-4 btn-volver" (click)="volver()">
+      <i class="bi bi-arrow-left text-white"> volver </i>
+    </button>
+  </div>
+  <div class="contenedor">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="menu-listado-reportes">
+          <div class="titulo">DATOS DE INVENTARIO:</div>
+
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Año: {{inventarioDetalle.anio}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"><i class="bi bi-card-list"></i> Cantidad: {{inventarioDetalle.cantidad}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"><i class="bi bi-card-list"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Serie de documento: {{inventarioDetalle.serie_doc}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Tipo de documento: {{inventarioDetalle.tipo_doc}}</div>
+            </div>
+          </div>
+          <div class="lista">
+            <div class="item">
+              <div class="name"> <i class="bi bi-card-list"></i> Supervisor: {{inventarioDetalle.nombre + ' ' + inventarioDetalle.ap_paterno}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9">
+        <div class="presentacion_user mb-4">
+          <div class="icon-title-container">
+            <i class="bi bi-card-list icon-custom"></i>
+            <h2 class="titulo_reporte mx-2">DIGITALIZACIÓN DE EXPEDIENTES</h2>
+          </div>
+        </div>
+
+        <div class="card rounded shadow border-2">
+          <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <!-- <h6 class="m-0 font-weight-bold text-primary">Tabla Usuarios</h6> -->
+            <input type="text" class="form-control" name="registroexpediente" placeholder="Buscar expediente" (input)="buscarEnObjeto($event)">
+          </div>
+
+          <div class="card-body px-5 bg-white rounded">
+            <div class="table-responsive">
+              <table class="table text-center table-hover" id="excel-table">
+                <colgroup>
+                  <col style="width: 10%;">
+                  <col style="width: 70%;">
+                  <col style="width: 10%;">
+                </colgroup>
+                <thead class="text-white table-success">
+                  <tr>
+                    <th scope="col">Nro</th>
+                    <th scope="col">EXPEDIENTE</th>
+                    <th scope="col">ESTADO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let expediente of expedientesList; index as i" (click)="!expediente.estado_digitalizado ? MostrarFormularioExpediente(expediente.id_expediente) : mensajeDigitalizacion()" >
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{expediente.nombre_expediente}}</td>
+                    <td>
+                      <i *ngIf="expediente.estado_digitalizado" class="bi bi-check-lg" style="font-size: 1.5rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
+                      <i *ngIf="!expediente.estado_digitalizado" class="bi bi-file-earmark-x" style="font-size: 1.5rem; padding: 0px 0px; margin: 0px 0px"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade modal-xl" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col" style="padding-right: 0px; margin-right: 0px;">
+              <div class="modal-header">
+                <div class="bg-secondary custom-width">
+                  <h5 class="modal-title m-2 text-white" id="exampleModalLongTitle">EXPEDIENTE: {{expedientetemp.nombre_expediente}}</h5>
+                  <h6 class="modal-title m-2 text-white" id="exampleModalLongTitle2">Fojas: {{expedientetemp.fojas}}</h6>
+                  <h6 class="modal-title m-2 text-white" id="exampleModalLongTitle3">Fojas 1 cara: {{expedientetemp.fojas_unacara}}</h6>
+                  <h6 class="modal-title m-2 text-white" id="exampleModalLongTitle4">Fojas 2 caras: {{expedientetemp.fojas_doscaras}}</h6>
+                  <div class="m-2">
+                    <textarea class="form-control" style="background-color: rgb(253, 251, 240);" id="exampleFormControlTextarea1" rows="3" readonly>{{expedientetemp.fojas_obs}}</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body text-start">
+                <div class="d-flex justify-content-center">
+                  <h3>DIGITALIZADOR</h3>
+                </div>
+                <div class="mb-3">
+                  <input class="form-control form-control-sm" type="file" id="formFile" (change)="onFileSelected($event)" accept=".pdf" [(ngModel)]="data_digitalizacion.documento">
+                </div>
+                <div>
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Total Escaneados</span>
+                    <input id="total_fojas" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="data_digitalizacion.fojas">
+                  </div>
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">1 cara</span>
+                    <input id="fojas_unacara" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="data_digitalizacion.fojas_unacara">
+                  </div>
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">2 caras</span>
+                    <input id="fojas_doscara" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="data_digitalizacion.fojas_doscaras" (blur)="onBlur()">
+                  </div>
+                  <div class="d-flex justify-content-end" style="min-height: 1.5em;">
+                    <label [ngClass]="{'text-success': isMatch, 'text-warning': !isMatch}">{{ message }}</label>
+                  </div>
+                </div>
+                <fieldset class="row mb-3">
+                  <legend class="col-form-label col-sm-2 pt-0">Documentos</legend>
+                  <div class="col-sm-10">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="true" id="ocr" name="ocr" [(ngModel)]="data_digitalizacion.ocr">
+                      <label class="form-check-label" for="ocr">OCR</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="true" id="escala_gris" name="escala_gris" [(ngModel)]="data_digitalizacion.escala_gris">
+                      <label class="form-check-label" for="escala_gris">Escala de grises</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="true" id="color" name="color" [(ngModel)]="data_digitalizacion.color">
+                      <label class="form-check-label" for="color">Color</label>
+                    </div>
+                  </div>
+
+                  <div class="form-floating mt-2">
+                    <textarea class="form-control" id="observaciones" style="height: 100px; resize: none" name="observaciones_generales" [(ngModel)]="data_digitalizacion.observaciones"></textarea>
+                    <label class="mx-4" for="observaciones">Observaciones generales</label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">SALIR</button>
+                <button type="button" class="btn btn-success" (click)="GuardarDigitalizacion()">VALIDAR</button>
+              </div>
+            </div>
+            <div class="col" style="padding-left: 0px; margin-left: 0px;">
+              <div style="margin: 10px;">
+                <iframe [src]="pdfUrl" type="application/pdf" width="100%" height="800px"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
