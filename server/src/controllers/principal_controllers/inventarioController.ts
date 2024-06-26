@@ -54,7 +54,7 @@ class InventarioController{
         
     }
 
-    public async ObtenerInventarioXid(req: Request, res: Response): Promise<void> {
+    public async ObtenerInventarioDetalleXid(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
             const consulta= `SELECT
@@ -87,6 +87,30 @@ class InventarioController{
 
             if (inventario && inventario['rows'].length > 0) {
                 res.json(inventario['rows']);
+            } else {
+                res.status(404).json({ text: 'el inventario detalle no existe' });
+            }
+
+        } catch (error) {
+            console.error('Error al obtener inventario detalle:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    }
+
+    public async ObtenerInventarioXid(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const consulta= `SELECT
+                                    *
+                                FROM
+                                    t_inventario 
+                                WHERE 
+                                    id_inventario=$1
+                             `;
+            const inventario = await db.query(consulta,[id]);
+
+            if (inventario && inventario['rows'].length > 0) {
+                res.json(inventario['rows'][0]);
             } else {
                 res.status(404).json({ text: 'el inventario no existe' });
             }
@@ -155,6 +179,33 @@ class InventarioController{
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }
+
+    public async ModificarCuerpoInventario(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const {  anio, tipo_doc, serie_doc, especialidad_inventario} = req.body;
+
+            const consulta = `
+                  UPDATE public.t_inventario
+                    SET   anio=$1, tipo_doc=$2, serie_doc=$3, especialidad_inventario=$4
+                    WHERE id_inventario=$5;
+                
+                `;
+            const valores = [anio, tipo_doc, serie_doc, especialidad_inventario,id];
+
+            db.query(consulta, valores, (error, resultado) => {
+                if (error) {
+                    console.error('Error al modificar inventario:', error);
+                } else {
+                    console.log('inventario modificado correctamente');
+                    res.json({ text: 'La inventario se modifico correctamente' });
+                }
+            });
+        } catch (error) {
+            console.error('Error al modificar inventario:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    }
     public async ModificarEstadoInventario(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
@@ -180,6 +231,34 @@ class InventarioController{
             });
         } catch (error) {
             console.error('Error al modificar estado del inventario:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    }
+    public async ModificarCantidadInventario(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const { cantidad } = req.body;
+
+            const consulta = `
+                 
+
+                  UPDATE t_inventario
+                    SET  cantidad=$1
+                    WHERE id_inventario=$2;
+                
+                `;
+            const valores = [cantidad,id];
+
+            db.query(consulta, valores, (error, resultado) => {
+                if (error) {
+                    console.error('Error al modificar la cantidad del inventario:', error);
+                } else {
+                    console.log('cantidad del inventario modificado correctamente');
+                    res.json({ text: 'la cantidad del inventario se modifico correctamente' });
+                }
+            });
+        } catch (error) {
+            console.error('Error al modificar la cantidad del inventario:', error);
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }

@@ -34,15 +34,13 @@ export class InventarioFormComponent {
         console.error(err)
       }
     )
-    
-
   }
 
   MensajeDeGuardado(){
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      title: 'Usuario Creado con Exito',
+      title: 'Inventario Creado con Exito',
       showConfirmButton: false,
       timer: 1500
     })

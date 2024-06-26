@@ -35,6 +35,16 @@
     font-weight:400;
 }
 
+.subtitulo_inventario{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    padding-top: 5px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #404B5A;
+}
+
+
 
 thead {
     color: aliceblue;
@@ -75,5 +85,9 @@ thead th{
 
 .table-barra:hover{
     cursor: pointer;
+}
+
+.contenedor{
+   padding: 20px;
 }
 

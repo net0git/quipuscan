@@ -3,8 +3,11 @@ import { Router } from '@angular/router';
 import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
 import { ExpedienteService } from 'src/app/servicios/expediente/expediente.service';
 
+
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+
+declare var bootstrap: any;
 
 var totalPagesExp = '{total_pages_count_string}';
 
@@ -19,17 +22,57 @@ export class InventarioComponent implements OnInit {
   inventariosTem:any=[]
   objetosFiltrados:any=[];
 
-  rows: any=[];
+  
   sections: number = 0;
+  private myModal: any;
 
+  data_inventario:any={
+    id_inventario:0,
+    especialidad_inventario:'',
+    anio:null,
+    tipo_doc:'',
+    serie_doc:null,
+  }
   
   constructor(private expedienteService:ExpedienteService,private router: Router,private inventarioService:InventarioService){}
    
   ngOnInit(): void {
     this.listarInventario()
-    // this.rows = this.createRows(1000);
-    // this.sections = 3;
+    
   }
+  closeModal() {
+    // Ocultar el modal utilizando la instancia almacenada
+    this.myModal.hide();
+    
+  }
+  openModal(id_inventario:number) {
+    console.log(id_inventario)
+    this.inventarioService.obtenerInventarioGeneral(id_inventario).subscribe(
+      res=>{
+       this.data_inventario=res
+        console.log(this.data_inventario)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+    this.myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'));
+    this.myModal.show();
+  }
+
+ModificarCuerpoInventario(){
+  
+  this.inventarioService.modificarCuerpoInventario(this.data_inventario,this.data_inventario.id_inventario).subscribe(
+    res=>{
+        console.log(res)
+        this.listarInventario()
+        this.closeModal()
+    },
+    err=>{
+        console.error(err)
+    }
+  )
+}
   
   listarInventario(){
     this.inventarioService.listaDetalladaInventarios().subscribe(

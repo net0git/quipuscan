@@ -11,25 +11,25 @@
         <div class="row" >
             <div class="col-lg-3" >
                 <div class="menu-listado-reportes">
-                    <div class="titulo">DATOS DE INVENTARIO:</div>
+                    <div class="titulo">DATOS DE INVENTARIO</div>
                     
                     <div class="lista">
-                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Año: {{inventarioDetalle.anio}}</div></div>
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
                     </div>
                     <div class="lista">
-                        <div class="item" ><div class="name"><i class="bi bi-card-list"></i> Cantidad: {{inventarioDetalle.cantidad}}</div></div>
+                        <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.expedientesListTemp.length}}</div></div>
                     </div>
                     <div class="lista">
-                        <div class="item"  ><div class="name"><i class="bi bi-card-list"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
+                        <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
                     </div>
                     <div class="lista">
-                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Serie de documento: {{inventarioDetalle.serie_doc}}</div></div>
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Serie de Doc: {{inventarioDetalle.serie_doc}}</div></div>
                     </div>
                     <div class="lista">
-                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Tipo de documento: {{inventarioDetalle.tipo_doc}}</div></div>
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Tipo de Doc: {{inventarioDetalle.tipo_doc}}</div></div>
                     </div>
                     <div class="lista">
-                        <div class="item" ><div class="name"> <i class="bi bi-card-list"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
+                        <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
                     </div>
                 </div>
               
@@ -47,10 +47,15 @@
 
                 <div class="card rounded shadow border-2 ">
                     <div class="card-header py-3 d-flex justify-content-between align-items-center ">
-                        <input id="input_ingreso_expediente" type="text" class="form-control" name="registroexpediente" [disabled]="habilitarAgregar"  placeholder="Ingrese el titulo del expediente" [(ngModel)]="data_expediente.nombre_expediente" (keydown)="onEnterPress($event)" >
-                        <button id="buton_agregar" type="button" class="btn btn-success mx-4" (click)="agregarExpediente()" [disabled]="habilitarAgregar" >AGREGAR</button>                        
+                        <input id="input_ingreso_expediente" type="text" class="form-control" name="registroexpediente"   placeholder="Ingrese el titulo del expediente" [(ngModel)]="data_expediente.nombre_expediente" (keydown)="onEnterPress($event)" >
+                        <button id="buton_agregar" type="button" class="btn btn-success mx-4" (click)="agregarExpediente()"  >AGREGAR</button>                        
                     </div>
                     <div class="card-body px-5 bg-white rounded">
+                        <div class="mb-2">
+                            <button class="btn btn-secondary btn-sm">en preparción ({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
+                            <button type="button" class="btn btn-outline-success btn-sm mx-2" (click)="listarExpedientesPendientes()">pendientes ({{exp_count_pendientes}})</button>
+                            <button type="button" class="btn  btn-outline-primary btn-sm" (click)="restaurarLista()"><i class="bi bi-arrow-clockwise"></i></button>
+                        </div>
                       <div class="table-responsive">
                         <table class="table text-center  table-hover" id="excel-table">
                             <colgroup>
@@ -79,7 +84,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-center">
-                            <button id="boton_preparacion" type="button" class="btn btn-info mx-4 text-white" (click)="enviarApreparacion()" [disabled]="habilitarPreparacion" [style]="disablePreparador">ENVIAR A PREPARACION</button>
+                            <button id="boton_preparacion" type="button" class="btn btn-info mx-4 text-white" (click)="enviarApreparacion()" >ENVIAR A PREPARACION</button>
                         </div>
                       </div>
                     </div>

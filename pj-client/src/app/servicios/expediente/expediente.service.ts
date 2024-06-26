@@ -12,9 +12,14 @@ api_uri_expediente='http://'+AppConfiguration.Setting().ipClient+':3000/api/expe
   constructor(private http:HttpClient) { }
 
   listaExpedientesXinventario(id_inventario:number){
-///api/expediente/listaporinventario/:id_inventario
+///api/expediente/listaporinventario/:id_inventario listatotalporinventario
     return this.http.get(this.api_uri_expediente+'/listaporinventario/'+id_inventario)
   }
+
+  listaTotalExpedientesXinventario(id_inventario:number){
+    ///api/expediente/listaporinventario/:id_inventario listatotalporinventario
+        return this.http.get(this.api_uri_expediente+'/listatotalporinventario/'+id_inventario)
+      }
  //devuelve la lista detallada junto con el nombre de usuario el nombre de la persona asociada
   listaDetalladaExpedientes(){
     return this.http.get(this.api_uri_expediente+'/listadetallada')

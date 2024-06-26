@@ -14,10 +14,13 @@ class InventarioRoutes {
         //consultas para personas 
         this.router.get('/api/inventario', inventarioController_1.default.listarInventario);
         this.router.get('/api/inventario/listadetallada', inventarioController_1.default.listarInventarioDetalle);
-        this.router.get('/api/inventario/detalle/:id', inventarioController_1.default.ObtenerInventarioXid);
+        this.router.get('/api/inventario/detalle/:id', inventarioController_1.default.ObtenerInventarioDetalleXid);
+        this.router.get('/api/inventario/general/:id', inventarioController_1.default.ObtenerInventarioXid);
         this.router.post('/api/inventario', inventarioController_1.default.CrearInventario);
         this.router.put('/api/inventario/:id', inventarioController_1.default.ModificarInventario);
         this.router.put('/api/inventario/modificarestado/:id', inventarioController_1.default.ModificarEstadoInventario);
+        this.router.put('/api/inventario/modificarcantidad/:id', inventarioController_1.default.ModificarCantidadInventario);
+        this.router.put('/api/inventario/modificarcuerpo/:id', inventarioController_1.default.ModificarCuerpoInventario);
     }
 }
 const inventarioRoutes = new InventarioRoutes;

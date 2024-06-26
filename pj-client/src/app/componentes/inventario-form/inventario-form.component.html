@@ -29,8 +29,7 @@
                             <option value="">ELIJE ESPECIALIDAD </option>
                             <option value="CIVIL">CIVIL</option>
                             <option value="PENAL">PENAL</option>
-                            <option value="LABORAL CONTENCIOSO ADMINISTRATIVO">LABORAL CONTENCIOSO ADMINISTRATIVO
-                            </option>
+                            <option value="LABORAL CONTENCIOSO ADMINISTRATIVO">LABORAL CONTENCIOSO ADMINISTRATIVO </option>
                             <option value="LABORAL NUEVA LEY">LABORAL NUEVA LEY</option>
                             <option value="FAMILIA CIVIL">FAMILIA CIVIL</option>
                             <option value="FAMILIA TUTELAR">FAMILIA TUTELAR</option>
@@ -40,21 +39,18 @@
                         <label for="anio" class="form-label mt-4">Año</label>
                         <input type="number" class="form-control" name="anio" [(ngModel)]="data_inventario.anio">
                     </div>
-
+<!-- 
                     <div class="form-group">
                         <label for="cantidad" class="form-label mt-4">Cantidad:</label>
-                        <input type="number" class="form-control" name="cantidad"
-                            [(ngModel)]="data_inventario.cantidad">
-                    </div>
+                        <input type="number" class="form-control" name="cantidad" [(ngModel)]="data_inventario.cantidad">
+                    </div> -->
                     <div class="form-group">
                         <label for="tipo_doc" class="form-label mt-4">Tipo de Documento a digitalizar:</label>
-                        <select id="tipo_doc" name="tipo_doc" class="form-control"
-                            [(ngModel)]="data_inventario.tipo_doc">
+                        <select id="tipo_doc" name="tipo_doc" class="form-control"  [(ngModel)]="data_inventario.tipo_doc">
                             <option value="">ELIJE EL TIPO DE DOCUMENTO </option>
                             <option value="EXPEDIENTE JURIDICCIONAL">EXPEDIENTE JURIDICCIONAL</option>
                             <option value="EXPEDIENTE ADMINISTRATIVO">EXPEDIENTE ADMINISTRATIVO</option>
                             <option value="LEGAJO ADMINISTRATIVO">LEGAJO ADMINISTRATIVO</option>
-
                         </select>
                     </div>
 

@@ -6,6 +6,24 @@ class ExpedienteController{
     public async listarExpedientesXidInventario(req:Request, res:Response):Promise<any>{
         try {
             const { id_inventario } = req.params;
+            const consulta= 'select * from t_expediente where id_inventario = $1 and estado_preparado=false';
+            const expediente = await db.query(consulta,[id_inventario]);
+
+            if (expediente && expediente['rows'].length > 0) {
+                res.json(expediente['rows']);
+            } else {
+                res.status(404).json({ text: 'no existe registro de expedientes' });
+            }
+
+        } catch (error) {
+            console.error('Error al obtener lista de expediente:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        
+    }
+    public async listarTotalExpedientesXidInventario(req:Request, res:Response):Promise<any>{
+        try {
+            const { id_inventario } = req.params;
             const consulta= 'select * from t_expediente where id_inventario = $1';
             const expediente = await db.query(consulta,[id_inventario]);
 

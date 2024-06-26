@@ -13,6 +13,7 @@ class ExpedienteRoutes {
     config() {
         //consultas para personas 
         this.router.get('/api/expediente/listaporinventario/:id_inventario', expedienteController_1.default.listarExpedientesXidInventario); //
+        this.router.get('/api/expediente/listatotalporinventario/:id_inventario', expedienteController_1.default.listarTotalExpedientesXidInventario); //
         this.router.get('/api/expediente/:id', expedienteController_1.default.ObtenerExpedienteDetalleXid);
         this.router.get('/api/expediente/limpiar/:id_expediente', expedienteController_1.default.LimpiarProcesoExpediente);
         this.router.post('/api/expediente', expedienteController_1.default.CrearExpediente);

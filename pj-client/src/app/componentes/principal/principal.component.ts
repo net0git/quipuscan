@@ -12,29 +12,29 @@ import { ExpedienteService } from 'src/app/servicios/expediente/expediente.servi
 })
 export class PrincipalComponent implements OnInit {
 
-      disableInventario='display: none';
-      disablePreparador='display: none';
-      disableDigitalizador='display: none';
-      disableIndizador='display: none';
-      disableControlCalidad='display: none';
-      disableFedatario='display: none';
-      disableLeyenda='display: none';
-      disableUsuarios='display: none';
-      disableBusqueda='display: none';
-      disableReporte='display: none';
-      disableConfiguracion='display: none';
+      // disableInventario='display: none';
+      // disablePreparador='display: none';
+      // disableDigitalizador='display: none';
+      // disableIndizador='display: none';
+      // disableControlCalidad='display: none';
+      // disableFedatario='display: none';
+      // disableLeyenda='display: none';
+      // disableUsuarios='display: none';
+      // disableBusqueda='display: none';
+      // disableReporte='display: none';
+      // disableConfiguracion='display: none';
 
-      // disableInventario='display: block';
-      // disablePreparador='display: block';
-      // disableDigitalizador='display: block';
-      // disableIndizador='display: block';
-      // disableControlCalidad='display: block';
-      // disableFedatario='display: block';
-      // disableLeyenda='display: block';
-      // disableUsuarios='display: block';
-      // disableBusqueda='display: block';
-      // disableReporte='display: block';
-      // disableConfiguracion='display: block';
+      disableInventario='display: block';
+      disablePreparador='display: block';
+      disableDigitalizador='display: block';
+      disableIndizador='display: block';
+      disableControlCalidad='display: block';
+      disableFedatario='display: block';
+      disableLeyenda='display: block';
+      disableUsuarios='display: block';
+      disableBusqueda='display: block';
+      disableReporte='display: block';
+      disableConfiguracion='display: block';
       
 
 
@@ -44,7 +44,7 @@ export class PrincipalComponent implements OnInit {
 
 
   ngOnInit(): void {
-      this.permisos()
+    //  this.permisos()
   }
 
   permisos(){

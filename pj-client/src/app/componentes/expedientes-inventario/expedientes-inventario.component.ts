@@ -34,13 +34,24 @@ data_expediente:any={
 }
 
 expedientesList:any=[]
+expedientesListTemp:any=[]//servira como respaldo para no tener que volver a consulta a la base de datos
+// expedientesPendientes:any=[] 
+// expedientesEmPreparacion:any=[]
+exp_count_pendientes:number=0
+
+
+// Paginación
+itemsPerPage: number = 10;
+currentPage: number = 0;
+paginatedData: any[] = [];
+
 inventarioDetalle:any=[]
 constructor(private lectorBarrasService:LectorBarrasService,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService, private inventarioService:InventarioService){}
 expedientetemp:any={}
 async ngOnInit(): Promise<void> {
   try {
     await this.detalleInventario();
-    await this.listarExpedientesXidInventario();
+    await this.listarTotalExpedientesXidInventario();
   } catch (error) {
     console.error(error);
   }
@@ -53,7 +64,7 @@ async detalleInventario(): Promise<void> {
     this.inventarioDetalle = res;
     this.inventarioDetalle=this.inventarioDetalle[0]
     if (this.inventarioDetalle.estado_preparado) {
-      this.disablePreparador = 'display: none';
+    
       this.disableMensajePreparador = 'display: block';
       console.log(this.inventarioDetalle.id_inventario+'  '+this.inventarioDetalle.estado_preparado)
     }
@@ -62,18 +73,32 @@ async detalleInventario(): Promise<void> {
   }
 }
 
-async listarExpedientesXidInventario(): Promise<void> {
+async listarTotalExpedientesXidInventario(): Promise<void> {
   const params = this.activatedRoute.snapshot.params;
   try {
-    const res = await this.expedienteService.listaExpedientesXinventario(params['id_inventario']).toPromise();
+    const res = await this.expedienteService.listaTotalExpedientesXinventario(params['id_inventario']).toPromise();
     this.expedientesList = res;
-    if (this.expedientesList.length === this.inventarioDetalle.cantidad) {
-      this.habilitarPreparacion = false;
-      this.habilitarAgregar = true;
-    }
+    this.expedientesListTemp=res;  
+    this.exp_count_pendientes=0
+        this.expedientesList.forEach((expediente: any) => {
+            if(expediente.estado_preparado==null){
+               this.exp_count_pendientes=this.exp_count_pendientes+1
+            }
+        })
+        this.modificarCantidadInvenario()
+     
   } catch (err) {
     console.error(err);
   }
+}
+
+listarExpedientesPendientes(){
+  this.expedientesList = this.expedientesListTemp.filter((expediente: any) => {
+    return expediente.estado_preparado == null;
+});
+}
+restaurarLista(){
+  this.expedientesList=this.expedientesListTemp
 }
 
 agregarExpediente(){
@@ -89,7 +114,7 @@ agregarExpediente(){
   this.expedienteService.guardarExpedienteInventario(expeditenbody).subscribe(
     res=>{
         console.log(res)
-        this.listarExpedientesXidInventario()
+        this.listarTotalExpedientesXidInventario()
         this.limpiarIngreso()
     },
     err=>{
@@ -137,26 +162,40 @@ this.expedientesList.forEach((expediente: any) => {
   console.log(expediente);
   // el expediente pasa a ser falso indicando asi que esta listo para preparacion pero que aun no se ha preparado, 
   // null: esta en inventario, false: listo para preparacion, cuando este en true significa que ya se ha preparado
-  expediente.estado_preparado=false
-  this.expedienteService.modificarExpediente(expediente,expediente.id_expediente).subscribe(
+  if(expediente.estado_preparado==null){
+    expediente.estado_preparado=false
+  this.expedienteService.modificarEstadoPreparado(expediente,expediente.id_expediente).subscribe(
     res=>{
         console.log(res)
-        
+        this.listarTotalExpedientesXidInventario()
     },
     err=>{
         console.error(err)
 
     }
   )
-});
+  }
+  
+})
 
 this.modificarEstadoInventario()
 this.habilitarPreparacion=false
 this.habilitarAgregar=true
-this.disablePreparador='display: none';
-this.disableMensajePreparador='display: block'
 this.mensajeEnviadoaPreparacion()
 
+}
+
+modificarCantidadInvenario(){
+  const params=this.activatedRoute.snapshot.params
+  console.log(params['id_inventario'])
+  this.inventarioService.modificarCantidadInventario({cantidad: this.expedientesList.length},params['id_inventario']).subscribe(
+    res=>{
+      console.log(res)
+    },
+    err=>{
+      console.error(err)
+    }
+  )
 }
 
 
@@ -166,7 +205,7 @@ eliminarExpedienteDeBD(expediente:any){
     this.expedienteService.eliminarExpediente(expediente.id_expediente).subscribe(
       res=>{
         console.log(res)
-        this.listarExpedientesXidInventario()
+        this.listarTotalExpedientesXidInventario()
         this.habilitarPreparacion=true
         this.habilitarAgregar=false
       },
@@ -191,7 +230,7 @@ async modificarExpediente(expediente:any){
     this.expedienteService.modificarExpediente(expediente,expediente.id_expediente).subscribe(
       res=>{
         console.log(res)
-        this.listarExpedientesXidInventario()
+        this.listarTotalExpedientesXidInventario()
       
       },
       err=>{
@@ -269,5 +308,24 @@ onEnterPress(event: KeyboardEvent) {
     )
     // Aquí puedes agregar la lógica que quieres ejecutar cuando se presiona Enter
   }
+}
+
+// Métodos de paginación
+updatePaginatedData() {
+  const start = this.currentPage * this.itemsPerPage;
+  const end = start + this.itemsPerPage;
+  this.paginatedData = this.expedientesList.slice(start, end);
+  console.log(this.paginatedData)
+}
+
+onPageChange(page: number) {
+  if (page >= 0 && page < this.totalPages) {
+    this.currentPage = page;
+    this.updatePaginatedData();
+  }
+}
+
+get totalPages() {
+  return Math.ceil(this.expedientesList.length / this.itemsPerPage);
 }
 }

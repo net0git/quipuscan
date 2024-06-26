@@ -24,15 +24,24 @@ api_uri_inventario='http://'+AppConfiguration.Setting().ipClient+':3000/api/inve
     return this.http.post(this.api_uri_inventario,body)
   }
 
-
+//obtiene un invenario mas detallado
   obtenerDetalleInventario(id_inventario:number){
-    ///api/inventario/detalle/:id
     return this.http.get(this.api_uri_inventario+'/detalle/'+id_inventario)
+  }
+//obtener un inventario basico 
+  obtenerInventarioGeneral(id_inventario:number){
+    return this.http.get(this.api_uri_inventario+'/general/'+id_inventario)
   }
 
     
   modificarEstadoInventario(body:any,id_inventario:number){
-    ///api/inventario/modificarestado
     return this.http.put(this.api_uri_inventario+'/modificarestado/'+id_inventario,body)
+  }
+  modificarCantidadInventario(body:any,id_inventario:number){
+    return this.http.put(this.api_uri_inventario+'/modificarcantidad/'+id_inventario,body)
+  }
+
+  modificarCuerpoInventario(body:any, id_inventario:number){
+    return this.http.put(this.api_uri_inventario+'/modificarcuerpo/'+id_inventario,body)
   }
 }
