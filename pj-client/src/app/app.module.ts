@@ -33,14 +33,7 @@ import { InventarioComponent } from './componentes/inventario/inventario.compone
 import { FedatarioComponent } from './componentes/fedatario/fedatario.component';
 import { FedatarioExpedientesComponent } from './componentes/fedatario-expedientes/fedatario-expedientes.component';
 import { FedatarioExpedientesFormComponent } from './componentes/fedatario-expedientes-form/fedatario-expedientes-form.component';
-
-
-
-
-
-
-
-
+import {NgxPaginationModule} from 'ngx-pagination'; 
 
 
 @NgModule({
@@ -51,14 +44,9 @@ import { FedatarioExpedientesFormComponent } from './componentes/fedatario-exped
     UserComponent,
     UserformComponent,
     PrincipalComponent,
- 
     CreateUserComponent,
-   
     ResolucionFormComponent,
-  
     ResolucionesComponent,
-
-  
     InventarioFormComponent,
     ExpedientesInventarioComponent,
     PreparacionDocumentosComponent,
@@ -75,15 +63,11 @@ import { FedatarioExpedientesFormComponent } from './componentes/fedatario-exped
     FedatarioComponent,
     FedatarioExpedientesComponent,
     FedatarioExpedientesFormComponent,
-
- 
-    
-
-  
   ],
   imports: [
     
     BrowserModule,
+    NgxPaginationModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

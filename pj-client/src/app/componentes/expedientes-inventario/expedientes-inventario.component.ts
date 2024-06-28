@@ -3,6 +3,8 @@ import { Router ,ActivatedRoute} from '@angular/router';
 import { ExpedienteService } from 'src/app/servicios/expediente/expediente.service';
 import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
 import { LectorBarrasService } from 'src/app/servicios/lectorbarras/lector-barras.service';
+
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -39,11 +41,7 @@ expedientesListTemp:any=[]//servira como respaldo para no tener que volver a con
 // expedientesEmPreparacion:any=[]
 exp_count_pendientes:number=0
 
-
-// Paginación
-itemsPerPage: number = 10;
-currentPage: number = 0;
-paginatedData: any[] = [];
+p: number = 1;
 
 inventarioDetalle:any=[]
 constructor(private lectorBarrasService:LectorBarrasService,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService, private inventarioService:InventarioService){}
@@ -93,8 +91,10 @@ async listarTotalExpedientesXidInventario(): Promise<void> {
 }
 
 listarExpedientesPendientes(){
+  this.p=1
   this.expedientesList = this.expedientesListTemp.filter((expediente: any) => {
     return expediente.estado_preparado == null;
+    
 });
 }
 restaurarLista(){
@@ -114,8 +114,10 @@ agregarExpediente(){
   this.expedienteService.guardarExpedienteInventario(expeditenbody).subscribe(
     res=>{
         console.log(res)
+        this.mensajeExpedienteGuardado()
         this.listarTotalExpedientesXidInventario()
         this.limpiarIngreso()
+
     },
     err=>{
       console.error(err)
@@ -281,11 +283,17 @@ mensajeEnviadoaPreparacion(){
   });
 }
 
-
-
-
-
-// 
+mensajeExpedienteGuardado(){
+  Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: "success",
+    title: "expediente registrado ",
+    showConfirmButton: false,
+    timer: 1500
+  });
+}
+ 
 onEnterPress(event: KeyboardEvent) {
   if (event.key === 'Enter') {
     console.log('Enter key pressed:', this.data_expediente.nombre_expediente);
@@ -309,23 +317,23 @@ onEnterPress(event: KeyboardEvent) {
     // Aquí puedes agregar la lógica que quieres ejecutar cuando se presiona Enter
   }
 }
+buscarEnObjeto(event: any) {
+  let objetosFiltrados=[]
+  const textoBusqueda = event.target.value.toLowerCase();
+    
+    // Filtrar los objetos según el texto de búsqueda
+    objetosFiltrados = this.expedientesListTemp.filter((objeto: 
+      { 
+        nombre_expediente: string;
+      
 
-// Métodos de paginación
-updatePaginatedData() {
-  const start = this.currentPage * this.itemsPerPage;
-  const end = start + this.itemsPerPage;
-  this.paginatedData = this.expedientesList.slice(start, end);
-  console.log(this.paginatedData)
-}
+       }) => {
+      
+      const nombre_expediente = objeto.nombre_expediente.toLowerCase();
+     
 
-onPageChange(page: number) {
-  if (page >= 0 && page < this.totalPages) {
-    this.currentPage = page;
-    this.updatePaginatedData();
-  }
-}
-
-get totalPages() {
-  return Math.ceil(this.expedientesList.length / this.itemsPerPage);
+      return nombre_expediente.includes(textoBusqueda);
+    });
+    this.expedientesList=objetosFiltrados
 }
 }

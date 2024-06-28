@@ -10,7 +10,7 @@
 
         <div class="row" >
             <div class="col-lg-3" >
-                <div class="menu-listado-reportes">
+                <div class="menu-listado-inventario">
                     <div class="titulo">DATOS DE INVENTARIO</div>
                     
                     <div class="lista">
@@ -32,30 +32,32 @@
                         <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
                     </div>
                 </div>
-              
-                
+              <div class="d-flex justify-content-end m-2">
+                 <label id="mensaje_preparador" style="color: green; font-size: large" for="" [style]="disableMensajePreparador">¡Expedientes listos en preparación!</label>
+              </div>
             </div>
             <div class="col-lg-9">
                 <div class="presentacion_user mb-4">
                     <div class="icon-title-container">
                         <i class="bi bi-card-list icon-custom"></i>
-                        <h2 class="titulo_reporte mx-2"> REGISTRO DE EXPEDIENTES DE INVENTARIO</h2>
+                        <h2 class="titulo_reporte mx-2"> REGISTRO DE EXPEDIENTES</h2>
                         
                     </div>
-                    <label id="mensaje_preparador" style="color: green; font-size: large;" for="" [style]="disableMensajePreparador">¡Expedientes listos en preparación!</label>
                 </div>
 
-                <div class="card rounded shadow border-2 ">
+                <div class="card rounded shadow border-2 " >
                     <div class="card-header py-3 d-flex justify-content-between align-items-center ">
-                        <input id="input_ingreso_expediente" type="text" class="form-control" name="registroexpediente"   placeholder="Ingrese el titulo del expediente" [(ngModel)]="data_expediente.nombre_expediente" (keydown)="onEnterPress($event)" >
+                        <input id="input_ingreso_expediente" type="text" class="form-control" name="registroexpediente"   placeholder="Ingrese el titulo del expediente" [(ngModel)]="data_expediente.nombre_expediente" (keydown)="onEnterPress($event)" autofocus >
                         <button id="buton_agregar" type="button" class="btn btn-success mx-4" (click)="agregarExpediente()"  >AGREGAR</button>                        
                     </div>
                     <div class="card-body px-5 bg-white rounded">
-                        <div class="mb-2">
-                            <button class="btn btn-secondary btn-sm">en preparción ({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
-                            <button type="button" class="btn btn-outline-success btn-sm mx-2" (click)="listarExpedientesPendientes()">pendientes ({{exp_count_pendientes}})</button>
-                            <button type="button" class="btn  btn-outline-primary btn-sm" (click)="restaurarLista()"><i class="bi bi-arrow-clockwise"></i></button>
-                        </div>
+                        <div class="mb-2 d-flex align-items-center">
+                            <button class="btn btn-secondary btn-sm ">preparación({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
+                            <button type="button" class="btn btn-outline-success btn-sm mx-2 " (click)="listarExpedientesPendientes()">pendientes({{exp_count_pendientes}})</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm " (click)="restaurarLista()"><i class="bi bi-arrow-clockwise"></i></button>
+                            <input type="text" class="form-control form-control-sm mx-2" name="registroexpediente" placeholder="Buscar expediente" (input)="buscarEnObjeto($event)">
+                          </div>
+                          
                       <div class="table-responsive">
                         <table class="table text-center  table-hover" id="excel-table">
                             <colgroup>
@@ -64,7 +66,7 @@
                                 <col style="width: 10%;">
                                 <col style="width: 10%;">
                               </colgroup>
-                            <thead class="text-white table-success">
+                            <thead class="table-success">
                               <tr>
                                 <th scope="col">Nro</th>
                                 <th scope="col">EXPEDIENTE</th>
@@ -73,18 +75,20 @@
                               </tr>
                             </thead>
                 
-                            <tbody >
-                              <tr *ngFor="let expediente of expedientesList, index as i"  >
-                                
-                               <th scope="row">{{i+1}}</th>
-                                 <td>{{expediente.nombre_expediente}}</td>
-                                <td ><i class="bi bi-pencil" (click)="exmodificarExpediente(expediente)" ></i></td>
-                                <td ><i class="bi bi-trash" (click)="exEliminarExpediente(expediente)"></i></td>
-                              </tr> 
-                            </tbody>
+                            <tbody>
+                                <tr *ngFor="let expediente of expedientesList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                  <th scope="row">{{ i + (p - 1) * 10 + 1 }}</th>
+                                  <td>{{expediente.nombre_expediente}}</td>
+                                   <td><i class="bi bi-pencil" (click)="exmodificarExpediente(expediente)" ></i></td> 
+                                  <td><i class="bi bi-trash" (click)="exEliminarExpediente(expediente)"></i></td>
+                                </tr>
+                              </tbody>
                         </table>
-                        <div class="d-flex justify-content-center">
-                            <button id="boton_preparacion" type="button" class="btn btn-info mx-4 text-white" (click)="enviarApreparacion()" >ENVIAR A PREPARACION</button>
+                        <div class="d-flex justify-content-between ">
+                            <button  id="boton_preparacion" type="button" class="btn btn-info btn-sm" (click)="enviarApreparacion()" ><i class="bi bi-send-check" style="font-size: 20px;"></i> ENVIAR A PREPARACIÓN</button>
+
+                            <pagination-controls (pageChange)="p = $event"   previousLabel="Anterior"   nextLabel="Siguiente"  ></pagination-controls>
+                          
                         </div>
                       </div>
                     </div>

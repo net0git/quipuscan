@@ -18,7 +18,13 @@ class ExpedienteController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id_inventario } = req.params;
-                const consulta = 'select * from t_expediente where id_inventario = $1 and estado_preparado=false';
+                const consulta = `
+                          SELECT * 
+                                FROM t_expediente 
+                                WHERE id_inventario = $1 
+                                AND estado_preparado IS NOT NULL
+                                ORDER BY id_expediente;
+                            `;
                 const expediente = yield database_1.default.query(consulta, [id_inventario]);
                 if (expediente && expediente['rows'].length > 0) {
                     res.json(expediente['rows']);
@@ -37,7 +43,7 @@ class ExpedienteController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id_inventario } = req.params;
-                const consulta = 'select * from t_expediente where id_inventario = $1';
+                const consulta = 'select * from t_expediente where id_inventario = $1 order by id_expediente';
                 const expediente = yield database_1.default.query(consulta, [id_inventario]);
                 if (expediente && expediente['rows'].length > 0) {
                     res.json(expediente['rows']);

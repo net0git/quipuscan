@@ -10,41 +10,26 @@
 
     <div class="row">
       <div class="col-lg-3">
-        <div class="menu-listado-reportes">
-          <div class="titulo">DATOS DE INVENTARIO:</div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"> <i class="bi bi-card-list"></i> Año: {{inventarioDetalle.anio}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Cantidad: {{inventarioDetalle.cantidad}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Especialidad:
-                {{inventarioDetalle.especialidad_inventario}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"> <i class="bi bi-card-list"></i> Serie de documento: {{inventarioDetalle.serie_doc}}
-              </div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"> <i class="bi bi-card-list"></i> Tipo de documento: {{inventarioDetalle.tipo_doc}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"> <i class="bi bi-card-list"></i> Supervisor: {{inventarioDetalle.nombre+'
-                '+inventarioDetalle.ap_paterno}}</div>
-            </div>
-          </div>
+        <div class="menu-listado-inventario">
+          <div class="titulo">DATOS DE INVENTARIO</div>
+                <div class="lista">
+                    <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
+                </div>
+                <div class="lista">
+                    <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.expedientesListTemp.length}}</div></div>
+                </div>
+                <div class="lista">
+                    <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
+                </div>
+                <div class="lista">
+                    <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Serie de Doc: {{inventarioDetalle.serie_doc}}</div></div>
+                </div>
+                <div class="lista">
+                    <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Tipo de Doc: {{inventarioDetalle.tipo_doc}}</div></div>
+                </div>
+                <div class="lista">
+                    <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
+                </div>
         </div>
       </div>
       <div class="col-lg-9">
@@ -75,18 +60,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let expediente of expedientesList; index as i" (click)="!expediente.estado_preparado ? preparacionExpediente(expediente.id_expediente) : mensajePreparacion()">
-                    <th scope="row">{{i+1}}</th>
-                    <td>{{expediente.nombre_expediente}}</td>
+                  <tr *ngFor="let expediente of expedientesList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" >
+                    <th scope="row">{{ i + (p - 1) * 10 + 1 }}</th>
+                    <td (click)="!expediente.estado_preparado ? preparacionExpediente(expediente.id_expediente) : mensajePreparacion()">{{expediente.nombre_expediente}}</td>
                     <td>
-                      <i *ngIf="expediente.estado_preparado" class="bi bi-check-lg"
-                        style="font-size: 1.5rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
-                      <i *ngIf="!expediente.estado_preparado" class="bi bi-file-earmark-x"
-                        style="font-size: 1.5rem; padding: 0px 0px; margin: 0px 0px"></i>
+                      <i *ngIf="expediente.estado_preparado" class="bi bi-check-lg" style=" color: green; padding: 0px 0px; margin: 0px 0px"></i>
+                      <i *ngIf="!expediente.estado_preparado" class="bi bi-file-earmark-x" style=" padding: 0px 0px; margin: 0px 0px"></i>
+
+                        <i *ngIf="expediente.estado_preparado" class="bi bi-eye-fill mx-4" style=" color: rgb(77, 0, 128); padding: 0px 0px; margin: 0px 0px"></i>
+                        <!-- <i *ngIf="!expediente.estado_preparado" class="bi bi-eye-fill mx-4"></i> -->
+
+                        <i *ngIf="expediente.estado_preparado" class="bi bi-pencil" style=" color: rgb(0, 45, 128); padding: 0px 0px; margin: 0px 0px"></i>
+                        <!-- <i *ngIf="!expediente.estado_preparado" class="bi bi-pencil"></i> -->
                     </td>
-                  </tr>
+                  </tr>              
                 </tbody>
               </table>
+              <div class="d-flex justify-content-end ">
+                <pagination-controls (pageChange)="p = $event"   previousLabel="Anterior"   nextLabel="Siguiente"  ></pagination-controls>
+              </div>
             </div>
           </div>
         </div>

@@ -17,6 +17,8 @@ export class PreparacionExpedientesInventarioComponent implements OnInit{
   inventarioDetalle:any=[]
   private myModal: any;
   objetosFiltrados:any=[];
+
+  p: number = 1;
   constructor(private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService,private inventarioService:InventarioService){}
 expedientetemp:any={}
 ngOnInit(): void {
