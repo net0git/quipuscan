@@ -31,5 +31,9 @@ export class DigitalizacionService {
   modificarDocumentoId(body:any,id_digitalizacion:number){
     return this.http.put(this.api_uri_digitalizacion+'/modificar/documento/'+id_digitalizacion,body)
   }
+
+  modificarDigitalizado(body:any,id_digitalizacion:number){
+    return this.http.put(this.api_uri_digitalizacion+'/modificar/'+id_digitalizacion,body)
+  }
  
 }

@@ -16,6 +16,9 @@ export class IndizadorExpedienteComponent implements OnInit {
   inventarioDetalle:any=[]
   private myModal: any;
   objetosFiltrados:any=[];
+  p: number = 1;
+  exp_count_pendientes:number=0
+  expedientesHabilitados:any=[]
   
   constructor(private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService,private inventarioService:InventarioService){}
 expedientetemp:any={}
@@ -52,11 +55,14 @@ listarExpedientesXidInventario(){
   console.log(params['id_inventario'])
   this.expedienteService.listaExpedientesXinventario(params['id_inventario']).subscribe(
     res=>{
-      const ExpedientesHabilitados:any = res
-      this.expedientesList=ExpedientesHabilitados.filter((expediente: { estado_digitalizado: boolean; }) => expediente.estado_digitalizado ===true);
-    
+       this.expedientesHabilitados= res
+      this.expedientesList=this.expedientesHabilitados.filter((expediente: { estado_digitalizado: boolean; }) => expediente.estado_digitalizado ===true);
       this.expedientesListTemp=this.expedientesList 
-      this.expedientesListTemp=res
+      this.expedientesList.forEach((expediente: any) => {
+        if(expediente.estado_indizado==null){
+           this.exp_count_pendientes=this.exp_count_pendientes+1
+        }
+    })
  
     },
     err=>{

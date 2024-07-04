@@ -55,8 +55,7 @@ class ExpedienteController{
                         i.id_inventario,
                         i.especialidad_inventario,
                         i.anio,
-                        i.serie_doc
-                        
+                        i.serie_doc 
                     from 
                         t_expediente e
                     join
@@ -67,7 +66,7 @@ class ExpedienteController{
             const expediente = await db.query(consulta,[id]);
 
             if (expediente && expediente['rows'].length > 0) {
-                res.json(expediente['rows']);
+                res.json(expediente['rows'][0]);
             } else {
                 res.status(404).json({ text: 'el expediente no existe' });
             }
@@ -81,16 +80,16 @@ class ExpedienteController{
 
     public async CrearExpediente(req: Request, res: Response): Promise<void> {
         try {
-            const { id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, observaciones, lote, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado } = req.body;
+            const { id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, juzgado_origen, tipo_proceso, materia, demandante, demandado, estado_preparado, estado_digitalizado, estado_indizado, estado_controlado, estado_fedatado } = req.body;
 
             const consulta = `
                   
-                       INSERT INTO t_expediente( id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, observaciones, lote, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado)
-                       VALUES (  $1, $2, $3, $4, $5, $6, $7,$8, $9, $10, $11,$12,$13,$14, $15, $16)
+                    INSERT INTO t_expediente( id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, juzgado_origen, tipo_proceso, materia, demandante, demandado, estado_preparado, estado_digitalizado, estado_indizado, estado_controlado, estado_fedatado)
+                       VALUES (  $1, $2, $3, $4, $5, $6, $7,$8, $9, $10, $11,$12,$13,$14, $15, $16,$17,$18,$19)
                     RETURNING id_expediente; -- Devolver el ID de la persona insertada
             `;
             
-            const valores = [id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, observaciones, lote, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado];
+            const valores = [id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, juzgado_origen, tipo_proceso, materia, demandante, demandado, estado_preparado, estado_digitalizado, estado_indizado, estado_controlado, estado_fedatado];
             
             db.query(consulta, valores, (error, resultado) => {
                 if (error) {
@@ -113,7 +112,7 @@ class ExpedienteController{
     public async ModificarExpediente(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
-            const { id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, observaciones, lote, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado } = req.body;
+            const { id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado } = req.body;
 
             const consulta = `
                  
@@ -126,8 +125,6 @@ class ExpedienteController{
                          fojas_obs=$7, 
                          copias_originales=$8, 
                          copias_simples=$9, 
-                         observaciones=$10, 
-                         lote=$11, 
                          estado_preparado=$12,
                          estado_digitalizado=$13, 
                          estado_controlado=$14, 
@@ -136,7 +133,43 @@ class ExpedienteController{
                     WHERE id_expediente=$17
                 
                 `;
-            const valores = [id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, observaciones, lote, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado,id];
+            const valores = [id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado,id];
+
+            db.query(consulta, valores, (error, resultado) => {
+                if (error) {
+                    console.error('Error al modificar expediente:', error);
+                } else {
+                    console.log('expediente modificado correctamente');
+                    res.json({ text: 'El expediente se modifico correctamente' });
+                }
+            });
+        } catch (error) {
+            console.error('Error al modificar expediente:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    }
+    public async ModificarPreparacionExpediente(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const { id_inventario, id_responsable, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado} = req.body;
+
+            const consulta = `
+                 
+                    UPDATE t_expediente
+                    SET  
+                         id_inventario=$1,
+                         id_responsable=$2, 
+                         fojas=$3, 
+                         fojas_unacara=$4, 
+                         fojas_doscaras=$5, 
+                         fojas_obs=$6, 
+                         copias_originales=$7, 
+                         copias_simples=$8, 
+                         estado_preparado=$9
+                    WHERE id_expediente=$10
+                
+                `;
+            const valores = [id_inventario, id_responsable, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado,id];
 
             db.query(consulta, valores, (error, resultado) => {
                 if (error) {

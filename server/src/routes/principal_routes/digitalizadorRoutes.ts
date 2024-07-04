@@ -15,6 +15,7 @@ class DigitalizacionRoutes{
         this.router.get('/api/digitalizacion/listaporidexpediente/:id_expediente',digitalizacionController.ObtenerDatosDigitalizadoXidExpediente)
         this.router.get('/api/digitalizacion/:id_digitalizacion',digitalizacionController.ObtenerDatosDigitalizadoID)
         this.router.put('/api/digitalizacion/modificar/documento/:id_digitalizacion',digitalizacionController.ModificarDocumentoDigitalizado)
+        this.router.put('/api/digitalizacion/modificar/:id',digitalizacionController.ModificarDigitalizado)
         this.router.post('/api/digitalizacion',digitalizacionController.CrearDigitalizacion) 
         this.router.get('/api/digitalizacion/documento/:id_expediente',digitalizacionController.ObtenerDocumentoDigitalizadoXidExpediente)
     }

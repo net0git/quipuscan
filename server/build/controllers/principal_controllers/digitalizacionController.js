@@ -74,8 +74,7 @@ class DigitalizacionController {
                 const { id_expediente } = req.params;
                 const consulta = `
                         select 
-                            d.documento,
-                            d.observaciones
+                            d.*
                         from 
                             t_digitalizacion d
                         join
@@ -136,14 +135,14 @@ class DigitalizacionController {
     CrearDigitalizacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id_expediente, id_responsable, fojas, fojas_unacara, fojas_doscaras, escala_gris, color, observaciones, documento, peso_doc, estado_concluido, ocr } = req.body;
+                const { id_expediente, id_responsable, fojas, fojas_unacara, fojas_doscaras, escala_gris, color, observaciones, documento, peso_doc, ocr } = req.body;
                 const consulta = `
                   
-                        INSERT INTO t_digitalizacion(id_expediente, id_responsable, fojas, fojas_unacara, fojas_doscaras, escala_gris, color, observaciones, documento,peso_doc, estado_concluido, ocr)
-                        VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+                        INSERT INTO t_digitalizacion(id_expediente, id_responsable, fojas, fojas_unacara, fojas_doscaras, escala_gris, color, observaciones, documento,peso_doc, ocr)
+                        VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                         RETURNING id_digitalizacion; -- Devolver el ID de digitalizacion
             `;
-                const valores = [id_expediente, id_responsable, fojas, fojas_unacara, fojas_doscaras, escala_gris, color, observaciones, documento, peso_doc, estado_concluido, ocr];
+                const valores = [id_expediente, id_responsable, fojas, fojas_unacara, fojas_doscaras, escala_gris, color, observaciones, documento, peso_doc, ocr];
                 database_1.default.query(consulta, valores, (error, resultado) => {
                     if (error) {
                         console.error('Error al insertar digitalizacion:', error);

@@ -25,6 +25,12 @@ export class DigitalizacionExpedientesComparacionComponent implements OnInit{
   isMatch: boolean = false;
   pdfUrl: SafeResourceUrl | null =null;
 
+  exp_count_pendientes:number=0
+  p: number = 1;
+  tituloBoton=''
+  modificar=false
+  disablebotonModificar='display: none';
+
   constructor(private digitalizacionService:DigitalizacionService,private sanitizer: DomSanitizer,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService, private inventarioService:InventarioService,private datosCompartidosService:DatosCompartidosService){}
 
   expedientetemp:any=[]
@@ -70,21 +76,21 @@ onBlur(): void {
     this.isMatch = false;
   }
 }
-// onBlur(): void {{
-//   // console.log('Valor ingresado:', this.data_digitalizacion.fojas_doscaras);
- 
-//   // if( this.data_digitalizacion.fojas_doscaras!=''){
-//   //   console.log('Valor ingresado:', this.data_digitalizacion.fojas_doscaras, 'boolean:',this.datosIgualdad);
-//   // }
-//   // Aquí puedes añadir más lógica para manejar el cambio de valor
-// }
 
 MostrarFormularioExpediente(id_expediente:number){
-
+    this.tituloBoton='GUARDAR'
+    this.modificar=false
     for (let element of this.expedientesList) {
       if(element.id_expediente==id_expediente){
         this.expedientetemp=element
-        console.log(this.expedientetemp)
+        console.log('expedienteTemp',this.expedientetemp)
+        if (this.expedientetemp.estado_indizado) {
+          this.disablebotonModificar = 'display: none';
+          
+        } else {
+  
+          this.disablebotonModificar = 'display: block';
+        }
         break;
       }
       
@@ -95,6 +101,7 @@ MostrarFormularioExpediente(id_expediente:number){
 closeModal() {
   // Ocultar el modal utilizando la instancia almacenada
   this.myModal.hide();
+  
   
 }
 detalleInventario(){
@@ -115,11 +122,15 @@ listarExpedientesXidInventario(){
   this.expedienteService.listaExpedientesXinventario(params['id_inventario']).subscribe(
     res=>{
       const ExpedientesHabilitados:any = res
-        
-        
       this.expedientesList=ExpedientesHabilitados.filter((expediente: { estado_preparado: boolean; }) => expediente.estado_preparado ===true);
     
       this.expedientesListTemp=this.expedientesList  
+      this.exp_count_pendientes=0
+      this.expedientesList.forEach((expediente: any) => {
+          if(expediente.estado_digitalizado==null){
+             this.exp_count_pendientes=this.exp_count_pendientes+1
+          }
+      })
       console.log(this.expedientesList)
     },
     err=>{
@@ -130,40 +141,54 @@ listarExpedientesXidInventario(){
 //  console.log(this.expedientetemp)
 }
 
+buscarDigitalizadoXid(id_expediente:number){
+  
+  this.MostrarFormularioExpediente(id_expediente)
+  this.tituloBoton='MODIFCAR',
+  this.modificar=true,
+  this.digitalizacionService.obtenerDocumentoXidExpediente(id_expediente).subscribe(
+    res=>{
+       this.data_digitalizacion = res;  // Asignar el resultado a this.data_expediente
+      console.log(this.data_digitalizacion);
+      this.documento=this.data_digitalizacion.documento
+      this.peso_documento=this.data_digitalizacion.peso_doc
+      
+      this.mostrarDocumento(this.data_digitalizacion.documento)
+      
+      
+      
+      // Asegúrate de que 'observaciones' es el ID correcto del elemento input
+      // const textoGuardado: string = this.data_expediente.fojas_obs.replace(/\\n/g, '\n');
 
+      // (<HTMLInputElement>document.getElementById('observaciones')).value =this.data_expediente.fojas_obs;
+      // (<HTMLInputElement>document.getElementById('inputfojas')).value = this.data_expediente.fojas;
+      // (<HTMLInputElement>document.getElementById('inputfojasunacara')).value = this.data_expediente.fojas_unacara;
+      // (<HTMLInputElement>document.getElementById('inputfojasdoscaras')).value = this.data_expediente.fojas_doscaras;
+      // (<HTMLInputElement>document.getElementById('original')).checked= this.data_expediente.copias_originales;
+      // (<HTMLInputElement>document.getElementById('copia')).checked = this.data_expediente.copias_simples;
+      // this.id_expediente=this.data_expediente.id_expediente
+      // this.nombre_expediente=this.data_expediente.nombre_expediente
+      // if(this.data_expediente.estado_preparado){
+      //   this.tituloBoton='Modificar'
+      // }
+      // else{
+      //   this.tituloBoton='Guardar'
+      // }
+      // if (this.data_expediente.estado_digitalizado) {
+      //   this.disablebotonModificar = 'display: none';
+        
+      // } else {
 
-// mostrarDatos(){
-//   const body_digitalizacion:any={
-//           id_expediente:null, 
-//           id_responsable:null, 
-//           fojas:null, 
-//           fojas_unacara:null, 
-//           fojas_doscaras:null, 
-//           escala_gris:null, 
-//           color:null, 
-//           observaciones:null, 
-//           documento:null,
-//           peso_doc:null,
-//           estado_concluido:null, 
-//           ocr:null
-//     }
-//     body_digitalizacion.fojas = (<HTMLInputElement>document.getElementById('total_fojas')).value;
-//     body_digitalizacion.fojas_unacara = (<HTMLInputElement>document.getElementById('fojas_unacara')).value; 
-//     body_digitalizacion.fojas_doscaras = (<HTMLInputElement>document.getElementById('fojas_doscara')).value;
-//     body_digitalizacion.observaciones = (<HTMLInputElement>document.getElementById('observaciones')).value;
-//     body_digitalizacion.escala_gris = (<HTMLInputElement>document.getElementById('escala_gris')).value;
-//     body_digitalizacion.color = (<HTMLInputElement>document.getElementById('color')).value;
-//     body_digitalizacion.ocr = (<HTMLInputElement>document.getElementById('ocr')).value;
+      //   this.disablebotonModificar = 'display: block';
+      // }
 
-//   body_digitalizacion.id_expediente=this.expedientetemp.id_expediente
-//   body_digitalizacion.id_responsable=this.datosCompartidosService.credentials.id_usuario
-//   body_digitalizacion.estado_concluido=true
-//   body_digitalizacion.documento=this.documento
-//   body_digitalizacion.peso_doc=this.peso_documento
-
-//   console.log(body_digitalizacion)
-
-// }
+      // ;
+    },
+    err=>{
+      console.error(err)
+    }
+  )
+}
 
 GuardarDigitalizacion(){
   const body_digitalizacion:any={
@@ -184,9 +209,9 @@ body_digitalizacion.fojas = (<HTMLInputElement>document.getElementById('total_fo
 body_digitalizacion.fojas_unacara = (<HTMLInputElement>document.getElementById('fojas_unacara')).value; 
 body_digitalizacion.fojas_doscaras = (<HTMLInputElement>document.getElementById('fojas_doscara')).value;
 body_digitalizacion.observaciones = (<HTMLInputElement>document.getElementById('observaciones')).value;
-body_digitalizacion.escala_gris = (<HTMLInputElement>document.getElementById('escala_gris')).value;
-body_digitalizacion.color = (<HTMLInputElement>document.getElementById('color')).value;
-body_digitalizacion.ocr = (<HTMLInputElement>document.getElementById('ocr')).value;
+body_digitalizacion.escala_gris = (<HTMLInputElement>document.getElementById('escala_gris')).checked;
+body_digitalizacion.color = (<HTMLInputElement>document.getElementById('color')).checked;
+body_digitalizacion.ocr = (<HTMLInputElement>document.getElementById('ocr')).checked;
 
 body_digitalizacion.id_expediente=this.expedientetemp.id_expediente
 body_digitalizacion.id_responsable=this.datosCompartidosService.credentials.id_usuario
@@ -194,18 +219,35 @@ body_digitalizacion.estado_concluido=true
 body_digitalizacion.documento=this.documento
 body_digitalizacion.peso_doc=this.peso_documento
 
-this.digitalizacionService.crearDigitalizacion(body_digitalizacion).subscribe(
-  res=>{
+console.log(body_digitalizacion)
+
+if(this.modificar==true){
+  console.log('id_digitalizacion:'+this.data_digitalizacion.id_digitalizacion)
+  this.digitalizacionService.modificarDigitalizado(body_digitalizacion,this.data_digitalizacion.id_digitalizacion).subscribe(
+    res=>{
       console.log(res)
-      //modificamos tambien el estado_digitalizado de la tabla t_expediente para indicar que se completo correctamente el proceso
-      this.modificarEstadoDigitalExpediente()
-      
-      this.MensajeDeGuardado()
-  },
-  err=>{
+      this.closeModal()
+    },
+    err=>{
       console.error(err)
-  }
- )
+    }
+  )
+}
+else{
+  this.digitalizacionService.crearDigitalizacion(body_digitalizacion).subscribe(
+    res=>{
+        console.log(res)
+        //modificamos tambien el estado_digitalizado de la tabla t_expediente para indicar que se completo correctamente el proceso
+        this.modificarEstadoDigitalExpediente()
+        
+        this.MensajeDeGuardado()
+    },
+    err=>{
+        console.error(err)
+    }
+   )
+}
+
 }
 
 modificarEstadoDigitalExpediente(){
@@ -213,7 +255,7 @@ modificarEstadoDigitalExpediente(){
   // delete body_expedienteTemp.id_expediente
   body_expedienteTemp.estado_digitalizado=true
 
-  this.expedienteService.modificarExpediente(body_expedienteTemp,body_expedienteTemp.id_expediente).subscribe(
+  this.expedienteService.modificarEstadoDigitalizado({estado_digitalizado:true},body_expedienteTemp.id_expediente).subscribe(
     res=>{
       console.log(res)
     },
@@ -299,6 +341,38 @@ MensajeDeGuardado(){
   this.listarExpedientesXidInventario()
    this.closeModal()
 }
+
+
+//==========CONVERTIR DE BASE64 A PDF PARA MOSTRARSE EN EL VISUALIZADOR DE DEL NAVEGADOR===================== 
+// convertir de base64 a pdf
+// Paso 1: Decodificar el string Base64
+base64ToBytes(base64:string) {
+  const binaryString = atob(base64);
+  const length = binaryString.length;
+  const bytes = new Uint8Array(length);
+
+  for (let i = 0; i < length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+
+  return bytes;
+}
+
+// Paso 2: Crear un objeto Blob para un PDF
+base64ToPdfBlob(base64:string) {
+  const bytes = this.base64ToBytes(base64);
+  return new Blob([bytes], { type: "application/pdf" });
+}
+
+// Ejemplo de uso
+//para hacegurar un correcto respaldo del documento realizamos una previsualizacion del archivo en base64 que guardaremos en la base de datos
+ mostrarDocumento(documento:string){ 
+  const pdfBlob = this.base64ToPdfBlob(documento);
+  console.log(pdfBlob)
+ this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(pdfBlob));
+
+ }
+//====================================================================================================
   
 }
 

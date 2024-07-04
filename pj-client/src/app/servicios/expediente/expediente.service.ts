@@ -37,6 +37,9 @@ api_uri_expediente='http://'+AppConfiguration.Setting().ipClient+':3000/api/expe
   modificarExpediente(body:any,id_expediente:number){
     return this.http.put(this.api_uri_expediente+'/'+id_expediente,body)
   }
+  modificarPreparacionExpediente(body:any,id_expediente:number){
+    return this.http.put(this.api_uri_expediente+'/preparacion/'+id_expediente,body)
+  }
 
   eliminarExpediente(id_expedietne:number){
     return this.http.delete(this.api_uri_expediente+'/'+id_expedietne)

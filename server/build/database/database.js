@@ -6,7 +6,7 @@ const pool = new pg_1.Pool({
     password: '12345',
     host: 'localhost', //172.16.226.4
     port: 5432,
-    database: 'db_archivo_pj'
+    database: 'pj_archivo_db'
 });
 pool.connect((error) => {
     if (error) {
