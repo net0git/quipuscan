@@ -184,7 +184,7 @@ table t_expediente{
   materia varchar
   demandante varchar
   demandado varchar
-  fecha_inicio date
+  fecha_inicial date
   fecha_final date
   estado_preparado bool
   estado_digitalizado bool

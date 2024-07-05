@@ -14,16 +14,10 @@ declare var bootstrap: any;
   styleUrls: ['./indizador-expediente-form.component.css']
 })
 export class IndizadorExpedienteFormComponent implements OnInit{
-  data = [
-    { name: "Item 1", subItems: [{ name: "Item 1.1" }, { name: "Item 1.2" }] },
-    { name: "Item 2", subItems: [{ name: "Item 2.1" }] },
-    { name: "Item 3", subItems: [
-        { name: "Item 3.1" }, 
-        { name: "Item 3.2", subItems: [{ name: "Item 3.2.1" }] }
-      ] }
-  ];
+ 
+  dataIndizacion:any = [];
 
-  indizacion:any=[]
+ 
   constructor(private digitalizacionService:DigitalizacionService,private indizacionService:IndizacionService,private sanitizer: DomSanitizer,private activatedRoute:ActivatedRoute,private router:Router, private expedienteService:ExpedienteService, private parteService:ParteService, private datosCompartidosService:DatosCompartidosService ){}
   detalleExpediente:any=[]//contempla todos los detalles que corresponde al expediente de presentación 
   observacionDigitalizado:string=''
@@ -1159,7 +1153,7 @@ ngOnInit(): void {
            this.data_expediente.id_inventario= this.detalleExpediente.id_inventario
            this.data_expediente.id_responsable= this.datosCompartidosService.credentials.id_usuario
            this.data_expediente.nombre_expediente= this.detalleExpediente.nombre_expediente
-          //  this.obtenerDocumentoDigitalizado(this.detalleExpediente.id_expediente)
+           this.obtenerDocumentoDigitalizado(this.detalleExpediente.id_expediente)
         },
         err=>{
           console.error(err)
@@ -1169,31 +1163,19 @@ ngOnInit(): void {
       
        this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`assets/documentos/error/error_carga2.pdf`);
 }
+obtenerDocumentoDigitalizado(id_expediente:number){
+  this.digitalizacionService.obtenerDocumentoXidExpediente(id_expediente).subscribe(
+    res=>{
+        let digitalizadoTemp:any=res
+        console.log(digitalizadoTemp)
+        this.mostrarDocumento(digitalizadoTemp.documento)
+    },
+    err=>{
+        console.error(err)
+    }
+  )
+}
 
-
-// obtenerDocumentoDigitalizado(id_expediente:number){
-//   this.digitalizacionService.obtenerDocumentoXidExpediente(id_expediente).subscribe(
-//     res=>{
-//             let digitalizado:any=res
-            
-//             console.log(digitalizado)
-//            this.mostrarDocumento(digitalizado.documento)
-//            this.observacionDigitalizado=digitalizado.observaciones
-//     },
-//     err=>{
-//           console.log(err)
-         
-//     }
-//   )
-// }
-
-// limpiarCamposIndizacion(){
-  
-//   this.disableButtonEliminar='display: none';
-//    (<HTMLInputElement>document.getElementById('demandante')).value='';
-//    (<HTMLInputElement>document.getElementById('demandante_identificador')).value='';
-   
-// }
 
 limpiarCamposDemandante(){
   
@@ -1207,12 +1189,12 @@ limpiarCamposDemandado(){
   (<HTMLInputElement>document.getElementById('demandado_identificador')).value='';
   
 }
-
 limpiarCamposIndizacion(){
  
   (<HTMLInputElement>document.getElementById('indizacion_descripcion')).value='';
   (<HTMLInputElement>document.getElementById('indizacion_indice')).value='';
   (<HTMLInputElement>document.getElementById('indizacion_fojas')).value='';
+  (<HTMLInputElement>document.getElementById('fecha_indice')).value='';
   (<HTMLInputElement>document.getElementById('indizacion_checkbox_original')).checked=false;
   (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia')).checked=false;
   (<HTMLInputElement>document.getElementById('indizacion_checkbox_color')).checked=false;
@@ -1222,6 +1204,7 @@ limpiarCamposIndizacion(){
   (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value='';
   (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value='';
   (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value='';
+  (<HTMLInputElement>document.getElementById('fecha_indice_2')).value='';
   (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked=false;
   (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked=false;
   (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked=false;
@@ -1231,40 +1214,13 @@ limpiarCamposIndizacion(){
   
  
 }
-// enviarTablaIndexacion(){
-//   // Obtener datos la indexacion
-//   let  datosIndex:any={}
-//   datosIndex.descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion')).value;
-//   datosIndex.indice = (<HTMLInputElement>document.getElementById('indizacion_indice')).value;
-//   datosIndex.fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas')).value;
-//   datosIndex.check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original')).checked;
-//   datosIndex.check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia')).checked;
-//   datosIndex.check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color')).checked;
-//   datosIndex.check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris')).checked;
-//   datosIndex.check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea')).value;
-
-//   //agregar a la lista listaTempIndizacion
-
-//   console.log(this.indizacion)
-//   this.indizacion.push(datosIndex)
-//   this.closeModal();
-//   this.limpiarCamposIndizacion();
-// }
 
  enviarTablaDemandantes() {
    // Obtener datos del demandante
    let  datosDemandante:any={}
    datosDemandante.demandante = (<HTMLInputElement>document.getElementById('demandante')).value;
    datosDemandante.identificador = (<HTMLInputElement>document.getElementById('demandante_identificador')).value;
-  //  datosDemandante.ap_materno = (<HTMLInputElement>document.getElementById('demandante_ap_materno')).value;
-  //  datosDemandante.dni = (<HTMLInputElement>document.getElementById('demandante_dni')).value;
-
-
-   // Agregar los datos a la lista temporal
    this.listaTempDemanantes.push(datosDemandante);
- 
-
-   // Cerrar el modal
    this.closeModal();
    this.limpiarCamposDemandante();
 }
@@ -1273,13 +1229,7 @@ enviarTablaDemandados(){
   let  datosDemandado:any={}
   datosDemandado.demandado = (<HTMLInputElement>document.getElementById('demandado')).value;
   datosDemandado.identificador = (<HTMLInputElement>document.getElementById('demandado_identificador')).value;
-
-
-  // Agregar los datos a la lista temporal
   this.listaTempDemandados.push(datosDemandado);
-
-
-  // Cerrar el modal
   this.closeModal();
   this.limpiarCamposDemandado();
 }
@@ -1301,7 +1251,6 @@ ModificarExpediente(){
       console.error(err)
     }
   )
-
 }
 //en este caso si guardaremos la tabla de demandados y demandantes
 GuardarPartes(){
@@ -1333,41 +1282,7 @@ GuardarDemandados(){
     )
   }
 }
- 
 
-
-  openModalIndizadorPrimero() {
-    this.limpiarCamposIndizacion();
-    this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_primero'));
-    this.myModal.show();
-  }
-  openModalIndizadorSegundo(items: any[], index: number) {
-    this.limpiarCamposIndizacion()
-    this.modificar_indizacion=false
-    this.itemTemp=items
-    this.index_indizacion=index
-    this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_segundo'));
-    this.myModal.show();
-  } 
-  openModalIndizadorSegundoModificar(items: any[], index: number) {
-    
-    (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value=items[index].descripcion;
-    (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value=items[index].indice;
-    (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value=items[index].fojas;
-    (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked=items[index].check_original;
-    (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked=items[index].check_copia;
-    (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked=items[index].check_color;
-    (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked=items[index].check_escalagris;
-    (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value=items[index].check_textarea;
-    this.modificar_indizacion=true
-    this.itemTemp=items
-    this.index_indizacion=index;
-    this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_segundo'));
-    this.myModal.show();
-  }
-
-  
-  
 //MODAL PARA MANEJAR DEMANDANTE
   openModalDemandante() {
     this.limpiarCamposDemandante()
@@ -1409,52 +1324,68 @@ GuardarDemandados(){
 
     
   }
-  preparacionGuardadoDatos(){
-    let body:any={}
+  
 
-    body.id_expediente=this.detalleExpediente.id_expediente;
-    body.id_responsable=this.datosCompartidosService.credentials.id_usuario
-    body.juzgado_origen=(<HTMLInputElement>document.getElementById('input_juzgado_origen')).value;
-    body.materia=(<HTMLInputElement>document.getElementById('input_materia')).value;
-    body.tipo_proceso=(<HTMLInputElement>document.getElementById('select_tipo_proceso')).value;
-    body.observaciones=(<HTMLInputElement>document.getElementById('observaciones_generales')).value;
-    body.estado_concluido=true
-    
-   
-    
+CrearIndizacion(){
+  const params=this.activatedRoute.snapshot.params
+  let body:any={}
+  let jsonStringIndizacion = JSON.stringify(this.dataIndizacion);
+  body.id_expediente=params['id_expediente']
+  body.id_responsable=this.datosCompartidosService.credentials.id_usuario
+  body.indizacion=jsonStringIndizacion
+  body.observaciones=(<HTMLInputElement>document.getElementById('observaciones_generales')).value;
 
-    // Verificar si los campos de entrada están vacíos
-if (!body.juzgado_origen || !body.materia || !body.tipo_proceso ) {
-  alert('Por favor, complete los datos complementarios.');
-} 
-// Verificar si las listas temporales están vacías
-else if (this.listaTempDemanantes.length === 0 || this.listaTempDemandados.length === 0 || this.indizacion.length === 0) {
-  alert('Las listas de demandantes, demandados y de indización no pueden estar vacías.');
-} 
-else {
-  // Proceder con el procesamiento de los datos si todas las validaciones pasan
-  console.log('Datos validados correctamente', body);
-  let jsonStringDemanantes = JSON.stringify(this.listaTempDemanantes);
-  let jsonStringDemandados = JSON.stringify(this.listaTempDemandados);
-  let jsonStringIndizacion = JSON.stringify(this.indizacion);
-    body.demandante=jsonStringDemanantes
-    body.demandado=jsonStringDemandados
-    body.indizacion=jsonStringIndizacion
-    console.log(body)
-   this.indizacionService.crearIndizacion(body).subscribe(
+  this.indizacionService.crearIndizacion(body).subscribe(
     res=>{
-         console.log(res)
-         this.modificarEstadoIndizadoExpediente()
-         this.mensajeGuardado()
+        console.log(res)
+        this.ModificarDatosComplementariosExpediente()
+        this.ModificarEstadoIndizadoExpediente()
     },
     err=>{
-         console.error(err)
+        console.error(err)
     }
-   )
+  )
+
+}
+
+ModificarDatosComplementariosExpediente()//
+{
+  let body:any={}
+  body.id_expediente=this.detalleExpediente.id_expediente;
+  body.juzgado_origen=(<HTMLInputElement>document.getElementById('input_juzgado_origen')).value;
+  body.materia=(<HTMLInputElement>document.getElementById('input_materia')).value;
+  body.fecha_inicial=(<HTMLInputElement>document.getElementById('fecha_inicio')).value;
+  body.fecha_final=(<HTMLInputElement>document.getElementById('fecha_final')).value;
+  body.tipo_proceso=(<HTMLInputElement>document.getElementById('select_tipo_proceso')).value;
+ 
+if (!body.juzgado_origen || !body.materia || !body.tipo_proceso || !body.fecha_inicial || !body.fecha_final ) {
+alert('Por favor, complete los datos complementarios.');
+} 
+
+else if (this.listaTempDemanantes.length === 0 || this.listaTempDemandados.length === 0 ) {
+alert('Las listas de demandantes, demandados y de indización no pueden estar vacías.');
+} 
+else {
+console.log('Datos validados correctamente', body);
+let jsonStringDemanantes = JSON.stringify(this.listaTempDemanantes);
+let jsonStringDemandados = JSON.stringify(this.listaTempDemandados);
+  body.demandante=jsonStringDemanantes
+  body.demandado=jsonStringDemandados
+  console.log(body)
+  const params=this.activatedRoute.snapshot.params
+this.expedienteService.modificarExpedienteEnIndizacion(body,params['id_expediente']).subscribe(
+  res=>{
+      console.log(res)
+  },
+  err=>{
+      console.error(err)
+  }
+)
+
 }
 }
 
-  modificarEstadoIndizadoExpediente(){
+ ModificarEstadoIndizadoExpediente(){
     this.expedienteService.modificarEstadoIndizado({estado_indizado:true},this.detalleExpediente.id_expediente).subscribe(
       res=>{
            console.log(res)
@@ -1463,7 +1394,7 @@ else {
            console.error(err)
       }
     )
-  }
+}
 
   volver(){
     this.router.navigate(['/principal/indizador/expedientes/',this.detalleExpediente.id_inventario])
@@ -1527,17 +1458,11 @@ else {
   this.listaTempDemanantes[this.index]=datosDemandante;
   // Cerrar el modal
   this.closeModal();
-  // this.limpiarCamposDemandante();
-  // this.modificar_parte=false
-  // this.disableButtonEliminar='display: none'
-  // this.titulo_boton='Agregar'
+
   
   }
   eliminarDatosDemandante(){
     this.listaTempDemanantes.splice(this.index, 1);
-    // this.disableButtonEliminar='display: none'
-    // this.modificar_parte=false
-    // this.titulo_boton='Agregar'
     this.closeModal()
   }
 
@@ -1558,12 +1483,8 @@ else {
   this.listaTempDemandados[this.index]=datosDemandado;
   // Cerrar el modal
   this.closeModal();
-  // this.limpiarCamposDemandante();
-  // this.modificar_parte=false
-  // this.disableButtonEliminar='display: none'
-  // this.titulo_boton='Agregar'
-  
   }
+
   eliminarDatosDemandado(){
     this.listaTempDemandados.splice(this.index, 1);
     // this.disableButtonEliminar='display: none'
@@ -1572,153 +1493,104 @@ else {
     this.closeModal()
   }
 
-
-
-
-///APARTADO DE INDIZACION===============================================================================
-  // addItem() {
-  //   // Obtener datos la indexacion
-  // let  datosIndex:any={}
-  // datosIndex.descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion')).value;
-  // datosIndex.indice = (<HTMLInputElement>document.getElementById('indizacion_indice')).value;
-  // datosIndex.fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas')).value;
-  // datosIndex.check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original')).checked;
-  // datosIndex.check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia')).checked;
-  // datosIndex.check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color')).checked;
-  // datosIndex.check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris')).checked;
-  // datosIndex.check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea')).value;
-  // datosIndex.subItems=[]
-  // console.log(datosIndex)
-  // this.indizacion.push(datosIndex)
-  // this.closeModal();
   
-    
-  // }
-
-//   addSubItem() {
-
-//     let newSubItem: any = {};
-//     newSubItem.descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value;
-//     newSubItem.indice = (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value;
-//     newSubItem.fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value;
-//     newSubItem.check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked;
-//     newSubItem.check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked;
-//     newSubItem.check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked;
-//     newSubItem.check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked;
-//     newSubItem.check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value;
-//     newSubItem.subItems = [];
-
-//     // Verificar si this.itemTemp y this.itemTemp[this.index_indizacion] existen
-//     if (!this.itemTemp) {
-//         this.itemTemp = {};
-//     }
-
-//     if (!this.itemTemp[this.index_indizacion]) {
-//         this.itemTemp[this.index_indizacion] = { subItems: [] };
-//     }
-
-//     if (!this.itemTemp[this.index_indizacion].subItems) {
-//         this.itemTemp[this.index_indizacion].subItems = [];
-//     }
-
-//     console.log(this.itemTemp[this.index_indizacion]);
-//     this.itemTemp[this.index_indizacion].subItems.push(newSubItem);
-//   this.closeModal(); 
-//   console.log(this.indizacion)
-//  }
-
-  // editItem(items: any[], index: number) {
-
-
-  //   const newName = prompt("Introduce el nuevo nombre:", items[index].name);
-  //   if (newName) {
-  //      items[index].descripcion = newName;
-  //   }
-  // }
-
-//   editItem() {
-//     console.log(this.itemTemp[this.index_indizacion])
-  
-//       //  this.itemTemp[this.index_indizacion].descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value;
-//       //  this.itemTemp[this.index_indizacion].indice = (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value;
-//       //  this.itemTemp[this.index_indizacion].fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value;
-//       //  this.itemTemp[this.index_indizacion].check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked;
-//       //  this.itemTemp[this.index_indizacion].check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked;
-//       //  this.itemTemp[this.index_indizacion].check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked;
-//       //  this.itemTemp[this.index_indizacion].check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked;
-//       //  this.itemTemp[this.index_indizacion].check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value;
-       
-// this.closeModal()
-    
-//   }
-
-  // deleteItem(items: any[], index: number) {
-  //   items.splice(index, 1);
-  // }
-
-  mostrarData() {
-    console.log(this.indizacion);
-  }
-
-
-  mostarIndizacion(){
-    console.log(this.indizacion)
-  }
   //==================================================================================================
-
-
-
-
   addItem() {
+    this.limpiarCamposIndizacion();
+    this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_primero'));
+    this.myModal.show();
+  }
+  registrarItem(){
+    let datosIndex: any = {};
+    datosIndex.descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion')).value;
+    datosIndex.indice = (<HTMLInputElement>document.getElementById('indizacion_indice')).value;
+    datosIndex.fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas')).value;
+    datosIndex.fecha = (<HTMLInputElement>document.getElementById('fecha_indice')).value;
+    datosIndex.check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original')).checked;
+    datosIndex.check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia')).checked;
+    datosIndex.check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color')).checked;
+    datosIndex.check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris')).checked;
+    datosIndex.check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea')).value;
+    datosIndex.subItems=[]
 
-    // // Obtener datos de la indexación
-    // let datosIndex: any = {};
-    // datosIndex.name = (<HTMLInputElement>document.getElementById('indizacion_descripcion')).value;
-    // datosIndex.indice = (<HTMLInputElement>document.getElementById('indizacion_indice')).value;
-    // datosIndex.fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas')).value;
-    // datosIndex.check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original')).checked;
-    // datosIndex.check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia')).checked;
-    // datosIndex.check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color')).checked;
-    // datosIndex.check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris')).checked;
-    // datosIndex.check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea')).value;
-
-    // Agregar nuevo ítem a la lista de datos
-    // this.data.push({ name: datosIndex.name, subItems: [] });
-    
-    // console.log(this.data);
-    // this.closeModal();
-    // this.limpiarCamposIndizacion();
-    const newSubItemName = prompt("Introduce el item");
-    if (newSubItemName){
-      this.data.push({name:newSubItemName,subItems:[]})
-    }
-    console.log(this.data)
+    this.dataIndizacion.push(datosIndex)
+    this.closeModal()
   }
 
   addSubItem(items: any[], index: number) {
-    const newSubItemName = prompt("Introduce el nombre del nuevo subítem:");
-    if (newSubItemName) {
+    this.limpiarCamposIndizacion()
+    this.modificar_indizacion=false
+    this.itemTemp=items
+    this.index_indizacion=index
+    this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_segundo'));
+    this.myModal.show();
+
+    const botonRegistrar = document.getElementById('boton_agregar_subitem');
+    if (botonRegistrar) {
+      botonRegistrar.onclick = () => this.registrarSubItem(items, index);
+    }
+  }
+  registrarSubItem(items: any[], index: number){
+    let datosIndex: any = {};
+    datosIndex.descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value;
+    datosIndex.indice = (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value;
+    datosIndex.fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value;
+    datosIndex.fecha = (<HTMLInputElement>document.getElementById('fecha_indice_2')).value;
+    datosIndex.check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked;
+    datosIndex.check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked;
+    datosIndex.check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked;
+    datosIndex.check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked;
+    datosIndex.check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value;
+    // datosIndex.subItems=[]
+    if (datosIndex) {
       if (!items[index].subItems) {
         items[index].subItems = [];
       }
-      items[index].subItems.push({ name: newSubItemName });
+      items[index].subItems.push(datosIndex);
     }
+    this.closeModal()
+    
   }
 
   editItem(items: any[], index: number) {
-    const newName = prompt("Introduce el nuevo nombre:", items[index].name);
-    if (newName) {
-      items[index].name = newName;
+    this.limpiarCamposIndizacion()
+    this.modificar_indizacion=true
+    this.itemTemp=items
+    this.index_indizacion=index
+    this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_segundo'));
+    this.myModal.show();
+
+      (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value=items[index].descripcion;
+      (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value=items[index].indice;
+      (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value=items[index].fojas;
+      (<HTMLInputElement>document.getElementById('fecha_indice_2')).value=items[index].fecha;
+      (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked=items[index].check_original;
+      (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked=items[index].check_copia;
+      (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked=items[index].check_color;
+      (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked=items[index].check_escalagris;
+      (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value=items[index].check_textarea;
+            
+    const botonRegistrar = document.getElementById('boton_agregar_subitem');
+    if (botonRegistrar) {
+      botonRegistrar.onclick = () => this.registrarModificarItem(items, index);
     }
+  }
+
+  registrarModificarItem(items: any[], index: number){
+          items[index].descripcion = (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value;
+          items[index].indice = (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value;
+          items[index].fojas = (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value;
+          items[index].fecha = (<HTMLInputElement>document.getElementById('fecha_indice_2')).value;
+          items[index].check_original = (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked;
+          items[index].check_copia = (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked;
+          items[index].check_color = (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked;
+          items[index].check_escalagris = (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked;
+          items[index].check_textarea = (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value;
+
+          this.closeModal()
   }
 
   deleteItem(items: any[], index: number) {
     items.splice(index, 1);
   }
-
-
-
-  
-
-
 }

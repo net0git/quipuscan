@@ -63,8 +63,8 @@
                     <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2">
                         <div class="form-group mt-2">
                             <label for="juzgado_origen" class="form-label ">Juzgado de origen:</label>
-                          <input class="form-control form-control-sm " list="input_juzgado_origen" id="exampleDataList" >
-                          <datalist id="input_juzgado_origen">
+                          <input class="form-control form-control-sm " list="datalistOptions1" id="input_juzgado_origen" >
+                          <datalist id="datalistOptions1">
                             <option *ngFor="let option of datalistDistJudiciales" [value]="option"></option>
                           </datalist>
                         </div>
@@ -80,14 +80,30 @@
                         <div class="form-group mb-2">
                             <label for="materia" class="form-label mt-2">Materia:</label>
                         
-                          <input class="form-control form-control-sm" list="datalistOptions" id="input_materia" >
-                          <datalist id="datalistOptions">
+                          <input class="form-control form-control-sm" list="datalistOptions2" id="input_materia" >
+                          <datalist id="datalistOptions2">
                             <option *ngFor="let option of datalistMateria" [value]="option"></option>
                           </datalist>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <label for="demantantes" class="form-label">Demandante(s):</label>
-                            <i class="bi bi-plus-square-fill icon-mas mx-2" (click)="openModalDemandante()"></i>
+<!-- falta poner fechas -->
+                        <div class="form-group mb-4">
+                           <div class="row">
+                               <div class="col">
+                                <label for="fecha_resolucion" class="form-label ">Fecha inicio:</label>
+                                <input id="fecha_inicio" type="date" class="form-control form-control-sm" name="fecha_resolucion">
+                               </div>
+                               <div class="col">
+                                <label for="fecha_resolucion" class="form-label ">Fecha final:</label>
+                                <input id="fecha_final" type="date" class="form-control form-control-sm" name="fecha_resolucion">
+                               </div>
+
+                           </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between" >
+                            <label style="margin-bottom: 0px;" for="demantantes" class="form-label">Demandante(s):</label>
+                            <i style="margin-bottom: 0px;" class="bi bi-plus-square-fill icon-mas mx-2" (click)="openModalDemandante()"></i>
                         </div>
                         <hr class="linea_tarjeta">
                         <div *ngFor="let demandante of listaTempDemanantes, let i = index" >
@@ -98,8 +114,8 @@
                           </div>
                           <br>
                         <div class="d-flex justify-content-between">
-                            <label for="demandados" class="form-label">Demandado(s):</label>
-                            <i class="bi bi-plus-square-fill icon-mas mx-2" (click)="openModalDemandado()"></i>
+                            <label style="margin-bottom: 0px;" for="demandados" class="form-label">Demandado(s):</label>
+                            <i  style="margin-bottom: 0px;" class="bi bi-plus-square-fill icon-mas mx-2" (click)="openModalDemandado()"></i>
                         </div>
                         <hr class="linea_tarjeta">
                         <div *ngFor="let demandado of listaTempDemandados, let i = index " >
@@ -108,7 +124,7 @@
                                   <p class="texto_parte">{{demandado.identificador}} <i  class="bi bi-pencil mx-2" (click)="mostrarDatosDemandado(i)"></i></p>
                               </div>
                           </div>
-                        <button class="btn btn-sm btn-info mb-3 text-white"> mostrar datos</button>
+                        <button class="btn btn-sm btn-info mb-3 text-white" (click)="ModificarDatosComplementariosExpediente()"> mostrar datos</button>
   
 
                     </fieldset>
@@ -123,55 +139,46 @@
                     </div>
                     <!-- DATOS DE LA MICROFORMA -->
                     <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2 mb-5">
-                        <table class="table text-center  table-hover table-sm">
-                            <thead class="thead-ligth bg-secondary text-white table-success ">
-                                <tr>
-                                    <th scope="col">Nro</th>
-                                    <th scope="col">ITEM</th>
-                                    <th scope="col">INDICE</th>
-                                    <th scope="col">FOJAS</th>
-                                    <th scope="col">ORI</th>
-                                    <th scope="col">COP</th>
-                                    <th scope="col">COL</th>
-                                    <th scope="col">ESG</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let item of indizacion, index as i" class="table-barra">
-                                    <th scope="row">{{i+1}}</th>
-                                    <td>{{item.descripcion}}</td>
-                                    <td>{{item.indice}}</td>
-                                    <td>{{item.fojas}}</td>
-                                    <td>
-                                        <i *ngIf="item.check_original" class="bi bi-check2-square"
-                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
-                                        <i *ngIf="!item.check_original" class="bi bi-square"
-                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
-                                    </td>
-                                    <td>
-                                        <i *ngIf="item.check_copia" class="bi bi-check2-square"
-                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
-                                        <i *ngIf="!item.check_copia" class="bi bi-square"
-                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
-                                    </td>
-                                    <td>
-                                        <i *ngIf="item.check_color" class="bi bi-check2-square"
-                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
-                                        <i *ngIf="!item.check_color" class="bi bi-square"
-                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
-                                    </td>
-                                    <td>
-                                        <i *ngIf="item.check_escalagris" class="bi bi-check2-square"
-                                            style="font-size: 1.5rem; color: rgb(6, 53, 185); padding: 0px 0px; margin: 0px 0px"></i>
-                                        <i *ngIf="!item.check_escalagris" class="bi bi-square"
-                                            style="font-size: 1.5rem; color: rgba(197, 197, 198, 0.355); padding: 0px 0px; margin: 0px 0px"></i>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="bi bi-plus-circle-fill icon-mas" (click)="openModalIndizadorPrimero()"></i>
+                        <div class="d-flex justify-content-between">
+                            <label style="margin-bottom: 0px; margin-top: 20px;" for="indice" class="form-label">Indice</label>
                         </div>
+                        <hr class="linea_tarjeta">
+                         <!-- creacion de indice -->
+                         <div id="list-container">
+                            <ol>
+                              <li *ngFor="let item of dataIndizacion; let i = index"  >
+                               <!-- <div>{{ item.descripcion }}</div>  -->
+                               {{ item.descripcion }}
+                               {{'(Pg.'+ item.indice+' )' }}
+                                 <!-- <span class="d-flex justify-content-between"><span>{{ item.descripcion }} </span> <samp>{{ item.indice }}</samp></span> -->
+                                <button class="action-button" (click)="addSubItem(dataIndizacion, i)"><i class="bi bi-text-indent-left"></i></button>
+                                <button class="action-button" (click)="editItem(dataIndizacion, i)"><i class="bi bi-pencil"></i></button>
+                                <button class="action-button" (click)="deleteItem(dataIndizacion, i)"><i class="bi bi-x-circle"></i></button>
+                                
+                        
+                                   
+                                <ol *ngIf="item.subItems && item.subItems.length > 0">
+                                  <li *ngFor="let subItem of item.subItems; let j = index">
+                                    {{ subItem.descripcion }} 
+                                    {{'(Pg.'+ subItem.indice+' )' }}
+                                    <button class="action-button" (click)="addSubItem(item.subItems, j)"><i class="bi bi-text-indent-left"></i></button>
+                                    <button class="action-button" (click)="editItem(item.subItems, j)"><i class="bi bi-pencil"></i></button>
+                                    <button class="action-button" (click)="deleteItem(item.subItems, j)"><i class="bi bi-x-circle"></i></button>
+                                    <ol *ngIf="subItem.subItems && subItem.subItems.length > 0">
+                                      <li *ngFor="let subSubItem of subItem.subItems; let k = index">
+                                         {{ subSubItem.descripcion }} 
+                                         {{'(Pg.'+ subSubItem.indice+' )' }}
+                                        <button class="action-button" (click)="editItem(subItem.subItems, k)"><i class="bi bi-pencil"></i></button>
+                                        <button class="action-button" (click)="deleteItem(subItem.subItems, k)"><i class="bi bi-x-circle"></i></button>
+                                      </li>
+                                    </ol>
+                                  </li>
+                                </ol>
+                              </li>
+                            </ol>
+                          </div>
+                          <button type="button" class="btn btn-sm btn-outline-primary" (click)="addItem()">+ Agregar elemento</button>
+
                         <hr>
                         <div class="form-floating mb-2">
                             <textarea class="form-control" placeholder="Leave a comment here"
@@ -180,37 +187,15 @@
                         </div>
                         <div class="d-flex justify-content-end p-2  mb-4">
                             <button class="btn btn-sm btn-success " type="button"
-                                (click)="preparacionGuardadoDatos()">GUARDAR</button>
+                                (click)="CrearIndizacion()">GUARDAR</button>
                         </div>
                     </fieldset>
+               
                 </form>
                 
-                <div id="list-container">
-                    <ol>
-                      <li *ngFor="let item of data; let i = index">
-                        {{ item.name }}
-                        <button class="action-button" (click)="addSubItem(data, i)"><i class="bi bi-text-indent-left"></i></button>
-                        <button class="action-button" (click)="editItem(data, i)"><i class="bi bi-pencil"></i></button>
-                        <button class="action-button" (click)="deleteItem(data, i)"><i class="bi bi-x-circle"></i></button>
-                        <ol *ngIf="item.subItems && item.subItems.length > 0">
-                          <li *ngFor="let subItem of item.subItems; let j = index">
-                            {{ subItem.name }} 
-                            <button class="action-button" (click)="addSubItem(item.subItems, j)"><i class="bi bi-text-indent-left"></i></button>
-                            <button class="action-button" (click)="editItem(item.subItems, j)"><i class="bi bi-pencil"></i></button>
-                            <button class="action-button" (click)="deleteItem(item.subItems, j)"><i class="bi bi-x-circle"></i></button>
-                            <ol *ngIf="subItem.subItems && subItem.subItems.length > 0">
-                              <li *ngFor="let subSubItem of subItem.subItems; let k = index">
-                                {{ subSubItem.name }} 
-                                <button class="action-button" (click)="editItem(subItem.subItems, k)"><i class="bi bi-pencil"></i></button>
-                                <button class="action-button" (click)="deleteItem(subItem.subItems, k)"><i class="bi bi-x-circle"></i></button>
-                              </li>
-                            </ol>
-                          </li>
-                        </ol>
-                      </li>
-                    </ol>
-                  </div>
-                  <button (click)="addItem()">Añadir ítem</button>
+                
+                  
+                
                
                   
             </div>
@@ -285,54 +270,135 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="form-group container">
+              
                 <div class="m-4 p-4">
-                    <div>
-                        <label for="descripcion" class="form-label">Descripción:</label>
-                        <input id="indizacion_descripcion" type="text" class="form-control form-control-sm">
-                    </div>
+                    <hr>
                     <div class="row my-2">
-                        <div class="col">
+                        <div class="col col-lg-6" style="padding:0px 5px;">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <input id="indizacion_descripcion" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2" style="padding:0px 10px;">
                             <label for="indice" class="form-label">Indice:</label>
                             <input id="indizacion_indice" type="number" class="form-control form-control-sm">
                         </div>
-                        <div class="col">
+                        <div class="col col-lg-2" style="padding:0px 10px;">
                             <label for="fojas" class="form-label">Fojas:</label>
                             <input id="indizacion_fojas" type="number" class="form-control form-control-sm">
                         </div>
-                    </div>
-                    <div>
-                        <label for="caracteristicas" class="form-label">caracteristicas:</label>
-                        <div class="form-check mx-4">
-                            <input id="indizacion_checkbox_original" class="form-check-input" type="checkbox">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Original
-                            </label>
-                        </div>
-                        <div class="form-check mx-4">
-                            <input id="indizacion_checkbox_copia" class="form-check-input" type="checkbox">
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Copia
-                            </label>
-                        </div>
-                        <div class="form-check mx-4">
-                            <input id="indizacion_checkbox_color" class="form-check-input" type="checkbox">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Color
-                            </label>
-                        </div>
-                        <div class="form-check mx-4">
-                            <input id="indizacion_checkbox_escalagris" class="form-check-input" type="checkbox">
-                            <label class="form-check-label" for="flexCheckChecked">
-                                Escala de Grises
-                            </label>
+                        <div class="col col-lg-2 " style="padding:0px 5px;">
+                            <label for="fecha_indice" class="form-label ">Fecha:</label>
+                            <input id="fecha_indice" type="date" class="form-control form-control-sm" name="fecha_indice">
                         </div>
                     </div>
-                    <div class="form-floating my-2 mb-4">
-                        <textarea id="indizacion_textarea" class="form-control" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">observaciones</label>
+                    <div class="row">
+                        <div class="col col-lg-4">
+                            <label for="caracteristicas" class="form-label">caracteristicas:</label>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_original" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Original
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_copia" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Copia
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_color" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Color
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_escalagris" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Escala de Grises
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col col-lg-8">
+                            <div class="form-floating my-2 mb-4">
+                                <textarea id="indizacion_textarea" class="form-control" style="height: 125px"></textarea>
+                                <label for="floatingTextarea2">observaciones</label>
+                            </div>
+                        </div>
                     </div>
+                     <hr>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary tn-sm" (click)="addItem()">Agregar  indización</button>
+                        <button class="btn btn-primary tn-sm" (click)="registrarItem()">Agregar  indización</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade modal-lg" id="Modal_Indizador_segundo" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="form-group container">
+              
+                <div class="m-4 p-4">
+                    <hr>
+                    <div class="row my-2">
+                        <div class="col col-lg-6" style="padding:0px 5px;">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <input id="indizacion_descripcion_2" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2" style="padding:0px 10px;">
+                            <label for="indice" class="form-label">Indice:</label>
+                            <input id="indizacion_indice_2" type="number" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2" style="padding:0px 10px;">
+                            <label for="fojas" class="form-label">Fojas:</label>
+                            <input id="indizacion_fojas_2" type="number" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2 " style="padding:0px 5px;">
+                            <label for="fecha_indice" class="form-label ">Fecha:</label>
+                            <input id="fecha_indice_2" type="date" class="form-control form-control-sm" name="fecha_indice">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-lg-4">
+                            <label for="caracteristicas" class="form-label">caracteristicas:</label>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_original_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Original
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_copia_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Copia
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_color_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Color
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_escalagris_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Escala de Grises
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col col-lg-8">
+                            <div class="form-floating my-2 mb-4">
+                                <textarea id="indizacion_textarea_2" class="form-control" style="height: 125px"></textarea>
+                                <label for="floatingTextarea2">observaciones</label>
+                            </div>
+                        </div>
+                    </div>
+                     <hr>
+                     <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary tn-sm" id="boton_agregar_subitem">{{modificar_indizacion?'Modificar':'Agregar'}}</button>
                     </div>
                 </div>
             </div>
@@ -340,22 +406,23 @@
     </div>
     </div>
 
-    <div class="modal fade modal-lg" id="Modal_Indizador_segundo" tabindex="-1" role="dialog"
+    <!-- <div class="modal fade modal-lg" id="Modal_Indizador_segundo" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="form-group container">
                 <div class="m-4 p-4">
-                    <div>
-                        <label for="descripcion" class="form-label">Descripción:</label>
-                        <input id="indizacion_descripcion_2" type="text" class="form-control form-control-sm">
-                    </div>
+                    
                     <div class="row my-2">
-                        <div class="col">
+                        <div class="col col-lg-8">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <input id="indizacion_descripcion_2" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2">
                             <label for="indice" class="form-label">Indice:</label>
                             <input id="indizacion_indice_2" type="number" class="form-control form-control-sm">
                         </div>
-                        <div class="col">
+                        <div class="col col-lg-2">
                             <label for="fojas" class="form-label">Fojas:</label>
                             <input id="indizacion_fojas_2" type="number" class="form-control form-control-sm">
                         </div>
@@ -392,13 +459,13 @@
                         <label for="floatingTextarea2">observaciones</label>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <!-- <button class="btn btn-primary tn-sm" (click)="modificar_indizacion?editItem(): addSubItem()">Agregar segundo</button> -->
+                        <button class="btn btn-primary tn-sm" id="boton_agregar_subitem">{{modificar_indizacion?'Modificar':'Agregar'}}</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+    </div> -->
 
     
 </div>

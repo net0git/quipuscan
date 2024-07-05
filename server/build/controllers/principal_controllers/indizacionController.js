@@ -54,14 +54,14 @@ class IndizacionController {
     CrearIndizacion(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id_expediente, id_responsable, juzgado_origen, observaciones, estado_concluido, demandante, demandado, tipo_proceso, indizacion, materia } = req.body;
+                const { id_expediente, id_responsable, indizacion, observaciones, estado_concluido } = req.body;
                 const consulta = `
             INSERT INTO t_indizacion(
-                id_expediente, id_responsable, juzgado_origen, observaciones, estado_concluido, demandante, demandado, tipo_proceso, indizacion, materia)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+                id_expediente, id_responsable, indizacion, observaciones, estado_concluido)
+                VALUES ($1, $2, $3, $4, $5)
                 RETURNING id_indizacion; 
             `;
-                const valores = [id_expediente, id_responsable, juzgado_origen, observaciones, estado_concluido, demandante, demandado, tipo_proceso, indizacion, materia];
+                const valores = [id_expediente, id_responsable, indizacion, observaciones, estado_concluido];
                 database_1.default.query(consulta, valores, (error, resultado) => {
                     if (error) {
                         console.error('Error al insertar indizacion:', error);

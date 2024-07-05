@@ -112,28 +112,36 @@ class ExpedienteController{
     public async ModificarExpediente(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
-            const { id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado } = req.body;
+            const { id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, juzgado_origen, tipo_proceso, materia, demandante, demandado, estado_preparado, estado_digitalizado, estado_indizado, estado_controlado, estado_fedatado, fecha_inicial, fecha_final } = req.body;
 
             const consulta = `
                  
                     UPDATE t_expediente
-                    SET  id_inventario=$1, 
-                         id_responsable=$2, 
-                         nombre_expediente=$3, 
-                         fojas=$4, fojas_unacara=$5, 
-                         fojas_doscaras=$6, 
-                         fojas_obs=$7, 
-                         copias_originales=$8, 
-                         copias_simples=$9, 
-                         estado_preparado=$12,
-                         estado_digitalizado=$13, 
-                         estado_controlado=$14, 
-                         estado_fedatado=$15, 
-                         estado_indizado=$16
-                    WHERE id_expediente=$17
+                    SET   id_inventario=$1,  
+                          id_responsable=$2, 
+                          nombre_expediente=$3, 
+                          fojas=$4, 
+                          fojas_unacara=$5, 
+                          fojas_doscaras=$6, 
+                          fojas_obs=$7, 
+                          copias_originales=$8, 
+                          copias_simples=$9, 
+                          juzgado_origen=$10, 
+                          tipo_proceso=$11, 
+                          materia=$12, 
+                          demandante=$13, 
+                          demandado=$14, 
+                          estado_preparado=$15, 
+                          estado_digitalizado=$16, 
+                          estado_indizado=$17, 
+                          estado_controlado=$18, 
+                          estado_fedatado=$19, 
+                          fecha_inicial=$20, 
+                          fecha_final=$21 
+                    WHERE id_expediente=$22
                 
                 `;
-            const valores = [id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado, estado_digitalizado, estado_controlado, estado_fedatado, estado_indizado,id];
+            const valores = [id_inventario, id_responsable, nombre_expediente, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, juzgado_origen, tipo_proceso, materia, demandante, demandado, estado_preparado, estado_digitalizado, estado_indizado, estado_controlado, estado_fedatado, fecha_inicial, fecha_final,id];
 
             db.query(consulta, valores, (error, resultado) => {
                 if (error) {
@@ -170,6 +178,40 @@ class ExpedienteController{
                 
                 `;
             const valores = [id_inventario, id_responsable, fojas, fojas_unacara, fojas_doscaras, fojas_obs, copias_originales, copias_simples, estado_preparado,id];
+
+            db.query(consulta, valores, (error, resultado) => {
+                if (error) {
+                    console.error('Error al modificar expediente:', error);
+                } else {
+                    console.log('expediente modificado correctamente');
+                    res.json({ text: 'El expediente se modifico correctamente' });
+                }
+            });
+        } catch (error) {
+            console.error('Error al modificar expediente:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    }
+
+    public async ModificarExpedienteEnIndizacion(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const { juzgado_origen, tipo_proceso, materia, demandante, demandado, fecha_inicial, fecha_final} = req.body;
+
+            const consulta = `
+                 
+                    UPDATE t_expediente
+                    SET  juzgado_origen=$1, 
+                         tipo_proceso=$2, 
+                         materia=$3, 
+                         demandante=$4, 
+                         demandado=$5, 
+                         fecha_inicial=$6, 
+                         fecha_final=$7         
+                    WHERE id_expediente=$8
+                
+                `;
+            const valores = [juzgado_origen, tipo_proceso, materia, demandante, demandado, fecha_inicial, fecha_final,id];
 
             db.query(consulta, valores, (error, resultado) => {
                 if (error) {

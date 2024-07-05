@@ -60,14 +60,7 @@ class DigitalizacionController{
         try {
             const { id_expediente } = req.params;
             const consulta = `
-                        select 
-                            d.*
-                        from 
-                            t_digitalizacion d
-                        join
-                            t_expediente ex on d.id_expediente=ex.id_expediente
-                        where 
-                            d.id_expediente=$1
+                        select * from t_digitalizacion where id_expediente=$1
             `;
             const digitalizado = await db.query(consulta,[id_expediente]);
 

@@ -18,6 +18,7 @@ class ExpedienteRoutes {
         this.router.get('/api/expediente/limpiar/:id_expediente', expedienteController_1.default.LimpiarProcesoExpediente);
         this.router.post('/api/expediente', expedienteController_1.default.CrearExpediente);
         this.router.put('/api/expediente/:id', expedienteController_1.default.ModificarExpediente);
+        this.router.put('/api/expediente/modificarenindizacion/:id', expedienteController_1.default.ModificarExpedienteEnIndizacion);
         this.router.put('/api/expediente/preparacion/:id', expedienteController_1.default.ModificarPreparacionExpediente);
         this.router.put('/api/expediente/estado_preparado/:id', expedienteController_1.default.ModificarEstadoPreparado);
         this.router.put('/api/expediente/estado_digitalizado/:id', expedienteController_1.default.ModificarEstadoDigitalizado);
