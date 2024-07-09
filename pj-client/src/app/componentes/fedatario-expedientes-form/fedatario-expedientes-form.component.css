@@ -62,11 +62,88 @@
 }
 
 .tarjeta_indizacion{
-    max-height: 754px;
-    height: 754px;
+    height: 86vh;
 }
 
 
 .linea_tarjeta{
     margin-top:1px ;
 }
+
+
+/* ol {
+    counter-reset: item;
+}
+
+ol > li {
+    display: block;
+    counter-increment: item;
+    margin-bottom: 10px;
+}
+
+ol > li::before {
+    content: counters(item, ".") " ";
+    font-weight: bold;
+}
+
+ol ol {
+    counter-reset: item;
+}
+
+ol ol > li {
+    display: block;
+    counter-increment: item;
+}
+
+ol ol > li::before {
+    content: counters(item, ".") " ";
+    font-weight: bold;
+}
+
+ol ol ol {
+    counter-reset: subitem;
+}
+
+ol ol ol > li {
+    display: block;
+    counter-increment: subitem;
+}
+
+ol ol ol > li::before {
+    content: counters(item, ".") "." counters(subitem, ".") " ";
+    font-weight: bold;
+}
+
+.action-button {
+    margin-left: 10px;
+    cursor: pointer;
+} */
+
+.eye_icon{
+    margin-left: 5px;
+}
+
+
+#fixedButton {
+    position: fixed;
+    top: 100px;
+    left: 10px;
+    z-index: 1000; /* Asegura que el botón esté por encima de otros elementos */
+    width: 40px; /* Ancho del botón */
+    height: 40px; /* Alto del botón */
+    background-color: #007bffd0;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Hace que el botón sea un círculo perfecto */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px; /* Tamaño del símbolo */
+    text-align: center;
+  }
+  
+  
+  #fixedButton:hover {
+    background-color: #0056b3;
+  }

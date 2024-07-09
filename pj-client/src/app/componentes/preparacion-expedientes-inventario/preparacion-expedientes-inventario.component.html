@@ -30,8 +30,8 @@
                 <div class="lista">
                     <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
                 </div>
+          </div>
         </div>
-      </div>
       <div class="col-lg-9">
         <div class="presentacion_user mb-4">
           <div class="icon-title-container">
@@ -48,7 +48,6 @@
             <div class="mb-2 d-flex align-items-center">
               <button class="btn btn-secondary btn-sm ">preparados({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
               <button type="button" class="btn btn-outline-success btn-sm mx-2 " >pendientes({{exp_count_pendientes}})</button>
-        
             </div>
             <div class="table-responsive">
               <table class="table text-center  table-hover" id="excel-table">

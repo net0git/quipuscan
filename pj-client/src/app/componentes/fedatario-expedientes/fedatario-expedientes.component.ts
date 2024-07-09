@@ -15,6 +15,8 @@ export class FedatarioExpedientesComponent implements OnInit {
   inventarioDetalle:any=[]
   private myModal: any;
   objetosFiltrados:any=[];
+  p: number = 1;
+  exp_count_pendientes:number=0
   constructor(private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService,private inventarioService:InventarioService){}
 expedientetemp:any={}
 ngOnInit(): void {
@@ -51,6 +53,12 @@ listarExpedientesXidInventario(){
       this.expedientesList=ExpedientesHabilitados.filter((expediente: { estado_controlado: boolean; }) => expediente.estado_controlado ===true);
     
       this.expedientesListTemp=this.expedientesList  
+      this.exp_count_pendientes=0
+      this.expedientesList.forEach((expediente: any) => {
+          if(expediente.estado_fedatado==null){
+             this.exp_count_pendientes=this.exp_count_pendientes+1
+          }
+      })
       console.log(this.expedientesList)
  
     },

@@ -1340,6 +1340,7 @@ CrearIndizacion(){
         console.log(res)
         this.ModificarDatosComplementariosExpediente()
         this.ModificarEstadoIndizadoExpediente()
+        this.mensajeGuardado()
     },
     err=>{
         console.error(err)

@@ -22,7 +22,8 @@ export class ControlCalidadExpedienteComponent implements OnInit{
   objetosFiltrados:any=[]
   expedientetemp:any=[]
   private myModal: any;
-
+  p: number = 1;
+  exp_count_pendientes:number=0
     //ruta prefinida para pdfURL  
     pdfUrl: SafeResourceUrl | null =null;
 
@@ -167,6 +168,11 @@ listarExpedientesXidInventario(){
       this.expedientesList=ExpedientesHabilitados.filter((expediente: { estado_indizado: boolean; }) => expediente.estado_indizado ===true);
     
       this.expedientesListTemp=this.expedientesList  
+      this.expedientesList.forEach((expediente: any) => {
+          if(expediente.estado_controlado==null){
+             this.exp_count_pendientes=this.exp_count_pendientes+1
+          }
+      })
       console.log(this.expedientesList)
       
  

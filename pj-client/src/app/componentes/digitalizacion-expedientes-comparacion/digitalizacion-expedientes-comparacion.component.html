@@ -117,7 +117,7 @@
                 </div>
                 <div>
                   <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Total Escaneados</span>
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Total de fojas digitalizadas</span>
                     <input id="total_fojas" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="data_digitalizacion.fojas">
                   </div>
                   <div class="input-group input-group-sm mb-3">
@@ -127,8 +127,8 @@
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-sm">2 caras</span>
                     <input id="fojas_doscara" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="data_digitalizacion.fojas_doscaras" (blur)="onBlur()">
-                  </div>
-                  <div class="d-flex justify-content-end" style="min-height: 1.5em;">
+                  </div> 
+                   <div class="d-flex justify-content-end" style="min-height: 1.5em;">
                     <label [ngClass]="{'text-success': isMatch, 'text-warning': !isMatch}">{{ message }}</label>
                   </div>
                 </div>
@@ -151,7 +151,7 @@
 
                   <div class="form-floating mt-2">
                     <textarea class="form-control" id="observaciones" style="height: 100px; resize: none" name="observaciones_generales" [(ngModel)]="data_digitalizacion.observaciones"></textarea>
-                    <label class="mx-4" for="observaciones">Observaciones generales</label>
+                    <label class="mx-4" for="observaciones">Observaciones </label>
                   </div>
                 </fieldset>
               </div>

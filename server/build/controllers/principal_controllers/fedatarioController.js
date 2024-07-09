@@ -160,14 +160,17 @@ class FedatarioController {
                             ex.id_inventario,
                             ex.estado_fedatado,
                             ex.nombre_expediente,
-                            i.juzgado_origen,
-                            i.tipo_proceso,
-                            i.materia,
-                            i.demandante,
-                            i.demandado,
+                            ex.juzgado_origen,
+                            ex.tipo_proceso,
+                            ex.materia,
+                            ex.demandante,
+                            ex.demandado,
+                            ex.fojas_obs as obs_preparacion,
                             i.indizacion,
                             d.documento,
-                            d.id_digitalizacion
+                            d.id_digitalizacion,
+                            d.observaciones as obs_digitalizacion,
+                            c.observacion as obs_control_calidad
                         
                         from 
                             t_indizacion i
@@ -175,6 +178,8 @@ class FedatarioController {
                             t_expediente ex on i.id_expediente=ex.id_expediente
                         join 
                             t_digitalizacion d on i.id_expediente= d.id_expediente
+                        join 
+                            t_control_calidad c on i.id_expediente= c.id_expediente
                         where
                             ex.id_expediente=$1
             `;

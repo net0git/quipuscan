@@ -6,6 +6,7 @@ import { DatosCompartidosService } from 'src/app/servicios/datoslogin/datos-comp
 import { ExpedienteService } from 'src/app/servicios/expediente/expediente.service';
 import { DigitalizacionService } from 'src/app/servicios/digitalizacion/digitalizacion.service';
 import Swal from 'sweetalert2';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-fedatario-expedientes-form',
@@ -30,7 +31,7 @@ documento:string=''
 responsablesExpediente:any={}
 
 data_fedatado:any=[]
-
+private myModal: any;
 
 disabledButon='display: none';
 constructor(private digitalizacionService:DigitalizacionService,private expedienteService:ExpedienteService,private activatedRoute:ActivatedRoute,private datosCompartidosService:DatosCompartidosService,private fedatarService:FedatarService,private sanitizer: DomSanitizer,private router:Router){}
@@ -53,6 +54,65 @@ limpiarCampos(){
 
 volver(){
   this.router.navigate(['/principal/fedatario/expedientes/',this.data_expediente.id_inventario])
+}
+
+// editItem(items: any[], index: number) {
+//   this.limpiarCamposIndizacion()
+//   this.modificar_indizacion=true
+//   this.itemTemp=items
+//   this.index_indizacion=index
+//   this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_segundo'));
+//   this.myModal.show();
+
+//     (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).value=items[index].descripcion;
+//     (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value=items[index].indice;
+//     (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value=items[index].fojas;
+//     (<HTMLInputElement>document.getElementById('fecha_indice_2')).value=items[index].fecha;
+//     (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked=items[index].check_original;
+//     (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked=items[index].check_copia;
+//     (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked=items[index].check_color;
+//     (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked=items[index].check_escalagris;
+//     (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value=items[index].check_textarea;
+          
+//   const botonRegistrar = document.getElementById('boton_agregar_subitem');
+//   if (botonRegistrar) {
+//     botonRegistrar.onclick = () => this.registrarModificarItem(items, index);
+//   }
+// }
+convertDateFormat(dateString: string): string {
+  if(dateString===""){
+    return ""
+  }
+  else{
+    const [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
+    
+  }
+  
+}
+MostrarObservaciones(items: any[], index: number) {
+  this.myModal = new bootstrap.Modal(document.getElementById('Modal_Indizador_observaciones'));
+  this.myModal.show();
+
+  const formattedDate = this.convertDateFormat(items[index].fecha);
+
+    (<HTMLInputElement>document.getElementById('indizacion_descripcion_2')).innerText=items[index].descripcion;
+    (<HTMLInputElement>document.getElementById('indizacion_indice_2')).value=items[index].indice;
+    (<HTMLInputElement>document.getElementById('indizacion_fojas_2')).value=items[index].fojas;
+    (<HTMLInputElement>document.getElementById('fecha_indice_2')).value=formattedDate;
+    (<HTMLInputElement>document.getElementById('indizacion_checkbox_original_2')).checked=items[index].check_original;
+    (<HTMLInputElement>document.getElementById('indizacion_checkbox_copia_2')).checked=items[index].check_copia;
+    (<HTMLInputElement>document.getElementById('indizacion_checkbox_color_2')).checked=items[index].check_color;
+    (<HTMLInputElement>document.getElementById('indizacion_checkbox_escalagris_2')).checked=items[index].check_escalagris;
+    (<HTMLInputElement>document.getElementById('indizacion_textarea_2')).value=items[index].check_textarea;
+}
+
+
+closeModal() {
+  // Ocultar el modal utilizando la instancia almacenada
+  this.myModal.hide();
+
+  
 }
 
 // expedienteFedatado(){
@@ -91,6 +151,7 @@ ExpedieIndizadoDocumentado(){
           this.demandantes=JSON.parse(this.data_expediente.demandante) 
           this.demandados=JSON.parse(this.data_expediente.demandado)
           this.indizacion=JSON.parse(this.data_expediente.indizacion)
+          console.log(this.indizacion)
           
           this.ObtenerResponsables()
           
@@ -146,6 +207,7 @@ async aceptarFedatado() {
       // Mostrar la cadena base64 en la consola
       console.log(this.documento);
       this.modificarDocumentoGigitalizacion(this.documento,this.data_expediente.id_digitalizacion)
+      this.cambiarEstadoExpediente()
       // Mostrar la alerta de éxito
       Swal.fire({
         icon: 'success',
@@ -177,6 +239,7 @@ async aceptarFedatado() {
     res=>{
       console.log(res)
       this.cambiarEstadoExpediente()
+
       //this.mensajeDeGuardado()
     },
     err=>{
@@ -289,7 +352,7 @@ mensajeDeGuardado(){
     icon: "success",
     title: "Signed in successfully"
   });
-  this.cambiarEstadoExpediente()
+  
 
   setTimeout(() => {
     Swal.fire({

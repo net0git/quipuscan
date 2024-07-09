@@ -5,7 +5,7 @@
         <i class="bi bi-arrow-left text-white"> volver </i>
       </button>
     </div>
-  
+    <button id="fixedButton" class="btn-sm"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-plus-circle"></i></button>
     <div class="mx-4">
       <div class="row mx-4">
         <div class="col-md-3 mt-4">
@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="col-md-4 mt-4">
-          <div class="card text-center tarjeta_indizacion rounded shadow border-2 ">
+          <div class="card text-center tarjeta_indizacion rounded shadow border-2 " >
             <div class="card-header">
               <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
@@ -102,7 +102,7 @@
                   <div *ngFor="let demandante of demandantes">
                     <ul>
                       <div class="d-flex justify-content-start">
-                        <li>{{demandante.nombre+' '+demandante.ap_paterno+' '+demandante.ap_materno+' '+demandante.dni}}
+                        <li>{{demandante.demandante+' / '+demandante.identificador}}
                         </li>
                       </div>
                     </ul>
@@ -114,29 +114,78 @@
                   <div *ngFor="let demandado of demandados">
                     <ul>
                       <div class="d-flex justify-content-start">
-                        <li>{{demandado.nombre+' '+demandado.ap_paterno+' '+demandado.ap_materno+' '+demandado.dni}}</li>
+                        <li>{{demandado.demandado+' / '+demandado.identificador}}</li>
                       </div>
                     </ul>
                   </div>
                 </div>
                 <div class="tab-pane fade" id="section2">
-                  <div class="row">
-                    <div class="col-md-10 d-flex justify-content-start">
-                      <h5>Descripcion</h5>
-                    </div>
-                    <div class="col-md-1">pg</div>
-                    <!-- <div class="col-md-1">dt</div> -->
+                  <div class="d-flex justify-content-between mx-4">
+                    <h5>Descripción</h5>
+                    <span >Pg</span>
                   </div>
+                 
                   <hr class="linea_tarjeta">
-                  <div *ngFor="let item of indizacion; index as i">
+                  <div id="list-container">
+                   <span>
+                    <div *ngFor="let item of indizacion; let i = index "  >
+                      <div class="mx-4 d-flex justify-content-between">
+                        <span><strong>{{i+1 +'.'}} {{ item.descripcion }}</strong> </span>
+                        <span>{{ item.indice }} <i class="bi bi-eye-fill eye_icon" (click)="MostrarObservaciones(indizacion, i)"></i></span>
+                      </div> 
+                       <div *ngIf="item.subItems && item.subItems.length > 0">
+                         <div *ngFor="let subItem of item.subItems; let j = index">
+                          <div class="mx-4 d-flex justify-content-between">
+                            <span><strong>{{i+1 +'.'}}{{j+1}}</strong> {{ subItem.descripcion }} </span>
+                            <span>{{ subItem.indice }} <i class="bi bi-eye-fill eye_icon" (click)="MostrarObservaciones(item.subItems, j)"></i></span>
+                          </div> 
+                           <div *ngIf="subItem.subItems && subItem.subItems.length > 0">
+                             <div *ngFor="let subSubItem of subItem.subItems; let k = index">
+                              <div class="mx-4 d-flex justify-content-between">
+                                <span style="padding-left: 5px;"><strong>{{i+1 +'.'}}{{j+1+'.'}}{{k+1}}</strong> {{ subSubItem.descripcion }} </span>
+                                <span>{{ subSubItem.indice }} <i class="bi bi-eye-fill eye_icon" (click)="MostrarObservaciones(subItem.subItems, j)"></i></span>
+                              </div>
+                             </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   </span>
+                      
+                   
+                  </div>
+                  <!-- <div id="list-container">
+                    <ul>
+                      <li *ngFor="let item of indizacion; let i = index "  >
+                       <div>{{ item.descripcion }}</div> 
+                        
+                        
+                       
+                        <ul *ngIf="item.subItems && item.subItems.length > 0">
+                          <li *ngFor="let subItem of item.subItems; let j = index">
+                            {{ subItem.descripcion }} 
+                           
+                            <ul *ngIf="subItem.subItems && subItem.subItems.length > 0">
+                              <li *ngFor="let subSubItem of subItem.subItems; let k = index">
+                                 {{ subSubItem.descripcion }} 
+                            
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div> -->
+                  <!-- <div *ngFor="let item of indizacion; index as i">
+                    
                     <div class="row">
                       <div class="col-md-10 d-flex justify-content-start">{{item.descripcion}}</div>
-                      <div class="col-md-1">{{item.indice}}</div>
-                      <!-- <div class="col-md-1">
+                      <div class="col-md-1">{{item.indice}}</div> 
+                      <div class="col-md-1">
                         <i class="bi bi-eye-fill"></i>
-                      </div> -->
+                      </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -144,9 +193,156 @@
         </div>
         <div class="col-md-5">
           <div class="text-center">
-            <iframe [src]="pdfUrl" type="application/pdf" width="100%" height="780px"></iframe>
+            <iframe [src]="pdfUrl" type="application/pdf" width="100%" style="height: 88vh;"></iframe>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- <div class="modal fade modal-lg" id="Modal_Indizador_observaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="form-group container">
+              
+                <div class="m-4 p-4">
+                    <hr>
+                    <div class="row my-2">
+                        <div class="col col-lg-6" style="padding:0px 5px;">
+                            <label for="descripcion" class="form-label">Descripción:</label>
+                            <input id="indizacion_descripcion_2" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2" style="padding:0px 10px;">
+                            <label for="indice" class="form-label">Indice:</label>
+                            <input id="indizacion_indice_2" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2" style="padding:0px 10px;">
+                            <label for="fojas" class="form-label">Fojas:</label>
+                            <input id="indizacion_fojas_2" type="text" class="form-control form-control-sm">
+                        </div>
+                        <div class="col col-lg-2 " style="padding:0px 5px;">
+                            <label for="fecha_indice" class="form-label ">Fecha:</label>
+                            <input id="fecha_indice_2" type="text" class="form-control form-control-sm" name="fecha_indice">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-lg-4">
+                            <label for="caracteristicas" class="form-label">caracteristicas:</label>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_original_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Original
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_copia_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Copia
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_color_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Color
+                                </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_escalagris_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    Escala de Grises
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col col-lg-8">
+                            <div class="form-floating my-2 mb-4">
+                                <textarea id="indizacion_textarea_2" class="form-control" style="height: 125px"></textarea>
+                                <label for="floatingTextarea2">observaciones</label>
+                            </div>
+                        </div>
+                    </div>
+                     <hr>
+                     
+                </div>
+            </div>
+         </div>
+      </div>
+    </div> -->
+    <div class="modal fade" id="Modal_Indizador_observaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="form-group container">
+              
+                <div class="m-4 p-4">
+                  
+                    <h5  id="indizacion_descripcion_2" style="padding:0px 5px;margin: 0px 10px 0px 0px;"></h5>
+                 
+                    <hr style="margin-top: 10px;">
+                    <div class="row my-2">
+                        
+                        <div class="col " >
+                            <label for="indice" class="form-label" >Indice:</label>
+                            <input id="indizacion_indice_2" type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="col" >
+                            <label for="fojas" class="form-label">Fojas:</label>
+                            <input id="indizacion_fojas_2" type="text" class="form-control form-control-sm" disabled>
+                        </div>
+                        <div class="col" >
+                            <label for="fecha_indice" class="form-label ">Fecha:</label>
+                            <input id="fecha_indice_2" type="text" class="form-control form-control-sm" name="fecha_indice" disabled>
+                        </div>
+                    </div>
+                    
+                    
+                            <label for="caracteristicas" class="form-label">caracteristicas:</label>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_original_2" class="form-check-input" type="checkbox" >
+                                <label class="form-check-label" for="flexCheckDefault"> Original </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_copia_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked"> Copia </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_color_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckDefault"> Color </label>
+                            </div>
+                            <div class="form-check mx-4">
+                                <input id="indizacion_checkbox_escalagris_2" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="flexCheckChecked"> Escala de Grises </label>
+                            </div>
+                    
+                        
+                            <div class="form-floating my-2 mb-4">
+                                <textarea id="indizacion_textarea_2" class="form-control" style="height: 140px" disabled> </textarea>
+                                <label for="floatingTextarea2">observaciones</label>
+                            </div>
+                     <hr>
+                     <div class="d-flex justify-content-end">
+                         <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+                     </div>
+                </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+    <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button> -->
+
+<div  class="offcanvas offcanvas-start shadow-lg bg-body-tertiary border border-start-0  rounded-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header" style="background-color: rgb(67, 136, 240)" >
+    <h5 class="offcanvas-title text-white" id="offcanvasScrollingLabel">Observaciones</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body" style="background-color: rgba(67, 136, 240, 0.068)">
+    <label for="">Observaciones de preparación:</label>
+    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="9" readonly>{{data_expediente.obs_preparacion}}</textarea>
+    <br>
+    <label for="">Observaciones de digitalización:</label>
+    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="9" readonly>{{data_expediente.obs_digitalizacion}}</textarea>
+    <br>
+    <label for="">Observaciones de control de calidad:</label>
+    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="9" readonly>{{data_expediente.obs_control_calidad}}</textarea>
+
+  </div>
+</div>
   </div>

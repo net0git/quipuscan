@@ -44,7 +44,7 @@ export class PrincipalComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //  this.permisos()
+      this.permisos()
   }
 
   permisos(){
@@ -94,17 +94,17 @@ export class PrincipalComponent implements OnInit {
                               
   }
 
-  limpiarProcesoExpediente(){
-      //cambiar de acuerdo al expediente
-      this.expedienteService.limpiarProcesoExpediente(158).subscribe(
-            res=>{
-                  console.log(res)
-            },
-            err=>{
-                  console.error(err)
-            }
-      )
-  }
+//   limpiarProcesoExpediente(){
+//       //cambiar de acuerdo al expediente
+//       this.expedienteService.limpiarProcesoExpediente(158).subscribe(
+//             res=>{
+//                   console.log(res)
+//             },
+//             err=>{
+//                   console.error(err)
+//             }
+//       )
+//   }
 
   inventario_digitalizacion(){
         this.router.navigate(['principal/inventario']);

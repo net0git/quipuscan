@@ -5,93 +5,164 @@
       <i class="bi bi-arrow-left text-white"> volver </i>
     </button>
   </div>
-
-  <div>
-    <div class="row m-4">
-      <div class="col-lg-3">
-        <div class="menu-listado-reportes">
-          <div class="titulo">DATOS DE INVENTARIO:</div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Año: {{inventarioDetalle.anio}}</div>
+  <div style="margin: 0px 10%">
+    <div class="row " >
+        
+          <div class="col-lg-6">
+            
+          <div class="presentacion_user ">
+            <div class="icon-title-container">
+              <i class="bi bi-card-list icon-custom"></i>
+              <h2 class="titulo_reporte mx-2">CONTROL DE CALIDAD</h2>
             </div>
           </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Cantidad: {{inventarioDetalle.cantidad}}</div>
+          <div class="menu-listado-inventario mb-4">
+            <div class="titulo">DATOS DE INVENTARIO</div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.expedientesListTemp.length}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Serie de Doc: {{inventarioDetalle.serie_doc}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Tipo de Doc: {{inventarioDetalle.tipo_doc}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
+                  </div>
+          </div>
+          <div class="card rounded shadow border-2">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+              <input type="text" class="form-control" name="registroexpediente" placeholder="Buscar expediente" (input)="buscarEnObjeto($event)">
             </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Serie de documento: {{inventarioDetalle.serie_doc}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Tipo de documento: {{inventarioDetalle.tipo_doc}}</div>
-            </div>
-          </div>
-          <div class="lista">
-            <div class="item">
-              <div class="name"><i class="bi bi-card-list"></i> Supervisor: {{inventarioDetalle.nombre + ' ' + inventarioDetalle.ap_paterno}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="presentacion_user mb-4">
-          <div class="icon-title-container">
-            <i class="bi bi-card-list icon-custom"></i>
-            <h2 class="titulo_reporte mx-2">CONTROL DE CALIDAD</h2>
-          </div>
-        </div>
-        <div class="card rounded shadow border-2">
-          <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <input type="text" class="form-control" name="registroexpediente" placeholder="Buscar expediente" (input)="buscarEnObjeto($event)">
-          </div>
-          <div class="card-body px-3 bg-white rounded">
-            <div class="table-responsive">
-              <table class="table text-center table-hover" id="excel-table">
-                <colgroup>
-                  <col style="width: 10%;">
-                  <col style="width: 70%;">
-                  <col style="width: 10%;">
-                </colgroup>
-                <thead class="text-white table-success">
-                  <tr>
-                    <th scope="col">Nro</th>
-                    <th scope="col">EXPEDIENTE</th>
-                    <th scope="col">DOC</th>
-                    <th scope="col">EST</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let expediente of expedientesList; index as i">
-                  <tr>
-                    <th >{{i + 1}}</th>
-                    <td (click)="!expediente.estado_controlado ? MostrarModal(expediente.id_expediente) : mensajeEstado()"     >{{expediente.nombre_expediente}}</td>
-                    <td>
-                      <i class="bi bi-file-earmark-pdf-fill" style="color: brown; font-size: 1.5rem; padding: 0px 0px; margin: 0px 0px" (click)="obtenerDocumentoDigitalizado(expediente.id_expediente)"></i>
-                    </td>
-                    <td>
-                      <i *ngIf="expediente.estado_controlado" class="bi bi-check-lg" style="font-size: 1.5rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
-                      <i *ngIf="!expediente.estado_controlado" class="bi bi-file-earmark-x" style="font-size: 1.5rem; padding: 0px 0px; margin: 0px 0px"></i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="card-body px-3 bg-white rounded">
+              <div class="mb-2 d-flex align-items-center">
+                <button class="btn btn-secondary btn-sm ">preparados({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
+                <button type="button" class="btn btn-outline-success btn-sm mx-2 " >pendientes({{exp_count_pendientes}})</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table text-center table-hover" id="excel-table">
+                  <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 70%;">
+                    <col style="width: 10%;">
+                  </colgroup>
+                  <thead class="text-white table-success">
+                    <tr>
+                      <th scope="col">Nro</th>
+                      <th scope="col">EXPEDIENTE</th>
+                      <th scope="col">DOC</th>
+                      <th scope="col">EST</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let expediente of expedientesList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                    <tr>
+                      <th >{{ i + (p - 1) * 10 + 1 }}</th>
+                      <td (click)="!expediente.estado_controlado ? MostrarModal(expediente.id_expediente) : mensajeEstado()"     >{{expediente.nombre_expediente}}</td>
+                      <td>
+                        <i class="bi bi-file-earmark-pdf-fill" style="color: brown; font-size: 1rem; padding: 0px 0px; margin: 0px 0px" (click)="obtenerDocumentoDigitalizado(expediente.id_expediente)"></i>
+                      </td>
+                      <td>
+                        <i *ngIf="expediente.estado_controlado" class="bi bi-check-lg" style="font-size: 1rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
+                        <i *ngIf="!expediente.estado_controlado" class="bi bi-file-earmark-x" style="font-size: 1rem; padding: 0px 0px; margin: 0px 0px"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-end ">
+                  <pagination-controls (pageChange)="p = $event"   previousLabel="Anterior"   nextLabel="Siguiente"   ></pagination-controls>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      <div class="col-lg-6 ">
+        <iframe [src]="pdfUrl" type="application/pdf" width="100%" style="height: 88vh;"></iframe>
       </div>
-      <div class="col-lg-5">
-        <iframe [src]="pdfUrl" type="application/pdf" width="100%" height="850px"></iframe>
+  </div>
+  <!-- <div class="mx-4">
+    <div class="row " >
+        <div class="col-lg-3 mt-3 ">
+          <div class="menu-listado-inventario">
+            <div class="titulo">DATOS DE INVENTARIO</div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.expedientesListTemp.length}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Serie de Doc: {{inventarioDetalle.serie_doc}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Tipo de Doc: {{inventarioDetalle.tipo_doc}}</div></div>
+                  </div>
+                  <div class="lista">
+                      <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Supervisor: {{inventarioDetalle.nombre+' '+inventarioDetalle.ap_paterno}}</div></div>
+                  </div>
+            </div>
+            </div>
+          <div class="col-lg-4">
+          <div class="presentacion_user mb-4">
+            <div class="icon-title-container">
+              <i class="bi bi-card-list icon-custom"></i>
+              <h2 class="titulo_reporte mx-2">CONTROL DE CALIDAD</h2>
+            </div>
+          </div>
+          <div class="card rounded shadow border-2">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+              <input type="text" class="form-control" name="registroexpediente" placeholder="Buscar expediente" (input)="buscarEnObjeto($event)">
+            </div>
+            <div class="card-body px-3 bg-white rounded">
+              <div class="table-responsive">
+                <table class="table text-center table-hover" id="excel-table">
+                  <colgroup>
+                    <col style="width: 10%;">
+                    <col style="width: 70%;">
+                    <col style="width: 10%;">
+                  </colgroup>
+                  <thead class="text-white table-success">
+                    <tr>
+                      <th scope="col">Nro</th>
+                      <th scope="col">EXPEDIENTE</th>
+                      <th scope="col">DOC</th>
+                      <th scope="col">EST</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let expediente of expedientesList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                    <tr>
+                      <th >{{ i + (p - 1) * 10 + 1 }}</th>
+                      <td (click)="!expediente.estado_controlado ? MostrarModal(expediente.id_expediente) : mensajeEstado()"     >{{expediente.nombre_expediente}}</td>
+                      <td>
+                        <i class="bi bi-file-earmark-pdf-fill" style="color: brown; font-size: 1rem; padding: 0px 0px; margin: 0px 0px" (click)="obtenerDocumentoDigitalizado(expediente.id_expediente)"></i>
+                      </td>
+                      <td>
+                        <i *ngIf="expediente.estado_controlado" class="bi bi-check-lg" style="font-size: 1rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
+                        <i *ngIf="!expediente.estado_controlado" class="bi bi-file-earmark-x" style="font-size: 1rem; padding: 0px 0px; margin: 0px 0px"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-end ">
+                  <pagination-controls (pageChange)="p = $event"   previousLabel="Anterior"   nextLabel="Siguiente"   ></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-5 ">
+        <iframe [src]="pdfUrl" type="application/pdf" width="100%" style="height: 87vh;"></iframe>
       </div>
-    </div>
+  </div> -->
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
