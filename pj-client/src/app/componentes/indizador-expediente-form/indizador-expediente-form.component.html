@@ -151,10 +151,7 @@
                                  <!-- <span class="d-flex justify-content-between"><span>{{ item.descripcion }} </span> <samp>{{ item.indice }}</samp></span> -->
                                 <button class="action-button" (click)="addSubItem(dataIndizacion, i)"><i class="bi bi-text-indent-left"></i></button>
                                 <button class="action-button" (click)="editItem(dataIndizacion, i)"><i class="bi bi-pencil"></i></button>
-                                <button class="action-button" (click)="deleteItem(dataIndizacion, i)"><i class="bi bi-x-circle"></i></button>
-                                
-                        
-                                   
+                                <button class="action-button" (click)="deleteItem(dataIndizacion, i)"><i class="bi bi-x-circle"></i></button>         
                                 <ol *ngIf="item.subItems && item.subItems.length > 0">
                                   <li *ngFor="let subItem of item.subItems; let j = index">
                                     {{ subItem.descripcion }} 
@@ -184,8 +181,7 @@
                             <label for="floatingTextarea2">Observaciones</label>
                         </div>
                         <div class="d-flex justify-content-end p-2  mb-4">
-                            <button class="btn btn-sm btn-success " type="button"
-                                (click)="CrearIndizacion()">GUARDAR</button>
+                            <button class="btn btn-sm btn-success " type="button"  (click)="estado_indizado_temp?ModificarIndizacion():CrearIndizacion()">{{estado_indizado_temp?'Modificar':'Guardar'}}</button>
                         </div>
                     </fieldset>
                

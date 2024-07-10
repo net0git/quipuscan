@@ -1,4 +1,4 @@
-ng serve --host 0.0.0.0 --port 5030 --disable-host-check
+ng serve --host 0.0.0.0 --port 4020 --disable-host-check
 
 BEGIN;
 

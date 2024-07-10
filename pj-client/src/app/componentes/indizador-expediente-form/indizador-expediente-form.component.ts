@@ -1116,6 +1116,8 @@ modificar_parte=false//condicional que permitira modificar parte
 modificar_indizacion=false
 disableButtonEliminar='display: none'
 titulo_boton='Agregar'
+estado_indizado_temp:boolean=false
+id_indizacion:number=0
 
 //[{"nombre":"ernesto","ap_paterno":"francisco","ap_materno":"arangure","dni":"45785623"},{"nombre":"francisco","ap_paterno":"arangure","ap_materno":"torres","dni":"19635784"}]
 TempDemandante:any={
@@ -1150,6 +1152,10 @@ ngOnInit(): void {
            this.detalleExpediente=res
             this.detalleExpediente=this.detalleExpediente
            console.log(this.detalleExpediente)
+           if(this.detalleExpediente.estado_indizado==true){
+            this.estado_indizado_temp=true
+            this.RecuperarDatos(this.detalleExpediente.id_expediente,this.detalleExpediente.juzgado_origen,this.detalleExpediente.tipo_proceso,this.detalleExpediente.materia,this.detalleExpediente.fecha_inicial,this.detalleExpediente.fecha_final,this.detalleExpediente.demandante,this.detalleExpediente.demandado)
+           }
            this.data_expediente.id_inventario= this.detalleExpediente.id_inventario
            this.data_expediente.id_responsable= this.datosCompartidosService.credentials.id_usuario
            this.data_expediente.nombre_expediente= this.detalleExpediente.nombre_expediente
@@ -1159,8 +1165,6 @@ ngOnInit(): void {
           console.error(err)
         }   
        )
-
-      
        this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`assets/documentos/error/error_carga2.pdf`);
 }
 obtenerDocumentoDigitalizado(id_expediente:number){
@@ -1233,55 +1237,75 @@ enviarTablaDemandados(){
   this.closeModal();
   this.limpiarCamposDemandado();
 }
-guardar(){
-  // this.ModificarExpediente()
-  // this.GuardarPartes()
-  // this.MensajeDeGuardado()
-}
+// guardar(){
+//   // this.ModificarExpediente()
+//   // this.GuardarPartes()
+//   // this.MensajeDeGuardado()
+// }
+ModificarIndizacion(){
+ 
+  let body:any={}
+  let jsonStringIndizacion = JSON.stringify(this.dataIndizacion);
+  body.indizacion=jsonStringIndizacion
+  body.observaciones=(<HTMLInputElement>document.getElementById('observaciones_generales')).value;
 
-//en este caso usaremos el modificar ya que el preparado es un agregado al expediente alistado por el supervisor
-ModificarExpediente(){
-  const params=this.activatedRoute.snapshot.params
-  const id_expediente=params['id_expediente']
-  this.expedienteService.modificarExpediente(this.data_expediente,id_expediente).subscribe(
+  this.indizacionService.modificarIndizacionIndice(body,this.id_indizacion).subscribe(
     res=>{
-      console.log(res)
+        console.log(res)
+        this.ModificarDatosComplementariosExpediente()
+        this.mensajeGuardado()
     },
     err=>{
-      console.error(err)
+        console.error(err)
     }
   )
 }
-//en este caso si guardaremos la tabla de demandados y demandantes
-GuardarPartes(){
-  this.GuardarDemandantes();
-  this.GuardarDemandados();
-}
-GuardarDemandantes(){
-  for (let element of this.listaTempDemanantes) {
-    console.log(element);
-      this.parteService.crearParte(element).subscribe(
-        res=>{
-          console.log(res)
-        },
-        err=>{
-          console.error(err)
-        }
-      )
-  }
-}
-GuardarDemandados(){
-  for (let element of this.listaTempDemandados) {
-    this.parteService.crearParte(element).subscribe(
-      res=>{
-        console.log(res)
-      },
-      err=>{
+RecuperarDatos(id_expediente:number,juzgado_origen: string, tipo_proceso: string, materia: string, fecha_inicio: string, fecha_final: string, demandantes:string,demandados:string) {
+  (document.getElementById('input_juzgado_origen') as HTMLInputElement).value = juzgado_origen;
+  (document.getElementById('select_tipo_proceso') as HTMLInputElement).value = tipo_proceso;
+  (document.getElementById('input_materia') as HTMLInputElement).value = materia;
+
+  // Extraer la parte de la fecha (YYYY-MM-DD) de la cadena ISO
+  const fechaInicioStr = fecha_inicio.split('T')[0];
+  const fechaFinalStr = fecha_final.split('T')[0];
+
+  (document.getElementById('fecha_inicio') as HTMLInputElement).value = fechaInicioStr;
+  (document.getElementById('fecha_final') as HTMLInputElement).value = fechaFinalStr;
+
+  
+  this.listaTempDemanantes = JSON.parse(demandantes);
+  this.listaTempDemandados = JSON.parse(demandados);
+  
+
+  this.indizacionService.indizacionDetalleXidExpediente(id_expediente).subscribe(
+    res=>{
+        let datosIndizacion:any=res
+        this.dataIndizacion= JSON.parse(datosIndizacion[0].indizacion)
+        this.id_indizacion=datosIndizacion[0].id_indizacion;
+        console.log(datosIndizacion[0]);
+        (<HTMLInputElement>document.getElementById('observaciones_generales')).value= datosIndizacion[0].observaciones;
+    },
+    err=>{
         console.error(err)
-      }
-    )
-  }
+    }
+  )
+
 }
+
+//en este caso usaremos el modificar ya que el preparado es un agregado al expediente alistado por el supervisor
+// ModificarExpediente(){
+//   const params=this.activatedRoute.snapshot.params
+//   const id_expediente=params['id_expediente']
+//   this.expedienteService.modificarExpediente(this.data_expediente,id_expediente).subscribe(
+//     res=>{
+//       console.log(res)
+//     },
+//     err=>{
+//       console.error(err)
+//     }
+//   )
+// }
+
 
 //MODAL PARA MANEJAR DEMANDANTE
   openModalDemandante() {
@@ -1348,6 +1372,7 @@ CrearIndizacion(){
   )
 
 }
+
 
 ModificarDatosComplementariosExpediente()//
 {

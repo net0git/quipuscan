@@ -21,4 +21,8 @@ export class IndizacionService {
   modificarIndizacion(body:any,id_indizacion:number){
         return this.http.put(this.api_uri_indizaicon+'/'+id_indizacion,body)
   }
+  
+  modificarIndizacionIndice(body:any,id_indizacion:number){
+      return this.http.put(this.api_uri_indizaicon+'/modificar/'+id_indizacion,body)
+}
 }

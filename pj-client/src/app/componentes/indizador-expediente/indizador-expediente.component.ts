@@ -42,8 +42,6 @@ detalleInventario(){
     res=>{
       this.inventarioDetalle=res
       this.inventarioDetalle=this.inventarioDetalle[0]
-    
-      
     },
     err=>{
       console.error(err)

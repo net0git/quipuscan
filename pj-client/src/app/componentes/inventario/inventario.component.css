@@ -91,3 +91,16 @@ thead th{
    padding: 20px;
 }
 
+   /* tabla text */
+   th{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2a5f42;
+  }
+
+  td{
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 0.4rem;
+    color: #434343;
+  }

@@ -30,6 +30,7 @@ export class DigitalizacionExpedientesComparacionComponent implements OnInit{
   tituloBoton=''
   modificar=false
   disablebotonModificar='display: none';
+  expedientesHabilitados:any=[]
 
   constructor(private digitalizacionService:DigitalizacionService,private sanitizer: DomSanitizer,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService, private inventarioService:InventarioService,private datosCompartidosService:DatosCompartidosService){}
 
@@ -121,8 +122,8 @@ listarExpedientesXidInventario(){
   console.log(params['id_inventario'])
   this.expedienteService.listaExpedientesXinventario(params['id_inventario']).subscribe(
     res=>{
-      const ExpedientesHabilitados:any = res
-      this.expedientesList=ExpedientesHabilitados.filter((expediente: { estado_preparado: boolean; }) => expediente.estado_preparado ===true);
+      this.expedientesHabilitados = res
+      this.expedientesList=this.expedientesHabilitados.filter((expediente: { estado_preparado: boolean; }) => expediente.estado_preparado ===true);
     
       this.expedientesListTemp=this.expedientesList  
       this.exp_count_pendientes=0

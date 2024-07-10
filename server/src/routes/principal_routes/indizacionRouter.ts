@@ -15,9 +15,11 @@ class InventarioRoutes{
         //consultas para personas 
         this.router.get('/api/indizacion',indizacionController.listarIndizaciones)
         this.router.get('/api/indizacion/detalleporexpediente/:id_expediente',indizacionController.ObtenerDetalleIndizacinXidExpediente)
+        //ModificarIndizacionIndex
     
         this.router.post('/api/indizacion',indizacionController.CrearIndizacion)
         this.router.put('/api/indizacion/:id',indizacionController.ModificarIndizacion)
+        this.router.put('/api/indizacion/modificar/:id',indizacionController.ModificarIndizacionIndex)
       
 
         

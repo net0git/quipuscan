@@ -22,7 +22,7 @@
                       <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
                   </div>
                   <div class="lista">
-                      <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.expedientesListTemp.length}}</div></div>
+                      <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.ExpedientesHabilitados.length}}</div></div>
                   </div>
                   <div class="lista">
                       <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
@@ -43,7 +43,7 @@
             </div>
             <div class="card-body px-3 bg-white rounded">
               <div class="mb-2 d-flex align-items-center">
-                <button class="btn btn-secondary btn-sm ">preparados({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
+                <button class="btn btn-secondary btn-sm ">aprobados({{this.expedientesListTemp.length-exp_count_pendientes}})</button>
                 <button type="button" class="btn btn-outline-success btn-sm mx-2 " >pendientes({{exp_count_pendientes}})</button>
               </div>
               <div class="table-responsive">
@@ -61,7 +61,7 @@
                       <th scope="col">EST</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let expediente of expedientesList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                  <tbody *ngFor="let expediente of expedientesList| paginate: { itemsPerPage: 6, currentPage: p }; let i = index">
                     <tr>
                       <th >{{ i + (p - 1) * 10 + 1 }}</th>
                       <td (click)="!expediente.estado_controlado ? MostrarModal(expediente.id_expediente) : mensajeEstado()"     >{{expediente.nombre_expediente}}</td>

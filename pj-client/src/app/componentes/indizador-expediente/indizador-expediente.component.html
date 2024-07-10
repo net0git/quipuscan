@@ -76,7 +76,7 @@
                         <i *ngIf="expediente.estado_indizado" class="bi bi-eye-fill mx-4" style=" color: rgb(77, 0, 128); padding: 0px 0px; margin: 0px 0px"></i>
                         <!-- <i *ngIf="!expediente.estado_preparado" class="bi bi-eye-fill mx-4"></i> -->
 
-                        <i *ngIf="!expediente.controlado && expediente.estado_indizado"  class="bi bi-pencil" style=" color: rgb(0, 45, 128); padding: 0px 0px; margin: 0px 0px"></i>
+                        <i *ngIf="!expediente.estado_controlado && expediente.estado_indizado"  class="bi bi-pencil" style=" color: rgb(0, 45, 128); padding: 0px 0px; margin: 0px 0px" (click)="IndizarExpediente(expediente.id_expediente)"></i>
                         <!-- <i *ngIf="!expediente.estado_preparado" class="bi bi-pencil"></i> -->
                     </td>
                   </tr>
