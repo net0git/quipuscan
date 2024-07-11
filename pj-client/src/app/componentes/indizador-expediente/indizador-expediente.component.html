@@ -65,15 +65,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let expediente of expedientesList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index"  (click)="!expediente.estado_indizado ? IndizarExpediente(expediente.id_expediente) : mensajeIndizacion()" >
+                  <tr *ngFor="let expediente of expedientesList| paginate: { itemsPerPage: 10, currentPage: p }; let i = index"  >
                     <th scope="row">{{ i + (p - 1) * 10 + 1 }}</th>
-                    <td>{{expediente.nombre_expediente}}</td>
+                    <td (click)="!expediente.estado_indizado ? IndizarExpediente(expediente.id_expediente) : mensajeIndizacion()">{{expediente.nombre_expediente}} </td>
                     <td>
-                      <i *ngIf="expediente.estado_indizado" class="bi bi-check-lg"
-                        style="font-size: 1rem; color: green; padding: 0px 0px; margin: 0px 0px"></i>
-                      <i *ngIf="!expediente.estado_indizado" class="bi bi-file-earmark-x"
-                        style="font-size: 1rem; padding: 0px 0px; margin: 0px 0px"></i>
-                        <i *ngIf="expediente.estado_indizado" class="bi bi-eye-fill mx-4" style=" color: rgb(77, 0, 128); padding: 0px 0px; margin: 0px 0px"></i>
+                      <i *ngIf="expediente.estado_indizado" class="bi bi-check-lg" style="font-size: 1rem; color: green; padding: 0px 0px; margin: 0px 0px"  ></i>
+                      <i *ngIf="!expediente.estado_indizado" class="bi bi-file-earmark-x" style="font-size: 1rem; padding: 0px 0px; margin: 0px 0px" ></i>
+                        <i *ngIf="expediente.estado_indizado" class="bi bi-eye-fill mx-4"  style=" color: rgb(77, 0, 128); padding: 0px 0px; margin: 0px 0px" (click)="mostarDatosIndizacion(expediente.id_expediente)"></i>
                         <!-- <i *ngIf="!expediente.estado_preparado" class="bi bi-eye-fill mx-4"></i> -->
 
                         <i *ngIf="!expediente.estado_controlado && expediente.estado_indizado"  class="bi bi-pencil" style=" color: rgb(0, 45, 128); padding: 0px 0px; margin: 0px 0px" (click)="IndizarExpediente(expediente.id_expediente)"></i>
@@ -91,40 +89,98 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog"
+    <div class="modal fade modal-xl" id="exampleModalCenter" tabindex="-1" role="dialog"
       aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <div class="bg-secondary custom-width">
-              <h5 class="modal-title m-2 text-white" id="exampleModalLongTitle">LOTE: </h5>
-              <h4 class="modal-title m-2 text-white" id="exampleModalLongTitle2">SERIE DOC:</h4>
+          <div class="row">
+            <div class="col">
+              <div class="modal-header">
+                <div class="bg-secondary custom-width d-flex justify-content-center">
+                  <h5 class="modal-title m-2 text-white" id="exampleModalLongTitle">{{expedienteTemp.nombre_expediente}}</h5>
+                </div>
+                <!-- <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button> -->
+              </div>
+              <div class="modal-body text-start">
+                <ul>
+                  <li><strong>JUZGADO DE ORIGEN:</strong> {{expedienteTemp.juzgado_origen}}</li>
+                  <li><strong>TIPO DE PROCESO:</strong> {{expedienteTemp.tipo_proceso}}</li>
+                  <li><strong>MATERIA:</strong> {{expedienteTemp.materia}}</li>
+                  <li><strong>FECHA INICIAL:</strong> {{expedienteTemp.fecha_inicial | date: 'dd/MM/yyyy'}}</li>
+                  <li><strong>FECHA FINAL:</strong> {{expedienteTemp.fecha_final | date: 'dd/MM/yyyy'}} </li>
+                </ul>
+                
+               <div class="container">
+                      <div class="d-flex justify-content-between" >
+                        <label style="margin-bottom: 0px;" for="demantantes" class="form-label">Demandante(s):</label>
+                      </div>
+                      <hr style="margin: 2px;">
+                      <div *ngFor="let demandante of listaTempDemanantes, let i = index" >
+                        <div class="d-flex justify-content-between  div_parte ">
+                          <p class="truncate-text texto_parte">{{demandante.demandante}}</p>
+                          <p class="texto_parte">{{demandante.identificador}} </p>
+                        </div>
+                      </div>
+                  
+                      <div class="d-flex justify-content-between">
+                        <label style="margin-bottom: 0px;" for="demandados" class="form-label">Demandado(s):</label>
+                      </div>
+                      <hr style="margin: 2px;">
+                      <div *ngFor="let demandado of listaTempDemandados, let i = index " >
+                        <div  class="d-flex justify-content-between div_parte">
+                            <p class="truncate-text texto_parte">{{demandado.demandado}}</p>
+                            <p class="texto_parte">{{demandado.identificador}} </p>
+                        </div>
+                      </div>
+                      <hr>
+                      <label class="mx-2 mb-2">Observaciones</label>
+                      <div class="mb-3">
+                        <textarea name="observaciones_indizacion" class="form-control" rows="5" >{{observacionesIndizacion}}</textarea>
+                      </div>
+               </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">salir</button>
+              </div>
             </div>
-            <!-- <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button> -->
-          </div>
-          <div class="modal-body text-start">
-            <ul>
-              <li><strong>PLACA:</strong> </li>
-              <li><strong>RAZON SOCIAL:</strong> </li>
-              <li><strong>AÑO DE FABRICACIÓN:</strong> </li>
-              <li><strong>MARCA:</strong> </li>
-              <li><strong>MODALIDAD:</strong> </li>
-              <li><strong>PARTIDA REGISTRAL:</strong> </li>
-              <li><strong>RESOLUCIÓN:</strong> </li>
-              <li><strong>CONDICIÓN:</strong> </li>
-              <li><strong>COLOR:</strong></li>
-              <li><strong>N° CHASIS:</strong> </li>
-            </ul>
-            <hr>
-            <label class="mx-2 mb-2">copias:</label>
-            <div class="mb-3">
-              <textarea name="tuc_copia" placeholder="Descripción" class="form-control" rows="4"></textarea>
+            <div class="col">
+              <div class="border shadow " style="padding:0px ; margin: 15px 15px 15px 0px; height: 75vh;">
+                <div class="border border-info bg-info ">
+                  <h6 class="text-white m-2">INDEXACION</h6>
+                </div>
+                <div class="d-flex justify-content-between mx-4">
+                  <h5>Indice</h5>
+                  <span >Pg</span>
+                </div>
+                <hr style="margin: 2px;">
+                <div id="list-container">
+                 <span>
+                  <div *ngFor="let item of dataIndizacion; let i = index "  >
+                    <div class="mx-4 d-flex justify-content-between">
+                      <span><strong>{{i+1 +'.'}} {{ item.descripcion }}</strong> </span>
+                      <span>{{ item.indice }}</span>
+                    </div> 
+                     <div *ngIf="item.subItems && item.subItems.length > 0">
+                       <div *ngFor="let subItem of item.subItems; let j = index">
+                        <div class="mx-4 d-flex justify-content-between">
+                          <span><strong>{{i+1 +'.'}}{{j+1}}</strong> {{ subItem.descripcion }} </span>
+                          <span>{{ subItem.indice }} </span>
+                        </div> 
+                         <div *ngIf="subItem.subItems && subItem.subItems.length > 0">
+                           <div *ngFor="let subSubItem of subItem.subItems; let k = index">
+                            <div class="mx-4 d-flex justify-content-between">
+                              <span style="padding-left: 5px;"><strong>{{i+1 +'.'}}{{j+1+'.'}}{{k+1}}</strong> {{ subSubItem.descripcion }} </span>
+                              <span>{{ subSubItem.indice }} </span>
+                            </div>
+                           </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </span>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary">salir</button>
-            <button type="button" class="btn btn-primary">Guardar Cambios</button>
           </div>
         </div>
       </div>

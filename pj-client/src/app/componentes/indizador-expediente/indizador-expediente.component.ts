@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router ,ActivatedRoute} from '@angular/router';
 import { ExpedienteService } from 'src/app/servicios/expediente/expediente.service';
 import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
+import { IndizacionService } from 'src/app/servicios/indizacion/indizacion.service';
 declare var bootstrap: any;
 
 @Component({
@@ -19,8 +20,14 @@ export class IndizadorExpedienteComponent implements OnInit {
   p: number = 1;
   exp_count_pendientes:number=0
   expedientesHabilitados:any=[]
+  expedienteTemp:any={}
+
+  dataIndizacion:any = [];
+  listaTempDemanantes:any=[]//[]//lista temporal de demandantes
+  listaTempDemandados:any=[]// lista temporal de demandador
+  observacionesIndizacion:string=''
   
-  constructor(private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService,private inventarioService:InventarioService){}
+  constructor(private indizacionService:IndizacionService ,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService,private inventarioService:InventarioService){}
 expedientetemp:any={}
 ngOnInit(): void {
   this.detalleInventario()
@@ -31,6 +38,41 @@ ngOnInit(): void {
 openModal() {
   this.myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'));
   this.myModal.show();
+}
+closeModal() {
+  // Ocultar el modal utilizando la instancia almacenada
+  this.myModal.hide();
+}
+
+mostarDatosIndizacion(id_expediente:number){
+  this.myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'));
+  this.myModal.show();
+  console.log(id_expediente)
+
+  this.expedienteService.obtenerExpedienteDetalle(id_expediente).subscribe(
+    res=>{
+        this.expedienteTemp=res;
+        console.log(this.expedienteTemp)
+        this.listaTempDemanantes = JSON.parse(this.expedienteTemp.demandante);
+        this.listaTempDemandados = JSON.parse(this.expedienteTemp.demandado);
+    },
+    err=>{
+        console.error(err)
+    }
+  )
+  this.indizacionService.indizacionDetalleXidExpediente(id_expediente).subscribe(
+    res=>{
+        let datosIndizacion:any=res
+        this.dataIndizacion= JSON.parse(datosIndizacion[0].indizacion)
+        console.log(datosIndizacion[0]);
+        this.observacionesIndizacion=datosIndizacion[0].observaciones
+        
+        // (<HTMLInputElement>document.getElementById('observaciones_generales')).value= datosIndizacion[0].observaciones;
+    },
+    err=>{
+        console.error(err)
+    }
+  )
 }
 
 mensajeIndizacion(){
@@ -76,12 +118,6 @@ MostrarFormularioExpediente(id_expediente:number){
   // this.vehiculo_detalle=this.vehiculo_detalle[0]
   this.openModal()
 
-}
-
-
-closeModal() {
-  // Ocultar el modal utilizando la instancia almacenada
-  this.myModal.hide();
 }
 
 buscarEnObjeto(event: any) {
