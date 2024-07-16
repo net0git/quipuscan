@@ -16,14 +16,14 @@
                     <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
                 </div>
                 <div class="lista">
-                    <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.expedientesListTemp.length}}</div></div>
+                    <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{this.inventarioDetalle.cantidad}}</div></div>
                 </div>
                 <div class="lista">
                     <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
                 </div>
-                <div class="lista">
+                <!-- <div class="lista">
                     <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Serie de Doc: {{inventarioDetalle.serie_doc}}</div></div>
-                </div>
+                </div> -->
                 <div class="lista">
                     <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2"></i> Tipo de Doc: {{inventarioDetalle.tipo_doc}}</div></div>
                 </div>
@@ -66,7 +66,7 @@
                 <tbody>
                   <tr *ngFor="let expediente of expedientesList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index" >
                     <th scope="row">{{ i + (p - 1) * 10 + 1 }}</th>
-                    <td (click)="!expediente.estado_preparado ? openModal(expediente.id_expediente) : mensajePreparacion()">{{expediente.nombre_expediente}}</td>
+                    <td (click)="!expediente.estado_preparado ? openModal(expediente.id_expediente) : mensajePreparacion()">{{expediente.nombre_expediente}}  </td>
                     <td>
                       <i *ngIf="expediente.estado_preparado" class="bi bi-check-lg" style=" color: green; padding: 0px 0px; margin: 0px 0px"></i>
                       <i (click)="openModal(expediente.id_expediente)" *ngIf="!expediente.estado_preparado" class="bi bi-file-earmark-x" style=" padding: 0px 0px; margin: 0px 0px"></i>

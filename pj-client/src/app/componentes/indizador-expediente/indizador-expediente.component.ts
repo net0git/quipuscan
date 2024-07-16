@@ -25,6 +25,7 @@ export class IndizadorExpedienteComponent implements OnInit {
   dataIndizacion:any = [];
   listaTempDemanantes:any=[]//[]//lista temporal de demandantes
   listaTempDemandados:any=[]// lista temporal de demandador
+ 
   observacionesIndizacion:string=''
   
   constructor(private indizacionService:IndizacionService ,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService,private inventarioService:InventarioService){}
@@ -32,6 +33,7 @@ expedientetemp:any={}
 ngOnInit(): void {
   this.detalleInventario()
   this.listarExpedientesXidInventario()
+  
 }
 
 //--------------------------------------------------------------------------------------
@@ -43,6 +45,7 @@ closeModal() {
   // Ocultar el modal utilizando la instancia almacenada
   this.myModal.hide();
 }
+
 
 mostarDatosIndizacion(id_expediente:number){
   this.myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'));

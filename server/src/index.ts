@@ -13,6 +13,7 @@ import digitalizadorRoutes from './routes/principal_routes/digitalizadorRoutes';
 import indizacionRouter from './routes/principal_routes/indizacionRouter';
 import controlCaliadRoutes from './routes/principal_routes/controlCaliadRoutes';
 import fedatarioRoutes from './routes/principal_routes/fedatarioRoutes';
+import reportesRoutes from './routes/principal_routes/reportesRoutes';
 
 
 
@@ -46,7 +47,8 @@ class Server{
         this.app.use('/',digitalizadorRoutes);
         this.app.use('/',indizacionRouter);
         this.app.use('/',controlCaliadRoutes);
-        this.app.use('/',fedatarioRoutes)
+        this.app.use('/',fedatarioRoutes);
+        this.app.use('/',reportesRoutes)
        
     }
     star():void{

@@ -1,0 +1,233 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+.icon-custom {
+    
+    font-weight: bold; 
+    font-size: 3.5rem;
+    color: #929FB1;
+
+}
+.presentacion_user{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    margin-top: 10px;
+}
+.titulo_usuario{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    padding-top: 5px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+.subtitulo_usuario{
+    padding-top: 5px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+.form-label{
+    /* font-weight: bold; */
+    color: rgba(70, 69, 69, 0.662);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+.vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+    margin: auto;
+    padding: auto;
+}
+
+/* boton volver */
+.btn-volver{
+    background-color:  #176091;
+    border-radius: 5px;
+    border-color: #176091;   
+}
+
+.fondo-volver{
+    background-color: #73bced2c;
+}
+
+/* color del texto del boton */
+
+/* form control en mayusculas */
+.form-control{
+    text-transform:uppercase;
+  }
+
+  /* texto en minuscula */
+  .texto-form-minuscula{
+    text-transform: lowercase !important;
+    color: #2686c6;
+  }
+
+/* .contenedor{
+    width: 50%;
+} */
+
+/* menu listado de inventario */
+.menu-listado-expediente{
+    box-sizing: border-box;
+    /* background-color: #f1e55d5d; */
+    background-color: #b7dceb79;
+    padding: 20px;
+    border-radius: 16px;
+}
+.menu-listado-expediente .titulo{
+    /* text-transform: uppercase; */
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #6e7e89;
+}
+.menu-listado-expediente .lista{
+    margin: 4px 0;
+}
+
+.menu-listado-expediente .lista .item .name{
+    display: inline-block;
+    padding: 0 0 0 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+   
+    color: #434343de;
+    
+}
+
+.linea_tarjeta{
+    margin-top:0px ;
+    margin-bottom: 0PX;
+}
+
+
+.truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px; /* Ajusta este valor según tus necesidades */
+  }
+
+  .texto_parte{
+    margin-bottom: 0px;
+  }
+  .div_parte{
+    margin: 0px 0px;
+    padding: 0px 0px;
+  }
+
+
+
+  /* indizador-expediente-form.component.css */
+/* Estilo para listas anidadas numeradas */
+/* Estilo para listas anidadas numeradas */
+/* ol {
+    counter-reset: item;
+  }
+  
+ ol li {
+    display: block;
+    counter-increment: item;
+  }
+  
+  ol li::before {
+    content: counters(item, ".") " ";
+    font-weight: bold;
+  }
+  
+  ol ol {
+    counter-reset: subitem;
+  }
+  
+  ol ol li {
+    counter-increment: subitem;
+  }
+  
+  ol ol li::before {
+    content: counters(item, ".") "." counters(subitem, ".") " ";
+  }
+  
+  .action-button {
+    margin-left: 10px;
+    cursor: pointer;
+  } */
+  
+
+  ol {
+    counter-reset: item;
+}
+
+ol > li {
+    display: block;
+    counter-increment: item;
+    margin-bottom: 10px;
+}
+
+ol > li::before {
+    content: counters(item, ".") " ";
+    font-weight: bold;
+}
+
+ol ol {
+    counter-reset: item;
+}
+
+ol ol > li {
+    display: block;
+    counter-increment: item;
+}
+
+ol ol > li::before {
+    content: counters(item, ".") " ";
+    font-weight: bold;
+}
+
+ol ol ol {
+    counter-reset: subitem;
+}
+
+ol ol ol > li {
+    display: block;
+    counter-increment: subitem;
+}
+
+ol ol ol > li::before {
+    content: counters(item, ".") "." counters(subitem, ".") " ";
+    font-weight: bold;
+}
+
+.action-button {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
+/* Ocultar los botones por defecto */
+#list-container .action-button {
+  display: none;
+}
+
+/* Mostrar los botones cuando el cursor está sobre el li */
+#list-container li:hover > .action-button {
+  display: inline-block;
+}
+
+/* Opcional: Añadir estilos adicionales para los botones */
+#list-container .action-button {
+  margin-left: 10px; /* Espacio entre botones */
+  padding: 0px 5px; /* Espaciado interno */
+  background-color: transparent; /* Color de fondo */
+  color: #2b79c2; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Manito al pasar sobre el botón */
+}
+
+/* Cambiar el color del texto al pasar sobre el botón */
+#list-container .action-button:hover {
+  color: #2bb0c2;
+}

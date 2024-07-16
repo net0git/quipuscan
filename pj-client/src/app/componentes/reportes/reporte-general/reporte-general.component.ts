@@ -1,79 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
 import { ExpedienteService } from 'src/app/servicios/expediente/expediente.service';
-
+import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
 
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-
-declare var bootstrap: any;
-
 var totalPagesExp = '{total_pages_count_string}';
 
 @Component({
-  selector: 'app-inventario',
-  templateUrl: './inventario.component.html',
-  styleUrls: ['./inventario.component.css']
+  selector: 'app-reporte-general',
+  templateUrl: './reporte-general.component.html',
+  styleUrls: ['./reporte-general.component.css']
 })
-export class InventarioComponent implements OnInit {
-  
-  inventarios:any=[]
-  inventariosTem:any=[]
-  objetosFiltrados:any=[];
+export class ReporteGeneralComponent implements OnInit {
 
+  inventariosTem:any=[]
+  inventarios:any=[]
+  objetosFiltrados:any=[];
   
   sections: number = 0;
-  private myModal: any;
 
-  data_inventario:any={
-    id_inventario:0,
-    especialidad_inventario:'',
-    anio:null,
-    tipo_doc:'',
-    serie_doc:null,
-  }
-  
   constructor(private expedienteService:ExpedienteService,private router: Router,private inventarioService:InventarioService){}
    
   ngOnInit(): void {
     this.listarInventario()
     
   }
-  closeModal() {
-    // Ocultar el modal utilizando la instancia almacenada
-    this.myModal.hide();
-    
-  }
-  openModal(id_inventario:number) {
-    console.log(id_inventario)
-    this.inventarioService.obtenerInventarioGeneral(id_inventario).subscribe(
-      res=>{
-       this.data_inventario=res
-        console.log(this.data_inventario)
-      },
-      err=>{
-        console.log(err)
-      }
-    )
-    this.myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'));
-    this.myModal.show();
-  }
-
-ModificarCuerpoInventario(){
-  
-  this.inventarioService.modificarCuerpoInventario(this.data_inventario,this.data_inventario.id_inventario).subscribe(
-    res=>{
-        console.log(res)
-        this.listarInventario()
-        this.closeModal()
-    },
-    err=>{
-        console.error(err)
-    }
-  )
-}
-  
   listarInventario(){
     this.inventarioService.listaDetalladaInventarios().subscribe(
       res=>{
@@ -86,7 +38,6 @@ ModificarCuerpoInventario(){
       }
     )
   }
-
   listarExpedientesXidinventario(id_inventario:number,tipo_doc:string,serie_doc:string,supervisor:string,especialidad:string,cantidad:number){
     this.expedienteService.listaExpedientesXinventario(id_inventario).subscribe(
       res=>{
@@ -105,12 +56,11 @@ ModificarCuerpoInventario(){
       }
     )
   }
-
   buscarEnObjeto(event: any) {
     const textoBusqueda = event.target.value.toLowerCase();
-      
+      let objetosFiltrados:any=[]
       // Filtrar los objetos según el texto de búsqueda
-      this.objetosFiltrados = this.inventariosTem.filter((objeto: 
+      objetosFiltrados = this.inventariosTem.filter((objeto: 
         { 
           especialidad_inventario: string; 
           anio:number;
@@ -128,24 +78,18 @@ ModificarCuerpoInventario(){
       });
       this.inventarios=this.objetosFiltrados
   }
-  
-  Volver(){
-      this.router.navigate(['/principal'])
-    }
-  
-    inventarioForm(){
-      this.router.navigate(['/principal/inventario/inventarioform'])
-    }
-  
-    expedientesInventario(id_inventario:number){
-      console.log(id_inventario)
-       this.router.navigate(['/principal/inventario/expedientesinventario/',id_inventario])
+
+
+  volver(){
+    this.router.navigate(['/principal/reportes/'])
+  }
+  expedientesInventario(id_inventario:number){
+       console.log(id_inventario)
+       this.router.navigate(['/principal/reportes/expedientes/',id_inventario])
     }
 
 
-
-
-//crear un arreglo con el cuerpo de la lista de expedientes
+    //crear un arreglo con el cuerpo de la lista de expedientes
 createRows(listaExpedientes: any): any[] {
   const rows: any[] = [];
 
@@ -305,6 +249,4 @@ createRows(listaExpedientes: any): any[] {
       const blobUrl = URL.createObjectURL(pdfOutput);
       window.open(blobUrl);
     }
-
-  }
-  
+}

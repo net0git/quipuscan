@@ -15,7 +15,7 @@
                       <div class="item" ><div class="name"> <i class="bi bi-card-list mx-2 "></i>  Año: {{inventarioDetalle.anio}}</div></div>
                   </div>
                   <div class="lista">
-                      <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{expedientesHabilitados.length}}</div></div>
+                      <div class="item" ><div class="name"><i class="bi bi-card-list mx-2"></i> Cantidad: {{inventarioDetalle.cantidad}}</div></div>
                   </div>
                   <div class="lista">
                       <div class="item"  ><div class="name"><i class="bi bi-card-list mx-2"></i> Especialidad: {{inventarioDetalle.especialidad_inventario}}</div></div>
@@ -134,9 +134,12 @@
                       </div>
                       <hr>
                       <label class="mx-2 mb-2">Observaciones</label>
-                      <div class="mb-3">
-                        <textarea name="observaciones_indizacion" class="form-control" rows="5" >{{observacionesIndizacion}}</textarea>
+                      <div class="m-2">
+                        <textarea class="form-control" style="background-color: rgb(253, 251, 240);" id="exampleFormControlTextarea1" rows="5" readonly>{{observacionesIndizacion}}</textarea>
                       </div>
+                      <!-- <div class="mb-3">
+                        <textarea name="observaciones_indizacion" class="form-control" rows="5" >{{observacionesIndizacion}}</textarea>
+                      </div> -->
                </div>
               </div>
               <div class="modal-footer">

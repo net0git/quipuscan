@@ -162,10 +162,15 @@ class FedatarioController{
                             ex.fojas_obs as obs_preparacion,
                             i.indizacion,
                             d.documento,
-                            d.id_digitalizacion,
+                            d.id_digitalizacion,  
                             d.observaciones as obs_digitalizacion,
-                            c.observacion as obs_control_calidad
-                        
+                            c.observacion as obs_control_calidad,
+                            c.val_observaciones,
+                            c.val_datos,
+                            c.val_nitidez,
+                            c.val_pruebas_impresion,
+                            c.val_copia_fiel
+
                         from 
                             t_indizacion i
                         join 

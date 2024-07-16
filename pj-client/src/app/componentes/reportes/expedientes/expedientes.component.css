@@ -1,0 +1,119 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+
+.icon-custom {
+    cursor: pointer; /* Cambiar el cursor a una manito cuando el ratón está sobre el icono */
+    font-weight: bold; 
+    font-size: 3.5rem;
+    color: #929FB1;
+}
+/* boton volver */
+.btn-volver{
+    background-color:  #176091;
+    border-radius: 5px;
+    border-color: #176091;
+   
+}
+
+.fondo-volver{
+    background-color: #73bced2c;
+}
+
+.contenedor{
+    margin: 2% 4%;
+}
+
+/* menu listado de inventario */
+.menu-listado-inventario{
+    box-sizing: border-box;
+    /* background-color: #f1e55d5d; */
+    background-color: #ebdfb779;
+    padding: 20px;
+    border-radius: 16px;
+}
+.menu-listado-inventario .titulo{
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #6E7A89;
+}
+.menu-listado-inventario .lista{
+    margin: 4px 0;
+}
+
+.menu-listado-inventario .lista .item .name{
+    display: inline-block;
+    padding: 0 0 0 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+   
+    color: #434343de;
+    
+}
+
+/* titulo reporte */
+.icon-title-container {
+    display: flex;
+    align-items: center;
+  }
+/* cuerpo de tarjetas  */
+.data-report{
+    color: #6E7A89;
+}
+
+/* titulo reportes */
+.titulo_reporte{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+}
+
+.name,.hand_cursor{
+    cursor: pointer; /*convierte el cursor en una mano*/
+}
+/* iconos de expedientes */
+.bi-pencil {
+    cursor: pointer;
+    transition: color 0.3s ease; /* Para una transición suave */
+  }
+  
+  .bi-pencil:hover {
+    color: blue;
+  }
+
+  .bi-trash {
+    cursor: pointer;
+    transition: color 0.3s ease; /* Para una transición suave */
+  }
+  
+  .bi-trash:hover {
+    color: rgb(255, 0, 0);
+  }
+
+  /* BOTON ENVIAR A PREPARACION */
+  .btn-info{
+    background-color: #B9EACE;
+    color: #227243;
+    border: 1px solid #92DFB2;
+    box-shadow: 1px 1px 3px 0 #D5DDE5;
+  }
+  .btn-info:hover{
+   background-color: #92DFB2;
+    color: #227243;
+    border: 1px solid #92DFB2;
+    box-shadow: 1px 1px 3px 0 #D5DDE5;
+  }
+
+  /* tabla text */
+  th{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #404B5A;
+  }
+
+  td{
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: .4rem;
+    color: #434343;
+  }

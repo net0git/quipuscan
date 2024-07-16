@@ -54,14 +54,14 @@ class ControlCalidadController {
     CrearControlCalidad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id_expediente, id_responsable, observacion, estado_concluido, formato, peso, nitidez, pruebas } = req.body;
+                const { id_expediente, id_responsable, observacion, val_observaciones, val_datos, val_nitidez, val_pruebas_impresion, val_copia_fiel } = req.body;
                 const consulta = `
                 INSERT INTO t_control_calidad(
-                    id_expediente, id_responsable, observacion, estado_concluido, formato, peso, nitidez, pruebas)
-                VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)
+                    id_expediente, id_responsable, observacion, val_observaciones, val_datos, val_nitidez, val_pruebas_impresion, val_copia_fiel)
+                    VALUES ( $1, $2, $3, $4, $5, $6, $7, $8)
                 RETURNING id_controlcalidad;
             `;
-                const valores = [id_expediente, id_responsable, observacion, estado_concluido, formato, peso, nitidez, pruebas];
+                const valores = [id_expediente, id_responsable, observacion, val_observaciones, val_datos, val_nitidez, val_pruebas_impresion, val_copia_fiel];
                 database_1.default.query(consulta, valores, (error, resultado) => {
                     if (error) {
                         console.error('Error al insertar control de calidad:', error);

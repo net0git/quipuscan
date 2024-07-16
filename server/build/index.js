@@ -17,6 +17,7 @@ const digitalizadorRoutes_1 = __importDefault(require("./routes/principal_routes
 const indizacionRouter_1 = __importDefault(require("./routes/principal_routes/indizacionRouter"));
 const controlCaliadRoutes_1 = __importDefault(require("./routes/principal_routes/controlCaliadRoutes"));
 const fedatarioRoutes_1 = __importDefault(require("./routes/principal_routes/fedatarioRoutes"));
+const reportesRoutes_1 = __importDefault(require("./routes/principal_routes/reportesRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -44,6 +45,7 @@ class Server {
         this.app.use('/', indizacionRouter_1.default);
         this.app.use('/', controlCaliadRoutes_1.default);
         this.app.use('/', fedatarioRoutes_1.default);
+        this.app.use('/', reportesRoutes_1.default);
     }
     star() {
         this.app.listen(this.app.get('port'), () => {

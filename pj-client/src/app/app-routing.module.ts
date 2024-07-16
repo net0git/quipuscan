@@ -30,6 +30,10 @@ import { InventarioComponent } from './componentes/inventario/inventario.compone
 import { FedatarioComponent } from './componentes/fedatario/fedatario.component';
 import { FedatarioExpedientesComponent } from './componentes/fedatario-expedientes/fedatario-expedientes.component';
 import { FedatarioExpedientesFormComponent } from './componentes/fedatario-expedientes-form/fedatario-expedientes-form.component';
+import { ControlCalidadExpedienteFormComponent } from './componentes/control-calidad-expediente-form/control-calidad-expediente-form.component';
+
+import { ReporteGeneralComponent } from './componentes/reportes/reporte-general/reporte-general.component';
+import { ExpedientesComponent } from './componentes/reportes/expedientes/expedientes.component';
 
 
 // const routes: Routes = [
@@ -50,17 +54,19 @@ import { FedatarioExpedientesFormComponent } from './componentes/fedatario-exped
 //   { path:'principal/digitalizacion/expedientespreparados/:id_inventario',component:DigitalizacionExpedientesComparacionComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/controlcalidad',component:ControlCalidadComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/controlcalidad/expedientres/:id_inventario',component:ControlCalidadExpedienteComponent ,canActivate: [AuthGuard]},
+//   { path:'principal/controlcalidad/verificar/:id_expediente',component:ControlCalidadExpedienteFormComponent,canActivate: [AuthGuard]},
 //   { path:'principal/indizador',component:IndizadorComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/indizador/expedientes/:id_inventario',component:IndizadorExpedienteComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/indizador/expedientes/formulario/:id_expediente',component:IndizadorExpedienteFormComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/fedatario',component:FedatarioComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/fedatario/expedientes/:id_inventario',component:FedatarioExpedientesComponent ,canActivate: [AuthGuard]},
 //   { path:'principal/fedatario/expedientes/form/:id_expediente',component:FedatarioExpedientesFormComponent ,canActivate: [AuthGuard]},
-
 //   { path:'principal/usuario', component: UserComponent ,canActivate: [AuthGuard] },
 //   { path:'principal/usuario/crear', component:CreateUserComponent ,canActivate: [AuthGuard] },
 //   { path:'principal/usuario/modificar/:id',component:CreateUserComponent ,canActivate: [AuthGuard] },
 //   { path:'principal/usuarioform/:id', component:UserformComponent  ,canActivate: [AuthGuard]},
+//   { path:'principal/reportes', component:ResolucionesComponent, canActivate: [AuthGuard]},
+//   { path:'principal/resportes/expedientes/:id_inventario',component:ExpedientesComponent, canActivate: [AuthGuard]},
 
   
 //   { path:'principal/resoluciones', component:ResolucionesComponent},
@@ -86,20 +92,22 @@ const routes: Routes = [
   { path:'principal/digitalizacion/expedientespreparados/:id_inventario',component:DigitalizacionExpedientesComparacionComponent},
   { path:'principal/controlcalidad',component:ControlCalidadComponent},
   { path:'principal/controlcalidad/expedientres/:id_inventario',component:ControlCalidadExpedienteComponent},
+  { path:'principal/controlcalidad/verificar/:id_expediente',component:ControlCalidadExpedienteFormComponent},
   { path:'principal/indizador',component:IndizadorComponent},
   { path:'principal/indizador/expedientes/:id_inventario',component:IndizadorExpedienteComponent},
   { path:'principal/indizador/expedientes/formulario/:id_expediente',component:IndizadorExpedienteFormComponent},
   { path:'principal/fedatario',component:FedatarioComponent},
   { path:'principal/fedatario/expedientes/:id_inventario',component:FedatarioExpedientesComponent},
   { path:'principal/fedatario/expedientes/form/:id_expediente',component:FedatarioExpedientesFormComponent},
-
   { path:'principal/usuario', component: UserComponent },
   { path:'principal/usuario/crear', component:CreateUserComponent },
   { path:'principal/usuario/modificar/:id',component:CreateUserComponent },
   { path:'principal/usuarioform/:id', component:UserformComponent },
+  { path:'principal/reportes', component:ReporteGeneralComponent},
+  { path:'principal/reportes/expedientes/:id_inventario',component:ExpedientesComponent},
 
-  
   { path:'principal/resoluciones', component:ResolucionesComponent},
+  
  
   { path: '**', redirectTo: '/login' } // Ruta de comodín para URLs desconocidas
 ];

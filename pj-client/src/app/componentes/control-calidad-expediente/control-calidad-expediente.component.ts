@@ -128,11 +128,8 @@ aprobarControlCalidad(){
              this.limpiarModal()
     }
   )
-
-  
-  
- 
 }
+
 cambiarEstadoExpediente(){
   this.expedienteService.modificarEstadoControlado({estado_controlado:true},this.expedientetemp.id_expediente).subscribe(
     res=>{
@@ -281,5 +278,11 @@ mensajeAprobado(){
 volver(){
   this.router.navigate(['/principal/controlcalidad'])
 }
-
+verificar(id_expediente:number){
+  //{ path:'principal/controlcalidad/expediente/verificar/:id_expediente',component:ControlCalidadExpedienteComponent},
+  // this.router.navigate(['principal/indizador/expedientes/',id_expediente])
+  // alert('principal/indizador/expedientes/'+id_expediente)
+   this.router.navigate(['principal/controlcalidad/verificar/',id_expediente])
+  //  console.log('principal/controlcalidad/expediente/verificar/'+id_expediente)
+}
 }

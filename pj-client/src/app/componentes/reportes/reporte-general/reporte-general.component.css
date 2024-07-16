@@ -1,0 +1,106 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+.custom-modal-transition {
+    transition: opacity 0.3s ease; /* Duración y tipo de transición personalizados */
+  }
+
+.icon-custom {
+    
+    font-weight: bold; 
+    font-size: 3.5rem;
+    color: #929FB1;
+
+}
+.presentacion_company{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+     
+  
+}
+
+.titulo_empresa{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    padding-top: 5px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #404B5A;
+  
+    
+}
+.subtitulo_empresa{
+    font-weight:400;
+}
+
+.subtitulo_inventario{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    padding-top: 5px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #404B5A;
+}
+
+
+
+thead {
+    color: aliceblue;
+    position: sticky;
+    top: 0;
+}
+thead th{
+    text-align: center;
+}
+
+
+/* boton volver */
+.btn-volver{
+    background-color:  #176091;
+    border-radius: 5px;
+    border-color: #176091;
+   
+    
+}
+
+.fondo-volver{
+    background-color: #73bced2c;
+}
+
+/* boton detalle */
+.icon-custom-detalle {
+    
+    color:rgba(31, 30, 30, 0.701);
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size:20px;
+
+}
+
+.icon-custom-detalle:hover{
+    color: #1e55ed; 
+}
+
+.table-barra:hover{
+    cursor: pointer;
+}
+
+.contenedor{
+   padding: 20px;
+}
+
+   /* tabla text */
+   th{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2a5f42;
+  }
+
+  td{
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 0.4rem;
+    color: #434343;
+  }

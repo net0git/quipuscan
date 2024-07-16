@@ -17,12 +17,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="lista">
+                    <!-- <div class="lista">
                         <div class="item">
                             <div class="name"><i class="bi bi-card-list"></i> Serie Doc: {{detalleExpediente.serie_doc}}
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="lista">
                         <div class="item">
                             <div class="name"><i class="bi bi-card-list"></i> Especialidad: {{detalleExpediente.especialidad_inventario}}
@@ -44,13 +44,16 @@
                     </p>
                     
                     <div class="collapse " id="collapseExample">
-                        <div class="card card-body mb-2">
-                            <label class="opacity-50">Observaciones de preparación:</label>
-                            {{detalleExpediente.fojas_obs}}
+                        <div class=" mb-2">
+                                <label class="opacity-50">Observaciones de preparación:</label>
+                                <textarea class="form-control" style="background-color: rgb(253, 251, 240);" rows="5" readonly>{{detalleExpediente.fojas_obs}}</textarea>
+                        
                         </div>
-                        <div class="card card-body">
+                        <div class="">
                             <label class="opacity-50">Observaciones de digitalización:</label>
-                            {{observacionDigitalizado}}
+                            <textarea class="form-control" style="background-color: rgb(253, 251, 240);" rows="5" readonly>{{observacionDigitalizado}}</textarea>
+
+                           
                         </div>
                     </div>
                 </div>

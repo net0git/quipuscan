@@ -2,7 +2,42 @@ import { Request, Response } from 'express';
 import db from '../../database/database'; // Ruta al archivo db.ts
 
 class ExpedienteController{
+    // public async listarExpedientesXidInventario(req:Request, res:Response):Promise<any>{
+    //     try {
+    //         const { id_inventario } = req.params;
+    //         const consulta=`
+    //                       SELECT 
+    //                                 e.*, 
+    //                                 u.nombre_usuario AS nombre_responsable,
+    //                                 p.nombre AS nombre_persona,
+    //                                 p.ap_paterno,
+    //                                 p.ap_materno
+    //                             FROM 
+    //                                 t_expediente e
+    //                             JOIN 
+    //                                 t_usuario u ON e.id_responsable = u.id_usuario
+    //                             JOIN 
+    //                                 t_persona p ON u.id_persona = p.id_persona
+    //                             WHERE 
+    //                                 e.id_inventario = $1 
+    //                                 AND e.estado_preparado IS NOT NULL
+    //                             ORDER BY 
+    //                                 e.id_expediente;
+    //                         `;
+    //         const expediente = await db.query(consulta,[id_inventario]);
 
+    //         if (expediente && expediente['rows'].length > 0) {
+    //             res.json(expediente['rows']);
+    //         } else {
+    //             res.status(404).json({ text: 'no existe registro de expedientes' });
+    //         }
+
+    //     } catch (error) {
+    //         console.error('Error al obtener lista de expediente:', error);
+    //         res.status(500).json({ error: 'Error interno del servidor' });
+    //     }
+        
+    // }
     public async listarExpedientesXidInventario(req:Request, res:Response):Promise<any>{
         try {
             const { id_inventario } = req.params;
@@ -261,7 +296,7 @@ class ExpedienteController{
                     UPDATE t_expediente
                     SET  
                          estado_preparado=$1
-                    WHERE id_expediente=$2
+                    WHERE id_expediente=$2;
                 
                 `;
             const valores =  [estado_preparado,id];

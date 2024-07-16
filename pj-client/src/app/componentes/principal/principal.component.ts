@@ -12,29 +12,29 @@ import { ExpedienteService } from 'src/app/servicios/expediente/expediente.servi
 })
 export class PrincipalComponent implements OnInit {
 
-      // disableInventario='display: none';
-      // disablePreparador='display: none';
-      // disableDigitalizador='display: none';
-      // disableIndizador='display: none';
-      // disableControlCalidad='display: none';
-      // disableFedatario='display: none';
-      // disableLeyenda='display: none';
-      // disableUsuarios='display: none';
-      // disableBusqueda='display: none';
-      // disableReporte='display: none';
-      // disableConfiguracion='display: none';
+      disableInventario='display: none';
+      disablePreparador='display: none';
+      disableDigitalizador='display: none';
+      disableIndizador='display: none';
+      disableControlCalidad='display: none';
+      disableFedatario='display: none';
+      disableLeyenda='display: none';
+      disableUsuarios='display: none';
+      disableBusqueda='display: none';
+      disableReporte='display: none';
+      disableConfiguracion='display: none';
 
-      disableInventario='display: block';
-      disablePreparador='display: block';
-      disableDigitalizador='display: block';
-      disableIndizador='display: block';
-      disableControlCalidad='display: block';
-      disableFedatario='display: block';
-      disableLeyenda='display: block';
-      disableUsuarios='display: block';
-      disableBusqueda='display: block';
-      disableReporte='display: block';
-      disableConfiguracion='display: block';
+      // disableInventario='display: block';
+      // disablePreparador='display: block';
+      // disableDigitalizador='display: block';
+      // disableIndizador='display: block';
+      // disableControlCalidad='display: block';
+      // disableFedatario='display: block';
+      // disableLeyenda='display: block';
+      // disableUsuarios='display: block';
+      // disableBusqueda='display: block';
+      // disableReporte='display: block';
+      // disableConfiguracion='display: block';
       
 
 
@@ -48,7 +48,7 @@ export class PrincipalComponent implements OnInit {
   }
 
   permisos(){
-      if(this.datosCompartidosService.credentials.perfil=='SUPERVISOR'|| this.datosCompartidosService.credentials.perfil=='ADMINISTRADOR'){
+      if(this.datosCompartidosService.credentials.perfil=='SUPERVISORL'|| this.datosCompartidosService.credentials.perfil=='ADMINISTRADOR'){
             this.disableInventario='display: block';
             this.disablePreparador='display: block';
             this.disableDigitalizador='display: block';
@@ -56,6 +56,18 @@ export class PrincipalComponent implements OnInit {
             this.disableControlCalidad='display: block';
             this.disableFedatario='display: block';
             this.disableLeyenda='display: block';
+            this.disableUsuarios='display: block';
+            this.disableBusqueda='display: block';
+            this.disableReporte='display: block';
+            this.disableConfiguracion='display: block';
+            
+      }
+      if(this.datosCompartidosService.credentials.perfil=='SUPERVISORD'){
+            this.disableInventario='display: block';
+            this.disablePreparador='display: block';
+            this.disableDigitalizador='display: block';
+            this.disableIndizador='display: block';
+            this.disableControlCalidad='display: block';
             this.disableUsuarios='display: block';
             this.disableBusqueda='display: block';
             this.disableReporte='display: block';

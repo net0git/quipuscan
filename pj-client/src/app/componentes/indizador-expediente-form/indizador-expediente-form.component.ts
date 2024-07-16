@@ -1173,6 +1173,7 @@ obtenerDocumentoDigitalizado(id_expediente:number){
         let digitalizadoTemp:any=res
         console.log(digitalizadoTemp)
         this.mostrarDocumento(digitalizadoTemp.documento)
+        this.observacionDigitalizado=digitalizadoTemp.observaciones
     },
     err=>{
         console.error(err)

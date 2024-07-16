@@ -32,6 +32,7 @@ export class DigitalizacionExpedientesComparacionComponent implements OnInit{
   disablebotonModificar='display: none';
   expedientesHabilitados:any=[]
 
+
   constructor(private digitalizacionService:DigitalizacionService,private sanitizer: DomSanitizer,private activatedRoute:ActivatedRoute,private router:Router,private expedienteService:ExpedienteService, private inventarioService:InventarioService,private datosCompartidosService:DatosCompartidosService){}
 
   expedientetemp:any=[]
@@ -54,6 +55,7 @@ export class DigitalizacionExpedientesComparacionComponent implements OnInit{
 ngOnInit(): void {
   this.detalleInventario()
   this.listarExpedientesXidInventario()
+
   this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`assets/documentos/error/error_carga2.pdf`);
  
 }

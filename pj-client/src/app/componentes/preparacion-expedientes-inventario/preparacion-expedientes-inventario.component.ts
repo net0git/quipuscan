@@ -3,6 +3,7 @@ import { Router ,ActivatedRoute} from '@angular/router';
 import { ExpedienteService } from 'src/app/servicios/expediente/expediente.service';
 import { InventarioService } from 'src/app/servicios/inventario/inventario.service';
 import { DatosCompartidosService } from 'src/app/servicios/datoslogin/datos-compartidos.service';
+import { Row } from 'jspdf-autotable';
 
 declare var bootstrap: any;
 @Component({
@@ -30,6 +31,7 @@ constructor(private datosCompartidosService:DatosCompartidosService,private acti
 ngOnInit(): void {
   this.detalleInventario()
   this.listarExpedientesXidInventario()
+
 }
 mensajePreparacion(){
   alert('el expediente ya ha sido preparado')
@@ -138,24 +140,40 @@ detalleInventario(){
     }
   )
 }
-listarExpedientesXidInventario(){
-  const params=this.activatedRoute.snapshot.params
-  console.log(params['id_inventario'])
-  this.expedienteService.listaExpedientesXinventario(params['id_inventario']).subscribe(
-    res=>{
-      this.expedientesList=res
-      this.expedientesListTemp=res
+
+  async listarExpedientesXidInventario(){
+    const params=this.activatedRoute.snapshot.params
+    console.log(params['id_inventario'])
+    try {
+     
+      this.expedientesList = await this.expedienteService.listaExpedientesXinventario(params['id_inventario']).toPromise();
+      this.expedientesListTemp=this.expedientesList;  
       this.exp_count_pendientes=0
-      this.expedientesList.forEach((expediente: any) => {
-          if(expediente.estado_preparado==false){
-             this.exp_count_pendientes=this.exp_count_pendientes+1
-          }
-      })
-    },
-    err=>{
-      console.error(err)
+          this.expedientesList.forEach((expediente: any) => {
+              if(expediente.estado_preparado==false){
+                 this.exp_count_pendientes=this.exp_count_pendientes+1
+              }
+          })
+          ///this.modificarCantidadInvenario()
+       
+    } catch (err) {
+      console.error(err);
     }
-  )
+  // this.expedienteService.listaExpedientesXinventario(params['id_inventario']).subscribe(
+  //   res=>{
+  //     this.expedientesList=res
+  //     this.expedientesListTemp=res
+  //     this.exp_count_pendientes=0
+  //     this.expedientesList.forEach((expediente: any) => {
+  //         if(expediente.estado_preparado==false){
+  //            this.exp_count_pendientes=this.exp_count_pendientes+1
+  //         }
+  //     })
+  //   },
+  //   err=>{
+  //     console.error(err)
+  //   }
+  // )
   //this.expedientetemp = this.buscarPorId(params['id_inventario']);
 //  console.log(this.expedientetemp)
 }

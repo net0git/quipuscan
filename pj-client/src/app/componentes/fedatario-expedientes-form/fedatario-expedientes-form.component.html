@@ -301,14 +301,38 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body" style="background-color: rgba(67, 136, 240, 0.068)">
-    <label for="">Observaciones de preparación:</label>
-    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="9" readonly>{{data_expediente.obs_preparacion}}</textarea>
+    <label for="">OBS PREPARACION:</label>
+    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="8" readonly>{{data_expediente.obs_preparacion}}</textarea>
     <br>
-    <label for="">Observaciones de digitalización:</label>
-    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="9" readonly>{{data_expediente.obs_digitalizacion}}</textarea>
+    <label for="">OBS DIGITALIZACIÓN:</label>
+    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="8" readonly>{{data_expediente.obs_digitalizacion}}</textarea>
     <br>
-    <label for="">Observaciones de control de calidad:</label>
-    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="9" readonly>{{data_expediente.obs_control_calidad}}</textarea>
+    <label for="">OBS CONTROL DE CALIDAD:</label>
+        <div class="bg-white ">
+                <div class="form-check d-flex justify-content-start mx-4">
+                  <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_observaciones" name="validacion_observaciones" [checked]="data_expediente.val_observaciones">
+                  <label class="form-check-label mx-2" for="controlcalidad_checkbox_formato">VERIFICACIÓN DE OBSERVACIONES</label>
+                </div>
+                <div class="form-check d-flex justify-content-start mx-4">
+                  <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_datos" name="validacion_datos" [checked]="data_expediente.val_datos">
+                  <label class="form-check-label mx-2" for="controlcalidad_checkbox_peso">VERIFICACIÓN DE DATOS</label>
+                </div>
+                <div class="form-check d-flex justify-content-start mx-4">
+                  <input class="form-check-input" type="checkbox"  id="controlcalidad_checkbox_nitidez" name="validacion_nitidez" [checked]="data_expediente.val_nitidez">
+                  <label class="form-check-label mx-2" for="controlcalidad_checkbox_nitidez">VERIFICACIÓN DE NITIDEZ</label>
+                </div>
+                <div class="form-check d-flex justify-content-start mx-4">
+                  <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_pruebas" [checked]="data_expediente.val_pruebas_impresion">
+                  <label class="form-check-label mx-2" for="controlcalidad_checkbox_pruebas">PRUEBAS DE IMPRESION</label>
+                </div>
+                <div class="form-check d-flex justify-content-start mx-4">
+                  <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_copia_fiel" [checked]="data_expediente.val_copia_fiel">
+                  <label class="form-check-label mx-2" for="controlcalidad_checkbox_copia_fiel">COPIA FIEL DEL ORIGINAL</label>
+                </div>
+        </div>
+      
+ 
+    <textarea class="form-control" style="background-color: rgb(255, 254, 254);" id="exampleFormControlTextarea1" rows="7" readonly>{{data_expediente.obs_control_calidad}}</textarea>
 
   </div>
 </div>

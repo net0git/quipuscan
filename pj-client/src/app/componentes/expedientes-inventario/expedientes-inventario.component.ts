@@ -34,7 +34,7 @@ data_expediente:any={
   estado_controlado:null,
   estado_fedatado:null
 }
-
+isLoading: boolean = false;
 expedientesList:any=[]
 expedientesListTemp:any=[]//servira como respaldo para no tener que volver a consulta a la base de datos
 // expedientesPendientes:any=[] 
@@ -156,36 +156,235 @@ modificarEstadoInventario(){
     
   )
 }
-
-enviarApreparacion(){
-//enviaremos a preparacion cambiando los valores de estado null a false
-this.expedientesList.forEach((expediente: any) => {
-  // Realiza la acción que necesites con cada expediente 
-  console.log(expediente);
-  // el expediente pasa a ser falso indicando asi que esta listo para preparacion pero que aun no se ha preparado, 
-  // null: esta en inventario, false: listo para preparacion, cuando este en true significa que ya se ha preparado
-  if(expediente.estado_preparado==null){
-    expediente.estado_preparado=false
-  this.expedienteService.modificarEstadoPreparado(expediente,expediente.id_expediente).subscribe(
-    res=>{
-        console.log(res)
-        this.listarTotalExpedientesXidInventario()
+showAlert() {
+  const cantidad_expedientes=this.exp_count_pendientes;
+  let timerInterval: any;
+  Swal.fire({
+    title: 'Auto close alert!',
+    html: 'I will close in <b></b> milliseconds.',
+    timer: cantidad_expedientes,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+      const timer = Swal.getHtmlContainer()?.querySelector('b');
+              this.expedientesList.forEach((expediente: any) => {
+          // Realiza la acción que necesites con cada expediente 
+                console.log(expediente);
+                // el expediente pasa a ser falso indicando asi que esta listo para preparacion pero que aun no se ha preparado, 
+                // null: esta en inventario, false: listo para preparacion, cuando este en true significa que ya se ha preparado
+                if(expediente.estado_preparado==null && timer){
+                  expediente.estado_preparado=false
+                this.expedienteService.modificarEstadoPreparado(expediente,expediente.id_expediente).subscribe(
+                  res=>{
+                      console.log(res)
+                      this.listarTotalExpedientesXidInventario()
+                      timerInterval = setInterval(() => {
+                        if (timer) {
+                          timer.textContent = `${Swal.getTimerLeft()}`;
+                        }
+                      }, 100);
+                  },
+                  err=>{
+                      console.error(err)
+              
+                  }
+                )
+                }
+                
+              })
+      // timerInterval = setInterval(() => {
+      //   if (timer) {
+      //     timer.textContent = `${Swal.getTimerLeft()}`;
+      //   }
+      // }, 100);
     },
-    err=>{
-        console.error(err)
-
+    willClose: () => {
+      clearInterval(timerInterval);
     }
-  )
-  }
-  
-})
-
-this.modificarEstadoInventario()
-this.habilitarPreparacion=false
-this.habilitarAgregar=true
-this.mensajeEnviadoaPreparacion()
-
+  }).then((result) => {
+    if (result.dismiss === Swal.DismissReason.timer) {
+      console.log('I was closed by the timer');
+    }
+  });
 }
+enviarApreparacion(){
+  console.log(this.expedientesList.length)
+  const cantidad_expedientes=this.exp_count_pendientes;
+  this.isLoading = true;
+      this.expedientesList.forEach((expediente: any) => {
+          // console.log(expediente);
+          
+          if(expediente.estado_preparado==null){
+          this.expedienteService.modificarEstadoPreparado({estado_preparado:false},expediente.id_expediente).subscribe(
+            res=>{
+                console.log(res)
+            },
+            err=>{
+                console.error(err)
+                // console.log('error en ',expediente)
+            }
+          )
+          }
+        }) 
+        this.modificarEstadoInventario()
+      setTimeout(() => {
+           this.isLoading = false;
+           this.listarTotalExpedientesXidInventario()
+      }, cantidad_expedientes); 
+  }
+
+
+// async enviarApreparacion(){
+//   //enviaremos a preparacion cambiando los valores de estado null a false
+//   console.log(this.expedientesList.length)
+//   const cantidad_expedientes=this.exp_count_pendientes;
+//   this.isLoading = true;
+//   let timerInterval:any;
+// Swal.fire({
+//   title: "Auto close alert!",
+//   html: "I will close in <b></b> milliseconds.",
+//   timer: cantidad_expedientes,
+//   timerProgressBar: true,
+//   didOpen: () => {
+//     Swal.showLoading();
+//     const timer = Swal.getPopup().querySelector("b");
+//     timerInterval = setInterval(() => {
+//       timer.textContent = `${Swal.getTimerLeft()}`;
+//     }, 100);
+//   },
+//   willClose: () => {
+//     clearInterval(timerInterval);
+//   }
+// }).then((result) => {
+//   /* Read more about handling dismissals below */
+//   if (result.dismiss === Swal.DismissReason.timer) {
+//     console.log("I was closed by the timer");
+//   }
+// });
+  
+//       // setTimeout(() => {
+//       //   // if (this.exp_count_pendientes > 0) {
+//       //   //   this.isLoading = false;
+//       //   // }
+//       //   this.expedientesList.forEach((expediente: any) => {
+//       //     // Realiza la acción que necesites con cada expediente 
+//       //     console.log(expediente);
+//       //     // el expediente pasa a ser falso indicando asi que esta listo para preparacion pero que aun no se ha preparado, 
+//       //     // null: esta en inventario, false: listo para preparacion, cuando este en true significa que ya se ha preparado
+//       //     if(expediente.estado_preparado==null){
+//       //       expediente.estado_preparado=false
+//       //     this.expedienteService.modificarEstadoPreparado(expediente,expediente.id_expediente).subscribe(
+//       //       res=>{
+//       //           console.log(res)
+//       //           this.listarTotalExpedientesXidInventario()
+//       //       },
+//       //       err=>{
+//       //           console.error(err)
+        
+//       //       }
+//       //     )
+//       //     }
+          
+//       //   })
+        
+//       //   this.modificarEstadoInventario()
+//       //   // this.habilitarPreparacion=false
+//       //   // this.habilitarAgregar=true
+        
+//       //    this.mensajeEnviadoaPreparacion()
+         
+//       //    this.isLoading = false;
+        
+//       // }, cantidad_expedientes); // Simula un delay en funcion a la cantidad de expedientes pendientes
+    
+
+  
+  
+//   }
+
+//  enviarApreparacion(){
+// //enviaremos a preparacion cambiando los valores de estado null a false
+// console.log(this.expedientesList.length)
+// const cantidad_expedientes=this.exp_count_pendientes;
+// this.isLoading = true;
+// this.expedientesList.forEach((expediente: any) => {
+//         // Realiza la acción que necesites con cada expediente 
+//         console.log(expediente);
+//         // el expediente pasa a ser falso indicando asi que esta listo para preparacion pero que aun no se ha preparado, 
+//         // null: esta en inventario, false: listo para preparacion, cuando este en true significa que ya se ha preparado
+//         if(expediente.estado_preparado==null){
+//         this.expedienteService.modificarEstadoPreparado({estado_preparado:false},expediente.id_expediente).subscribe(
+//           res=>{
+//               console.log(res)
+//               //this.listarTotalExpedientesXidInventario()
+//           },
+//           err=>{
+//               console.error(err)
+//               // console.log('aqui nos quedamos con el expediente: '+expediente)
+//               // return
+      
+//           }
+//         )
+//         }
+        
+//       })
+      
+//       this.modificarEstadoInventario()
+//       // this.habilitarPreparacion=false
+//       // this.habilitarAgregar=true
+      
+//       //  this.mensajeEnviadoaPreparacion()
+       
+//       //  this.isLoading = false;
+
+//     setTimeout(() => {
+//       // if (this.exp_count_pendientes > 0) {
+//       //   this.isLoading = false;
+//       // }
+      
+//          this.isLoading = false;
+//     }, cantidad_expedientes); // Simula un delay en funcion a la cantidad de expedientes pendientes
+  
+// // this.expedientesList.forEach((expediente: any) => {
+// //   // Realiza la acción que necesites con cada expediente 
+// //   // console.log(expediente);
+// //   // this.expedienteService.modificarEstadoPreparado(expediente,expediente.id_expediente).subscribe(
+// //   //   res=>{
+// //   //       console.log(res)
+        
+// //   //   },
+// //   //   err=>{
+// //   //       console.error(err)
+
+// //   //   }
+// //   // )
+// //   // el expediente pasa a ser falso indicando asi que esta listo para preparacion pero que aun no se ha preparado, 
+// //   // null: esta en inventario, false: listo para preparacion, cuando este en true significa que ya se ha preparado
+// //         if(expediente.estado_preparado==null){
+// //           expediente.estado_preparado=false
+// //           this.expedienteService.modificarEstadoPreparado(expediente,expediente.id_expediente).subscribe(
+// //             res=>{
+// //                 console.log(res)
+                
+// //             },
+// //             err=>{
+// //                 console.error(err)
+
+// //             }
+// //           )
+// //         }
+  
+// // })
+// // this.mensajeEnviadoaPreparacion()
+// // this.modificarEstadoInventario()
+// // // this.habilitarPreparacion=false
+// // // this.habilitarAgregar=true
+
+// // this.listarTotalExpedientesXidInventario()
+
+
+
+// }
 
 modificarCantidadInvenario(){
   const params=this.activatedRoute.snapshot.params
@@ -281,6 +480,7 @@ mensajeEnviadoaPreparacion(){
     text: "los expedientes se enviaron a preparacion!",
     icon: "success"
   });
+   
 }
 
 mensajeExpedienteGuardado(){

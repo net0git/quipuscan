@@ -1,0 +1,304 @@
+<div class="panel">
+    <app-navegador></app-navegador>
+    <div class="fondo-volver container-fluid">
+        <button class="m-2 mx-4 btn-volver" (click)="volver()">
+            <i class="bi bi-arrow-left text-white"> volver </i>
+        </button>
+    </div>
+    <div class="mx-4">
+        <div class="row">
+            <!-- DATOS Y FORMULARIO EXPEDIENTE -->
+            <div class="col-lg-3 mt-3 ">
+                <div class="menu-listado-expediente ">
+                    <div class="titulo">Indexación del documento</div>
+                    <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> Expediente: {{detalleExpediente.nombre_expediente}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> Serie Doc: {{detalleExpediente.serie_doc}}
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> Especialidad: {{detalleExpediente.especialidad_inventario}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lista">
+                        <div class="item">
+                            <div class="name"><i class="bi bi-card-list"></i> Año: {{detalleExpediente.anio}} </div>
+                        </div>
+                    </div>
+                    <!-- OBSERVACIONES DE PREPARADOR Y OBSERVACIONES DE DIGITALIZADOR-->
+                    <p class="d-inline-flex gap-1 mt-1">
+
+                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            OBSERVACIONES PREVIAS
+                        </button>
+                    </p>
+                    
+                    <div class="collapse " id="collapseExample">
+                        <div class=" mb-2">
+                                <label class="opacity-50">Observaciones de preparación:</label>
+                                <textarea class="form-control" style="background-color: rgb(253, 251, 240);" rows="5" readonly>{{detalleExpediente.fojas_obs}}</textarea>
+                        
+                        </div>
+                        <div class="mb-2">
+                            <label class="opacity-50">Observaciones de digitalización:</label>
+                            <textarea class="form-control" style="background-color: rgb(253, 251, 240);" rows="5" readonly>{{observacionDigitalizado}}</textarea>
+                        </div>
+                        <div class="mb-2">
+                            <label class="opacity-50">Observaciones de Indización:</label>
+                            <textarea class="form-control" style="background-color: rgb(253, 251, 240);" rows="5" readonly>{{obvervaciones_indizacion}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- DATOS COMPLEMENTARIOS  -->
+                <form>
+                    <div class="border border-secondary bg-secondary mt-3 ">
+                        <h6 class="text-white m-2">DATOS COMPLEMENTARIOS</h6>
+                    </div>
+                    <!-- DATOS DE INVENTARIO -->
+                    <fieldset class="px-4 rounded-bottom border-top-0 border shadow border-2">
+                        <div class="form-group mt-2">
+                            <label for="juzgado_origen" class="form-label ">Juzgado de origen:</label>
+                          <input class="form-control form-control-sm " list="datalistOptions1" id="input_juzgado_origen" >
+                          <!-- <datalist id="datalistOptions1">
+                            <option *ngFor="let option of datalistDistJudiciales" [value]="option"></option>
+                          </datalist> -->
+                        </div>
+                        <div class="form-group ">
+                            <label for="estado_proceso" class="form-label mt-2">Tipo Proceso:</label>
+                            <select id="select_tipo_proceso" name="estado_proceso" class="form-control form-control-sm">
+                                <option value="">ELIJA TIPO DE PROCESO </option>
+                                <option value="PRINCIPAL">PRINCIPAL </option>
+                                <option value="CUADERNO">CUADERNO</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="materia" class="form-label mt-2">Materia:</label>
+                        
+                          <input class="form-control form-control-sm" list="datalistOptions2" id="input_materia" >
+                          <!-- <datalist id="datalistOptions2">
+                            <option *ngFor="let option of datalistMateria" [value]="option"></option>
+                          </datalist> -->
+                        </div>
+<!-- falta poner fechas -->
+                        <div class="form-group mb-4">
+                           <div class="row">
+                               <div class="col">
+                                <label for="fecha_resolucion" class="form-label ">Fecha inicio:</label>
+                                <input id="fecha_inicio" type="date" class="form-control form-control-sm" name="fecha_resolucion">
+                               </div>
+                               <div class="col">
+                                <label for="fecha_resolucion" class="form-label ">Fecha final:</label>
+                                <input id="fecha_final" type="date" class="form-control form-control-sm" name="fecha_resolucion">
+                               </div>
+
+                           </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between" >
+                            <label style="margin-bottom: 0px;" for="demantantes" class="form-label">Demandante(s):</label>
+                            <i style="margin-bottom: 0px;" class="bi bi-plus-square-fill icon-mas mx-2" ></i>
+                        </div>
+                        <hr class="linea_tarjeta">
+                        <div *ngFor="let demandante of listaTempDemanantes, let i = index" >
+                                <div class="d-flex justify-content-between  div_parte ">
+                                  <p class="truncate-text texto_parte">{{demandante.demandante}}</p>
+                                  <p class="texto_parte">{{demandante.identificador}}</p>
+                                </div>
+                        </div>
+                          <br>
+                        <div class="d-flex justify-content-between">
+                            <label style="margin-bottom: 0px;" for="demandados" class="form-label">Demandado(s):</label>
+                            <i  style="margin-bottom: 0px;" class="bi bi-plus-square-fill icon-mas mx-2" ></i>
+                        </div>
+                        <hr class="linea_tarjeta">
+                        <div *ngFor="let demandado of listaTempDemandados, let i = index " >
+                              <div  class="d-flex justify-content-between div_parte">
+                                  <p class="truncate-text texto_parte">{{demandado.demandado}}</p>
+                                  <p class="texto_parte">{{demandado.identificador}}</p>
+                              </div>
+                        </div>
+                        <br>
+                        <!-- <button class="btn btn-sm btn-info mb-3 text-white" (click)="ModificarDatosComplementariosExpediente()"> mostrar datos</button> -->
+                    </fieldset>
+                </form>
+            </div>
+            <!-- MICROFORMA -->
+            <div class="col" >
+                <div > 
+                    <div class="border border-secondary bg-secondary ">
+                        <h6 class="text-white m-2">INDEXACION</h6>
+                    </div>
+                    <fieldset class="border-top-0 border shadow border-2" style="height: 84.2vh;">
+                        <div class="container d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <!-- DATOS DE LA MICROFORMA -->
+                                <div class="d-flex justify-content-between mx-4 mt-3">
+                                    <h5>Descripción</h5>
+                                    <span>Pg</span>
+                                </div>
+                                <hr class="linea_tarjeta">
+                                <div id="list-container">
+                                    <span>
+                                        <div *ngFor="let item of indizacion; let i = index">
+                                            <div class="mx-4 d-flex justify-content-between">
+                                                <span><strong>{{i+1 +'.'}} {{ item.descripcion }}</strong></span>
+                                                <span>{{ item.indice }} <i class="bi bi-eye-fill eye_icon" (click)="MostrarObservaciones(indizacion, i)"></i></span>
+                                            </div>
+                                            <div *ngIf="item.subItems && item.subItems.length > 0">
+                                                <div *ngFor="let subItem of item.subItems; let j = index">
+                                                    <div class="mx-4 d-flex justify-content-between">
+                                                        <span><strong>{{i+1 +'.'}}{{j+1}}</strong> {{ subItem.descripcion }}</span>
+                                                        <span>{{ subItem.indice }} <i class="bi bi-eye-fill eye_icon" (click)="MostrarObservaciones(item.subItems, j)"></i></span>
+                                                    </div>
+                                                    <div *ngIf="subItem.subItems && subItem.subItems.length > 0">
+                                                        <div *ngFor="let subSubItem of subItem.subItems; let k = index">
+                                                            <div class="mx-4 d-flex justify-content-between">
+                                                                <span style="padding-left: 5px;"><strong>{{i+1 +'.'}}{{j+1+'.'}}{{k+1}}</strong> {{ subSubItem.descripcion }}</span>
+                                                                <span>{{ subSubItem.indice }} <i class="bi bi-eye-fill eye_icon" (click)="MostrarObservaciones(subItem.subItems, j)"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                <hr class="linea_tarjeta">
+                            </div>
+                            
+                            <div class="d-flex justify-content-end container mb-3">
+                                
+                                <button class="btn btn-success btn-sm" (click)="preAprobacion()">Aprobar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+
+                    
+                </div>
+                
+                    
+              
+            </div>
+            <!-- IFRAME PDF -->
+            <div class="col mx-2" style="padding: 0px 0px;">
+                <iframe [src]="pdfUrl" type="application/pdf" width="100%" style="height: 88vh;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Modal_Indizador_observaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="form-group container">
+                
+                  <div class="m-4 p-4">
+                    
+                      <h5  id="indizacion_descripcion_2" style="padding:0px 5px;margin: 0px 10px 0px 0px;"></h5>
+                   
+                      <hr style="margin-top: 10px;">
+                      <div class="row my-2">
+                          
+                          <div class="col " >
+                              <label for="indice" class="form-label" >Indice:</label>
+                              <input id="indizacion_indice_2" type="text" class="form-control form-control-sm" disabled>
+                          </div>
+                          <div class="col" >
+                              <label for="fojas" class="form-label">Fojas:</label>
+                              <input id="indizacion_fojas_2" type="text" class="form-control form-control-sm" disabled>
+                          </div>
+                          <div class="col" >
+                              <label for="fecha_indice" class="form-label ">Fecha:</label>
+                              <input id="fecha_indice_2" type="text" class="form-control form-control-sm" name="fecha_indice" disabled>
+                          </div>
+                      </div>
+                      
+                      
+                              <label for="caracteristicas" class="form-label">caracteristicas:</label>
+                              <div class="form-check mx-4">
+                                  <input id="indizacion_checkbox_original_2" class="form-check-input" type="checkbox" >
+                                  <label class="form-check-label" for="flexCheckDefault"> Original </label>
+                              </div>
+                              <div class="form-check mx-4">
+                                  <input id="indizacion_checkbox_copia_2" class="form-check-input" type="checkbox">
+                                  <label class="form-check-label" for="flexCheckChecked"> Copia </label>
+                              </div>
+                              <div class="form-check mx-4">
+                                  <input id="indizacion_checkbox_color_2" class="form-check-input" type="checkbox">
+                                  <label class="form-check-label" for="flexCheckDefault"> Color </label>
+                              </div>
+                              <div class="form-check mx-4">
+                                  <input id="indizacion_checkbox_escalagris_2" class="form-check-input" type="checkbox">
+                                  <label class="form-check-label" for="flexCheckChecked"> Escala de Grises </label>
+                              </div>
+                      
+                          
+                              <div class="form-floating my-2 mb-4">
+                                  <textarea id="indizacion_textarea_2" class="form-control" style="height: 140px" disabled> </textarea>
+                                  <label for="floatingTextarea2">observaciones</label>
+                              </div>
+                       <hr>
+                       <div class="d-flex justify-content-end">
+                           <button class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+                       </div>
+                  </div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="d-flex justify-content-center bg-secondary text-white mt-4 mx-4">
+              <h4 class="mt-2">{{detalleExpediente.nombre_expediente}}</h4>
+            </div>
+            <div class="card card-body m-4">
+              <div class="form-check d-flex justify-content-start mx-4">
+                <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_observaciones" name="validacion_observaciones">
+                <label class="form-check-label mx-2" for="controlcalidad_checkbox_formato">VERIFICACIÓN DE OBSERVACIONES</label>
+              </div>
+              <div class="form-check d-flex justify-content-start mx-4">
+                <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_datos" name="validacion_datos">
+                <label class="form-check-label mx-2" for="controlcalidad_checkbox_peso">VERIFICACIÓN DE DATOS</label>
+              </div>
+              <div class="form-check d-flex justify-content-start mx-4">
+                <input class="form-check-input" type="checkbox"  id="controlcalidad_checkbox_nitidez" name="validacion_nitidez">
+                <label class="form-check-label mx-2" for="controlcalidad_checkbox_nitidez">VERIFICACIÓN DE NITIDEZ</label>
+              </div>
+              <div class="form-check d-flex justify-content-start mx-4">
+                <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_pruebas">
+                <label class="form-check-label mx-2" for="controlcalidad_checkbox_pruebas">VERIFICACIÓN DE PRUEBAS DE IMPRESION</label>
+              </div>
+              <div class="form-check d-flex justify-content-start mx-4">
+                <input class="form-check-input" type="checkbox" id="controlcalidad_checkbox_copia_fiel">
+                <label class="form-check-label mx-2" for="controlcalidad_checkbox_copia_fiel">COPIA FIEL DEL ORIGINAL</label>
+              </div>
+              <div class="form-floating my-2">
+                <textarea class="form-control" id="controlcalidad_textarea" style="height: 100px; resize: none"></textarea>
+                <label class="mx-4" for="controlcalidad_textarea">Observaciones</label>
+              </div>
+              <div class="container mb-4">
+                <div class="d-flex justify-content-center mt-4">
+                  <!-- <button type="button" class="btn btn-danger button-full-width" (click)="MensajeDeGuardado()">RECHAZAR</button> -->
+                  <button type="button" class="btn btn-success button-full-width mx-2" (click)="aprobarControlCalidad()">APROBAR Y ENVIAR A FEDATARIO</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

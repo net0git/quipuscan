@@ -33,7 +33,10 @@ import { InventarioComponent } from './componentes/inventario/inventario.compone
 import { FedatarioComponent } from './componentes/fedatario/fedatario.component';
 import { FedatarioExpedientesComponent } from './componentes/fedatario-expedientes/fedatario-expedientes.component';
 import { FedatarioExpedientesFormComponent } from './componentes/fedatario-expedientes-form/fedatario-expedientes-form.component';
-import {NgxPaginationModule} from 'ngx-pagination'; 
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ControlCalidadExpedienteFormComponent } from './componentes/control-calidad-expediente-form/control-calidad-expediente-form.component';
+import { ReporteGeneralComponent } from './componentes/reportes/reporte-general/reporte-general.component';
+import { ExpedientesComponent } from './componentes/reportes/expedientes/expedientes.component'; 
 
 
 @NgModule({
@@ -63,6 +66,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     FedatarioComponent,
     FedatarioExpedientesComponent,
     FedatarioExpedientesFormComponent,
+    ControlCalidadExpedienteFormComponent,
+    ReporteGeneralComponent,
+    ExpedientesComponent,
   ],
   imports: [
     
@@ -71,9 +77,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-  
-    
-   
   ],
   providers: [
     AuthService
